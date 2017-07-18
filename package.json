@@ -1,0 +1,33 @@
+{
+  "name": "next-minimal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/farookkhan/next-minimal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/farookkhan/next-minimal/issues"
+  },
+  "homepage": "https://github.com/farookkhan/next-minimal#readme",
+  "dependencies": {
+    "latest": "^0.2.0",
+    "next": "^2.4.7",
+    "next-redux-wrapper": "^1.2.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.2",
+    "semantic-ui-react": "^0.71.0"
+  }
+}
