@@ -1,0 +1,333 @@
+import React from 'react';
+import scriptLoader from 'react-async-script-loader';
+import PropTypes from 'prop-types';
+import { Message } from 'semantic-ui-react';
+
+
+class StripeJS extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      success: false,
+      customerDetails: {
+        name: '',
+        phone: '',
+        email: '',
+        amount: '',
+        address: '',
+        addressTwo: '',
+        city: '',
+        state: '',
+        country: '',
+        zipcode: ''
+      }
+    };
+
+    this.stripe;
+    
+    const style = {
+      base: {
+        iconColor: 'rgb(250,95,91)',
+        color: '#31325F',
+        lineHeight: '40px',
+        fontWeight: 300,
+        fontSize: '15px',
+
+        '::placeholder': {
+          color: '#CFD7E0',
+        }
+      }
+    };
+
+    this.onLoadSuccess = () => {
+      this.stripe = Stripe('pk_test_9UG4xl53fmuK8oH87FFc8tWF');
+      // this.stripe = Stripe('pk_live_ZWJ5nr4iDOKdZFCuma0FRXPg');
+
+      const elements = this.stripe.elements();
+      this.card = elements.create('card', {style: style});
+
+      this.card.mount('#card-element');
+
+      this.card.addEventListener(event => {
+        this.setOutcome(event);
+      });
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.setOutcome = this.setOutcome.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSuccess = this.handleSuccess.bind(this);
+    this.handleDismiss = this.handleDismiss.bind(this);
+  }
+
+  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+    if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
+      if (isScriptLoadSucceed) {
+        this.onLoadSuccess();
+      }
+      else {
+        console.log('Stripe module load error.')
+      }
+    }
+  }
+
+  componentDidMount() {    
+    const { isScriptLoaded, isScriptLoadSucceed } = this.props
+    if (isScriptLoaded && isScriptLoadSucceed) { this.onLoadSuccess(); }
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.stripe.createToken(this.card).then(this.setOutcome);
+  }
+
+  setOutcome(result) {
+    // var successElement = document.querySelector('.success');
+    var errorElement = document.querySelector('.error');
+    // successElement.classList.remove('visible');
+    errorElement.classList.remove('visible');
+
+    if (result.token) {
+      // Use the token to create a charge or a customer
+      // https://stripe.com/docs/charges
+
+      const customerDetails = this.state.customerDetails;
+      const payload = JSON.stringify({customerDetails: customerDetails, token: result.token.id});
+      console.log('the charge suceeded', result, 'customer details', customerDetails);
+
+      // fetch('https://midnight-prophet-api.herokuapp.com/donate', {
+      fetch('/donate', {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: payload
+      }).then(res => {
+        if(res.ok) { return res.json(); }
+      }).then(json => {
+        console.log('the json', json);
+        this.handleSuccess();
+        this.card.clear();
+      })
+    } else if (result.error) {
+      errorElement.textContent = result.error.message;
+      errorElement.classList.add('visible');
+    }
+  }
+
+  handleSuccess() {
+    this.setState({success: true});
+  }
+
+  handleChange(event) {
+    const update = {};
+    update[event.target.name] = event.target.value;
+    this.setState({customerDetails: update});
+  }
+
+  handleDismiss() {
+    this.setState({success:false});
+  }
+  
+  render() {
+    console.log(this.state)
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <div className="group">
+          <label>
+            <span>Name</span>
+            <input name="name" className="field" placeholder="Jane Doe" onChange={this.handleChange}/>
+          </label>
+          <label>
+            <span>Phone</span>
+            <input name="phone" className="field" placeholder="(123) 456-7890" type="tel" onChange={this.handleChange}/>
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" className="field" placeholder="jane.doe@gmail.com" onChange={this.handleChange}/>
+          </label>
+          <label>
+            <span>Amount(USD)</span>
+            <input name="amount" className="field" placeholder="100.00" onChange={this.handleChange}/>
+          </label>
+          </div>
+          <div className="group">
+          <label>
+            <span>Address 1</span>
+            <input name="address" className="field" placeholder="Street" onChange={this.handleChange}/>
+          </label>
+          <label>
+            <span>Address 2</span>
+            <input name="addressTwo" className="field" placeholder="Apt, Suite (optional)" onChange={this.handleChange}/>
+          </label>
+          <label>
+            <span>City</span>
+            <input name="city" className="field" placeholder="Los Angeles" onChange={this.handleChange}/>
+          </label>
+          <label>
+            <span>State/Province</span>
+            <input name="state" className="field" placeholder="California" onChange={this.handleChange}/>
+          </label>
+          <label>
+            <span>Country</span>
+            <input name="country" className="field" placeholder="United States" onChange={this.handleChange}/>
+          </label>
+          <label>
+            <span>Zip/Postal</span>
+            <input name="zipcode" className="field" placeholder="90001" onChange={this.handleChange}/>
+          </label>
+        </div>
+        <div className="group">
+          <label>
+            <span>Card</span>
+            <div id="card-element" className="field"></div>
+          </label>
+        </div>
+        <button type="submit">DONATE NOW</button>
+        <div className="outcome">
+          <div className="error" role="alert"></div>
+          <div>
+            <Message 
+              compact 
+              color="green" 
+              hidden={!this.state.success}
+              onClick={this.handleDismiss} >Thanks for your support! </Message>
+          </div>
+        </div>
+        <style jsx>{`
+          * {
+              font-size: 15px;
+              font-variant: normal;
+              padding: 0;
+              margin: 0;
+            }
+
+            html {
+              height: 100%;
+            }
+
+            body {
+              background: #E6EBF1;
+              align-items: center;
+              min-height: 100%;
+              display: flex;
+              width: 100%;
+            }
+
+            form {
+              width: 480px;
+              margin: 40px auto 200px auto;
+            }
+
+            .group {
+              background: white;
+              box-shadow: 0 7px 14px 0 rgba(49,49,93,0.10),
+                          0 3px 6px 0 rgba(0,0,0,0.08);
+              border-radius: 4px;
+              margin-bottom: 20px;
+            }
+
+            label {
+              position: relative;
+              color: #8898AA;
+              font-weight: 300;
+              height: 40px;
+              line-height: 40px;
+              margin-left: 20px;
+              display: block;
+            }
+
+            .group label:not(:last-child) {
+              border-bottom: 1px solid #F0F5FA;
+            }
+
+            label > span {
+              width: 20%;
+              text-align: right;
+              float: left;
+            }
+
+            .field {
+              background: transparent;
+              font-weight: 300;
+              border: 0;
+              color: #31325F;
+              outline: none;
+              padding-right: 10px;
+              padding-left: 10px;
+              cursor: text;
+              width: 70%;
+              height: 40px;
+              float: right;
+            }
+
+            .field::-webkit-input-placeholder { color: #CFD7E0; }
+            .field::-moz-placeholder { color: #CFD7E0; }
+            .field:-ms-input-placeholder { color: #CFD7E0; }
+
+            button {
+              float: left;
+              display: block;
+              background: rgb(250,95,91);
+              color: white;
+              box-shadow: 0 7px 14px 0 rgba(49,49,93,0.10),
+                          0 3px 6px 0 rgba(0,0,0,0.08);
+              border-radius: 4px;
+              border: 0;
+              margin-top: 20px;
+              font-size: 15px;
+              font-weight: 400;
+              width: 100%;
+              height: 40px;
+              line-height: 38px;
+              outline: none;
+            }
+
+            button:focus {
+              background: rgb(250,95,91);
+            }
+
+            button:active {
+              background: rgb(250,95,91);
+            }
+
+            .outcome {
+              float: left;
+              width: 100%;
+              padding-top: 8px;
+              min-height: 24px;
+              text-align: center;
+            }
+
+            .success, .error {
+              display: none;
+              font-size: 13px;
+            }
+
+            .success.visible, .error.visible {
+              display: inline;
+            }
+
+            .error {
+              color: #E4584C;
+            }
+
+            .success {
+              color: rgb(250,95,91);
+            }
+
+            .success .token {
+              font-weight: 500;
+              font-size: 13px;
+            }
+        `}</style>
+      </form>
+    );
+  }
+}
+
+StripeJS.propTypes = {
+  isScriptLoaded: PropTypes.bool.isRequired,
+  isScriptLoadSucceed: PropTypes.bool.isRequired,
+};
+
+export default scriptLoader('https://js.stripe.com/v3/')(StripeJS)

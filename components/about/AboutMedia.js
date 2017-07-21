@@ -7,7 +7,7 @@ const AboutMedia = () => (
     <div className="about-media-header">
       <h1>Media</h1>
     </div>
-    <Grid relaxed>
+    <Grid stackable relaxed>
       <p>Mentorship</p>
       <Grid.Row columns={3}>
         <Grid.Column>
@@ -62,7 +62,7 @@ const AboutMedia = () => (
         width: 85%;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 13px;
+        margin-bottom: 50px;
       }
 
       .about-media-header h1{

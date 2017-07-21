@@ -9,13 +9,13 @@ const Footer = () => (
     <div>
       <ul className="footer-links-list">
         <li className="footer-link-list-item" >
-          <Link href="contact">
+          <Link href="/contact">
             <a className="footer-link" >Contact</a>
           </Link>
         </li>
         <li className="footer-link-list-item">|</li>
         <li className="footer-link-list-item" >
-          <Link href="donate">
+          <Link href="/donate">
             <a className="footer-link" >Donate</a>
           </Link>
         </li>

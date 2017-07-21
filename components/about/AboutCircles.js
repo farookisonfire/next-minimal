@@ -4,7 +4,7 @@ import { Grid, Icon } from 'semantic-ui-react';
 
 const AboutCircles = () => (
   <div className="about-circles">
-    <Grid columns={3}>
+    <Grid stackable columns={3}>
       <Grid.Row>
         <Grid.Column>
         <Icon circular size='big' name='star' />

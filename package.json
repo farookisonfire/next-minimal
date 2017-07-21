@@ -7,7 +7,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "next export"
+    "export": "next export",
+    "dev-server": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,13 +22,22 @@
   },
   "homepage": "https://github.com/farookkhan/next-minimal#readme",
   "dependencies": {
-    "latest": "^0.2.0",
-    "next": "^2.4.7",
+    "next": "^3.0.1-beta.13",
     "next-redux-wrapper": "^1.2.0",
     "react": "^15.6.1",
+    "react-async-script-loader": "^0.3.0",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
+    "react-stripe-checkout": "^2.4.0",
     "redux": "^3.7.2",
     "semantic-ui-react": "^0.71.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.17.2",
+    "eslint": "^4.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-react": "^7.1.0",
+    "express": "^4.15.3",
+    "stripe": "^4.23.1"
   }
 }

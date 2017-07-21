@@ -2,10 +2,11 @@ import Head from 'next/head'
 
 const Header = () => (
   <Head>
-    <title>ohs-minimal</title>
+    <title>One Heart Source</title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400" rel="stylesheet"/>
+    
     <style>{`
       body { 
         margin: 0px;
@@ -16,3 +17,6 @@ const Header = () => (
 )
 
 export default Header;
+
+
+{/*<script src="https://js.stripe.com/v3/"></script>*/}

@@ -24,6 +24,11 @@ class Navbar extends Component {
               <a className={offCanvas ? offCanvas === '/learn' ? 'nav-link-dark active' : 'nav-link-dark' : 'nav-link'}> Learn More </a>
             </Link>
           </li>
+          <li className="nav-item">
+            <Link href="donate">
+              <a className={offCanvas ? offCanvas === '/donate' ? 'nav-link-dark active' : 'nav-link-dark' : 'nav-link'}> Donate </a>
+            </Link>
+          </li>
         </ul>
         <ul className="navbar-apply">
           <li>
