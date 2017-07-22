@@ -20,6 +20,17 @@ class StripeJS extends React.Component {
         state: '',
         country: '',
         zipcode: ''
+      },
+      valid: {
+        name: true,
+        phone: true,
+        email: true,
+        amount: true,
+        address: true,
+        city: true,
+        state: true,
+        country: true,
+        zipcode: true
       }
     };
 
@@ -78,22 +89,20 @@ class StripeJS extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.stripe.createToken(this.card).then(this.setOutcome);
+    const formIsValid = this.validateForm();
+
+    if(formIsValid) {
+      this.stripe.createToken(this.card).then(this.setOutcome);
+    }
   }
 
   setOutcome(result) {
-    // var successElement = document.querySelector('.success');
     var errorElement = document.querySelector('.error');
-    // successElement.classList.remove('visible');
     errorElement.classList.remove('visible');
 
     if (result.token) {
-      // Use the token to create a charge or a customer
-      // https://stripe.com/docs/charges
-
       const customerDetails = this.state.customerDetails;
       const payload = JSON.stringify({customerDetails: customerDetails, token: result.token.id});
-      console.log('the charge suceeded', result, 'customer details', customerDetails);
 
       // fetch('https://midnight-prophet-api.herokuapp.com/donate', {
       fetch('/donate', {
@@ -113,14 +122,28 @@ class StripeJS extends React.Component {
     }
   }
 
-  handleSuccess() {
-    this.setState({success: true});
+  validateForm() {
+    let isValid = true
+    const formInputs = Object.keys(this.state.valid);
+    const validated = {
+      name: true, phone: true, email: true, amount: true, address: true, city: true, state: true, country: true, zipcode: true  }
+  
+    formInputs.map(input => this.state.customerDetails[input] ? validated[input] = true : (validated[input] = false, isValid=false) )
+    isNaN(this.state.customerDetails.amount) ? (validated.amount = false, isValid=false) : validated.amount[true]
+
+    this.setState({valid: validated})
+    return isValid
   }
 
   handleChange(event) {
     const update = {};
     update[event.target.name] = event.target.value;
-    this.setState({customerDetails: update});
+    this.setState({customerDetails: Object.assign({}, this.state.customerDetails, update)});
+  }
+
+
+  handleSuccess() {
+    this.setState({success: true});
   }
 
   handleDismiss() {
@@ -129,6 +152,8 @@ class StripeJS extends React.Component {
   
   render() {
     console.log(this.state)
+
+    const { valid } = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="group">
@@ -136,24 +161,29 @@ class StripeJS extends React.Component {
             <span>Name</span>
             <input name="name" className="field" placeholder="Jane Doe" onChange={this.handleChange}/>
           </label>
+          <div className={valid.name ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Phone</span>
             <input name="phone" className="field" placeholder="(123) 456-7890" type="tel" onChange={this.handleChange}/>
           </label>
+          <div className={valid.phone ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Email</span>
             <input name="email" className="field" placeholder="jane.doe@gmail.com" onChange={this.handleChange}/>
           </label>
+          <div className={valid.email ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Amount(USD)</span>
             <input name="amount" className="field" placeholder="100.00" onChange={this.handleChange}/>
           </label>
+          <div className={valid.amount ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           </div>
           <div className="group">
           <label>
             <span>Address 1</span>
             <input name="address" className="field" placeholder="Street" onChange={this.handleChange}/>
           </label>
+          <div className={valid.address ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Address 2</span>
             <input name="addressTwo" className="field" placeholder="Apt, Suite (optional)" onChange={this.handleChange}/>
@@ -162,18 +192,22 @@ class StripeJS extends React.Component {
             <span>City</span>
             <input name="city" className="field" placeholder="Los Angeles" onChange={this.handleChange}/>
           </label>
+          <div className={valid.city ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>State/Province</span>
             <input name="state" className="field" placeholder="California" onChange={this.handleChange}/>
           </label>
+          <div className={valid.state ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Country</span>
             <input name="country" className="field" placeholder="United States" onChange={this.handleChange}/>
           </label>
+          <div className={valid.country ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Zip/Postal</span>
             <input name="zipcode" className="field" placeholder="90001" onChange={this.handleChange}/>
           </label>
+          <div className={valid.zipcode ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
         </div>
         <div className="group">
           <label>
@@ -317,6 +351,16 @@ class StripeJS extends React.Component {
             .success .token {
               font-weight: 500;
               font-size: 13px;
+            }
+
+            .invalid-msg {
+              text-align: center;
+              color: red;
+              font-size: 12px;
+            }
+
+            .invalid-hidden {
+              display: none;
             }
         `}</style>
       </form>

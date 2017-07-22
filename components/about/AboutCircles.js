@@ -7,14 +7,14 @@ const AboutCircles = () => (
     <Grid stackable columns={3}>
       <Grid.Row>
         <Grid.Column>
-        <Icon circular size='big' name='star' />
-        <h4>Credibility</h4>
-        <p>Top rated non-profit</p>
-      </Grid.Column>
-      <Grid.Column>
         <Icon circular size='big' name='medkit' />
         <h4>Safety</h4>
-        <p>Secondary</p>
+        <p>Safety is our top priority.</p>
+      </Grid.Column>
+        <Grid.Column>
+        <Icon circular size='big' name='star' />
+        <h4>Credibility</h4>
+        <p>Top rated non-profit 3 years in a row</p>
       </Grid.Column>
       <Grid.Column>
         <Icon circular size='big' name='users' />
@@ -26,12 +26,11 @@ const AboutCircles = () => (
         <Grid.Column>
           <Icon circular size='big' name='heart' />
           <h4>Hands-on</h4>
-          <p>Meaningful work</p>
+          <p>Immersion and meaningful work</p>
         </Grid.Column>
         <Grid.Column>
           <Icon circular size='big' name='child' />
           <h4>Competitive Advantage</h4>
-          {/* child, student */}
           <p>International experience and perspective</p>
         </Grid.Column>
         <Grid.Column>
