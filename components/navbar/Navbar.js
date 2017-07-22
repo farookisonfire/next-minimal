@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import Link from 'next/link';
-import {unmountCanvas, mountCanvas} from '../../actions/landingActions';
 
 class Navbar extends Component {
   render() {
@@ -15,17 +13,17 @@ class Navbar extends Component {
         </a>
         <ul className="nav-items">
           <li className="nav-item">
-            <Link href="admissions" >
+            <Link href="/admissions" >
               <a className={offCanvas ? offCanvas === '/admissions' ? 'nav-link-dark active' : 'nav-link-dark' : 'nav-link'  }> Admissions </a>
             </Link>
           </li>
           <li className="nav-item">
-            <Link href="learn">
+            <Link href="/learn">
               <a className={offCanvas ? offCanvas === '/learn' ? 'nav-link-dark active' : 'nav-link-dark' : 'nav-link'}> Learn More </a>
             </Link>
           </li>
           <li className="nav-item">
-            <Link href="donate">
+            <Link href="/donate">
               <a className={offCanvas ? offCanvas === '/donate' ? 'nav-link-dark active' : 'nav-link-dark' : 'nav-link'}> Donate </a>
             </Link>
           </li>

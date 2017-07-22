@@ -33,6 +33,7 @@
     "semantic-ui-react": "^0.71.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "body-parser": "^1.17.2",
     "eslint": "^4.2.0",
     "eslint-plugin-import": "^2.7.0",

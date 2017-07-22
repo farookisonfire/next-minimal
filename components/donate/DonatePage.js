@@ -1,4 +1,3 @@
-import React from 'react';
 import DonateHeader from './DonateHeader';
 import Footer from '../footer/Footer';
 import DonateForm from './DonateForm';

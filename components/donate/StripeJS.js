@@ -1,4 +1,3 @@
-import React from 'react';
 import scriptLoader from 'react-async-script-loader';
 import PropTypes from 'prop-types';
 import { Message } from 'semantic-ui-react';

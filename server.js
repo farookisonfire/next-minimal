@@ -11,8 +11,6 @@ var stripe = require("stripe")("sk_test_6m55BYyH2L1xa7j9uboViaNq");
 
 const handleCharge = (req, res) => {
 
-console.log('here\'s the request', req.body)
-
   const {customerDetails, token} = req.body;
 
   // Create a Customer:
