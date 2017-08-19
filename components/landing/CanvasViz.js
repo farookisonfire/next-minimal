@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import { Component } from 'react';
 
 class CanvasViz extends Component {
   constructor() {
@@ -7,7 +7,7 @@ class CanvasViz extends Component {
     this.getCanvas = (canvas) => {
       
       const colorArray = ['#FB605B', '#FFFFFF', '#000000', '#B0B0B0', '#E8E8E8' ];
-      const mouse = {x: undefined, y: undefined};
+      const mouse = { x: undefined, y: undefined };
       const maxRadius = 50;
       const minRadius = 1;
       let circleArray = [];
@@ -31,8 +31,8 @@ class CanvasViz extends Component {
 
         this.update = function() {
           //  reversing the velocity based circles position relative to canvas border
-          if(this.x + this.r > innerWidth || this.x - this.r < 0) { this.dx = -this.dx; } 
-          if(this.y + this.r > innerHeight || this.y - this.r < 0) { this.dy = -this.dy; }
+          if (this.x + this.r > window.innerWidth || this.x - this.r < 0) { this.dx = -this.dx; }
+          if (this.y + this.r > window.innerHeight || this.y - this.r < 0) { this.dy = -this.dy; }
           this.x += this.dx;
           this.y += this.dy;
       
@@ -63,16 +63,16 @@ class CanvasViz extends Component {
       }
 
       function animate() {
-        c.clearRect(0, 0, innerWidth, innerHeight);
+        c.clearRect(0, 0, window.innerWidth, window.innerHeight);
         circleArray.map(circle => circle.update());
         requestAnimationFrame(animate);
       }
 
-      this.trackMouse= function(event) {
+      this.trackMouse = function(event) {
         console.log('tracking mouse')
         mouse.x = event.x;
         mouse.y = event.y;
-      };  
+      };
 
       this.resizeWindow = function() {
         console.log('resize window called')
@@ -87,10 +87,10 @@ class CanvasViz extends Component {
         canvas.width = window.innerWidth;     // getting reference to canvas and setting width / height
         canvas.height = window.innerHeight;   // getting reference to canvas and setting width / height
         c = canvas.getContext('2d');          // getting reference to the 2d context
-        
+
         // window.addEventListener('mousemove', this.trackMouse);
         window.addEventListener('resize', this.resizeWindow);
-        
+
         init();
         animate();
       } 
@@ -101,10 +101,12 @@ class CanvasViz extends Component {
     window.removeEventListener('mousemove', this.trackMouse);
     window.removeEventListener('resize', this.resizeWindow);
   }
-  
+
   render() {
-    return(
-      <canvas ref={myCanvas => this.getCanvas(myCanvas)}/>
+    return (
+      <div>
+        <canvas className="canvas-viz" ref={myCanvas => this.getCanvas(myCanvas)} />
+      </div>
     );
   }
 }
