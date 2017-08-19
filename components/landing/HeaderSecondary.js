@@ -9,11 +9,19 @@ const HeaderSecondary = () => (
         transform: translateY(-50%);
         width: 100%;
         z-index: 1;
+        color: black;
       }
 
       .header-secondary-title {
-        font-size: 100px;
+        font-size: 75px;
         font-weight: 300;
+      }
+
+      @media (max-width: 768px) {
+        .header-secondary-title {
+          font-size: 30px;
+          font-weight: 500;
+        }
       }
     `}</style>
   </div>

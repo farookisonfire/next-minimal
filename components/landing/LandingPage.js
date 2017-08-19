@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CanvasViz from './CanvasViz';
 import HeaderPrimary from './HeaderPrimary';
 import HeaderSecondary from './HeaderSecondary';
 import HeaderTertiary from './HeaderTertiary';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class LandingPage extends Component {
   render() {
-    return(
+    return (
       <div>
         <CanvasViz />
         <HeaderPrimary />

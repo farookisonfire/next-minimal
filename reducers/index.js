@@ -1,10 +1,10 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 import showCanvas from './landingReducer'
 import programs from './programsReducer'
 
 const rootReducer = combineReducers({
   showCanvas,
-  programs
+  programs,
 })
 
 export default rootReducer

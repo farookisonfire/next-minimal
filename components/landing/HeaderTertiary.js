@@ -11,7 +11,7 @@ const HeaderTertiary = () => (
       }
 
       .header-tertiary-title {
-        font-size: 36px;
+        font-size: 30px;
         font-weight: 300;
       }
     `}</style>

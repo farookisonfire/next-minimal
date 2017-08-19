@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Icon } from 'semantic-ui-react';
 
-
 const AboutCircles = () => (
   <div className="about-circles">
     <Grid stackable columns={3}>
