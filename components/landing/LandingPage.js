@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import CanvasViz from './CanvasViz';
 import HeaderPrimary from './HeaderPrimary';
 import HeaderSecondary from './HeaderSecondary';
 import HeaderTertiary from './HeaderTertiary';
-import { connect } from 'react-redux';
 
 class LandingPage extends Component {
   render() {
@@ -23,9 +23,9 @@ LandingPage.propTypes = {
   showCanvas: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({showCanvas}) => {
+const mapStateToProps = ({ showCanvas }) => {
   return {
-    showCanvas
+    showCanvas,
   };
 };
 
