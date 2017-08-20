@@ -23,7 +23,7 @@ export const transitionStyles = {
 export const mobileNavCloseIcon = {
   position: 'absolute',
   right: '15px',
-  top: '15px',
+  top: '20px',
   cursor: 'pointer',
   zIndex: '2',
 };

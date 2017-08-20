@@ -39,18 +39,29 @@ class Navbar extends Component {
   render() {
     const offCanvas = this.props.pageName;
 
+    const NavIconWhite = (
+      <Icon
+        size="big"
+        name="content"
+        inverted
+        color="grey"
+        onClick={this.handleMobileIconClick} />
+    );
+
+    const NavIconBlack = (
+      <Icon
+        size="big"
+        name="content"
+        onClick={this.handleMobileIconClick} />
+    );
+
     const MobileNavOpen = (
       <div className="mobile-nav-open" style={mobileNavOpen}>
         <a href="/">
-          <img alt="heart" className="mobile-nav-logo" style={mobileNavOpenLogo} src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
+          <img alt="heart" className="nav-logo" style={mobileNavOpenLogo} src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
         </a>
         <div className="mobile-nav-close-icon" style={mobileNavCloseIcon}>
-          <Icon
-            size="big"
-            name="content"
-            inverted
-            color="grey"
-            onClick={this.handleMobileIconClick} />
+          {NavIconWhite}
         </div>
         <div className="mobile-nav-content">
           <ul style={mobileNavLinks}>
@@ -119,10 +130,7 @@ class Navbar extends Component {
             <img alt="heart" className="nav-logo" src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
           </a>
           <div className="mobile-nav-icon">
-            <Icon
-              size="big"
-              name="content"
-              onClick={this.handleMobileIconClick} />
+            {offCanvas ? NavIconWhite : NavIconBlack}
           </div>
           <Transition in={this.state.showMobileNav} timeout={duration}>
             {state => (
@@ -243,7 +251,7 @@ class Navbar extends Component {
             .mobile-nav-icon {
               position: absolute;
               right: 15px;
-              top: 10px;
+              top: 15px;
               cursor: pointer;
             }
 
