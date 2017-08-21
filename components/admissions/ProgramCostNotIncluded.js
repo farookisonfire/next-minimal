@@ -23,6 +23,12 @@ const ProgramCostNotIncluded = () => (
         font-size: 16px; 
         margin-top: 30px
       }
+      
+      @media (max-width: 768px) {
+        .program-cost-not-included-header h1 {
+          font-size: 30px;
+        }
+      }
     `}</style>
   </div>
 );

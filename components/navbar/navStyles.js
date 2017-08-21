@@ -5,8 +5,8 @@ export const mobileNavOpen = {
 export const defaultStyle = {
   transition: `opacity ${300}ms ease-in-out`,
   opacity: 0,
-  width: '100%',
-  height: '100vh',
+  width: 0,
+  height: 0,
   position: 'absolute',
   top: '-5px',
   left: 0,
@@ -15,10 +15,10 @@ export const defaultStyle = {
 };
 
 export const transitionStyles = {
-  entering: { opacity: 1 },
-  entered: { opacity: 1 },
-  exiting: { opacity: 0 },
-  exited: { opacity: 0 },
+  entering: { opacity: 1, width: '100%', height: '100vh' },
+  entered: { opacity: 1, width: '100%', height: '100vh' },
+  exiting: { opacity: 0, width: 0, height: 0 },
+  exited: { opacity: 0, width: 0, height: 0 },
 };
 
 export const mobileNavCloseIcon = {
