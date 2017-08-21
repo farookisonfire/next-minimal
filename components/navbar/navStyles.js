@@ -38,6 +38,7 @@ export const mobileNavOpenLogo = {
 export const mobileNavLinks = {
   marginTop: '24px',
   paddingLeft: '24px',
+  listStyle: 'none',
 };
 
 export const mobileNavLink = {

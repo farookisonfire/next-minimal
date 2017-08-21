@@ -9,6 +9,12 @@ const AdmissionsHeader = () => (
       font-size: 36px;
       font-weight: 300;
       }
+
+      @media (max-width: 768px) {
+        .admissions-header h1 {
+          font-size: 30px;
+        }
+      }
     `}</style>
   </div>
 );
