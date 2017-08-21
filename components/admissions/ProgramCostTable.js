@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table} from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 
 const programs = [
-  {id: 1, value: 'youthEmpowerment', text: 'Youth Empowerment', length: '1 week', cost: '$1550'},
-  {id: 2, value: 'youthEmpowerment', text: 'Youth Empowerment', length: '2 week', cost: '$2600'},
-  {id: 3, value: 'youthEmpowerment', text: 'Youth Empowerment', length: '4 week', cost: '$4200'},
-  {id: 4, value: 'healthInnovation', text: 'Health Innovation', length: '2 week', cost: '$3000'},
-  {id: 5, value: 'healthInnovation', text: 'Health Innovation', length: '4 week', cost: '$5200'},
-  {id: 6, value: 'education', text: 'Education', length: '2 week', cost: '$3000'},
-  {id: 7, value: 'education', text: 'Education', length: '4 week', cost: '$5200'}
+  { id: 1, value: 'youthEmpowerment', text: 'Youth Empowerment', length: '1 week', cost: '$1550' },
+  { id: 2, value: 'youthEmpowerment', text: 'Youth Empowerment', length: '2 week', cost: '$3400' },
+  { id: 3, value: 'youthEmpowerment', text: 'Youth Empowerment', length: '4 week', cost: '$5000' },
+  { id: 4, value: 'healthInnovation', text: 'Health Innovation', length: '2 week', cost: '$3800' },
+  { id: 5, value: 'healthInnovation', text: 'Health Innovation', length: '4 week', cost: '$5400' },
+  { id: 6, value: 'education', text: 'Education', length: '2 week', cost: '$3400' },
+  { id: 7, value: 'education', text: 'Education', length: '4 week', cost: '$5000' },
 ];
 
-const ProgramCostTable = ({selectedProgram}) => {
+const ProgramCostTable = ({ selectedProgram }) => {
 
 function makeRow(program) {
   if (program.value === selectedProgram)
