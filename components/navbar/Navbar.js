@@ -149,6 +149,7 @@ class Navbar extends Component {
             position: absolute;
             padding-top: 5px;
             width: 100%;
+            top: 0;
           }
 
           .navbar-elements {
