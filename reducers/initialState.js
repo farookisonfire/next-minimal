@@ -134,5 +134,29 @@ export const programs = [
     length: "2 week",
     date: "July 30 - August 10",
     enrolled: 0,
+  },
+  {
+    id: 18,
+    value: "healthInnovation",
+    type: "Health Innovation",
+    length: "4 week",
+    date: "May 21 - June 15",
+    enrolled: 0,
+  },
+  {
+    id: 19,
+    value: "healthInnovation",
+    type: "Health Innovation",
+    length: "4 week",
+    date: "June 18 - July 13",
+    enrolled: 0,
+  },
+  {
+    id: 20,
+    value: "healthInnovation",
+    type: "Health Innovation",
+    length: "4 week",
+    date: "July 16 - August 10",
+    enrolled: 0,
   }
 ];
