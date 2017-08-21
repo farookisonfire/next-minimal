@@ -19,7 +19,7 @@ class StripeJS extends React.Component {
         city: '',
         state: '',
         country: '',
-        zipcode: ''
+        zipcode: '',
       },
       valid: {
         name: true,
@@ -30,7 +30,7 @@ class StripeJS extends React.Component {
         city: true,
         state: true,
         country: true,
-        zipcode: true
+        zipcode: true,
       }
     };
 
@@ -71,7 +71,12 @@ class StripeJS extends React.Component {
     this.handleDismiss = this.handleDismiss.bind(this);
   }
 
-  componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+  componentDidMount() {    
+    const { isScriptLoaded, isScriptLoadSucceed } = this.props
+    if (isScriptLoaded && isScriptLoadSucceed) { this.onLoadSuccess(); }
+  }
+
+  componentWillReceiveProps({ isScriptLoaded, isScriptLoadSucceed }) {
     if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
       if (isScriptLoadSucceed) {
         this.onLoadSuccess();
@@ -80,11 +85,6 @@ class StripeJS extends React.Component {
         console.log('Stripe module load error.')
       }
     }
-  }
-
-  componentDidMount() {    
-    const { isScriptLoaded, isScriptLoadSucceed } = this.props
-    if (isScriptLoaded && isScriptLoadSucceed) { this.onLoadSuccess(); }
   }
 
   handleSubmit(event) {

@@ -87,6 +87,12 @@ const Footer = () => (
       .footer-social-media {
         margin-bottom: 5px;  
       }
+
+      @media (max-width: 768px) {
+        .footer img {
+          display: none;
+        }
+      }
       
     `}</style>
   </div>
