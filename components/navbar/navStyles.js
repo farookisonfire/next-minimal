@@ -9,6 +9,7 @@ export const defaultStyle = {
   height: '100vh',
   position: 'absolute',
   top: '-5px',
+  left: 0,
   zIndex: 1,
   backgroundColor: 'black',
 };
