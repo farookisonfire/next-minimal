@@ -27,7 +27,7 @@ function makeRow(program) {
 
 return (
     <div>
-      <div className="program-cost-header">
+      <div className="program-cost-header" id="cost">
         <h1>Program Fee</h1>
         <p>Tax deductible up to 88% for US residents, the program fee is not refundable. Members have the option making a single payment upon acceptance, or several monthly payments while fundraising.</p>
       </div>
@@ -64,6 +64,12 @@ return (
           color: rgba(34,34,34,.7);
           font-size: 16px; 
           margin-top: 30px
+        
+        }
+        @media (max-width: 768px) {
+          .program-cost-header h1 {
+            font-size: 30px;
+          }
         }
       `}</style>
     </div>

@@ -1,5 +1,5 @@
 const ApplyNow = () => (
-  <div className="apply-now-header">
+  <div className="apply-now-header" id="apply">
     <a href="https://oneheartsource.typeform.com/to/OOuoFa?refcode=webadmissions" className="apply-now-button">Apply Now</a>
     <style jsx>{`
       .apply-now-header {

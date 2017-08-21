@@ -48,7 +48,7 @@ const ProgramDates = ({programs, selectedProgram}) => {
 
   return (
     <div>
-      <div className="program-dates-header">
+      <div className="program-dates-header" id="dates">
         <h1>Dates</h1>
         <p>We are currently accepting applications for 2018. Positions are limited, apply today!</p>
       </div>
@@ -85,6 +85,12 @@ const ProgramDates = ({programs, selectedProgram}) => {
           font-size: 16px; 
           margin-top: 30px
         }
+
+         @media (max-width: 768px) {
+           .program-dates-header h1 {
+              font-size: 30px;
+            }
+         }
       `}</style>
     </div>
   );
