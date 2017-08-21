@@ -173,8 +173,8 @@ class StripeJS extends React.Component {
           </label>
           <div className={valid.email ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
-            <span>Amount(USD)</span>
-            <input name="amount" className="field" placeholder="100.00" onChange={this.handleChange}/>
+            <span>Amount</span>
+            <input name="amount" className="field" placeholder="$100.00 (USD)" onChange={this.handleChange}/>
           </label>
           <div className={valid.amount ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           </div>
@@ -219,9 +219,9 @@ class StripeJS extends React.Component {
         <div className="outcome">
           <div className="error" role="alert"></div>
           <div>
-            <Message 
-              compact 
-              color="green" 
+            <Message
+              compact
+              color="green"
               hidden={!this.state.success}
               onClick={this.handleDismiss} >Thanks for your support! </Message>
           </div>
@@ -362,6 +362,30 @@ class StripeJS extends React.Component {
             .invalid-hidden {
               display: none;
             }
+
+            @media (max-width: 768px) {
+              form {
+                width: 100%;
+              }
+
+              .group span {
+                display: none;
+              }
+
+              label {
+              margin-left: 0;
+              }
+
+              label > input {
+                width: 100%;
+                padding-left: 20px;
+              }
+
+              #card-element {
+                width: 100%;
+                padding-left: 20px;
+              }
+            }
         `}</style>
       </form>
     );
@@ -373,4 +397,4 @@ StripeJS.propTypes = {
   isScriptLoadSucceed: PropTypes.bool.isRequired,
 };
 
-export default scriptLoader('https://js.stripe.com/v3/')(StripeJS)
+export default scriptLoader('https://js.stripe.com/v3/')(StripeJS);
