@@ -97,7 +97,7 @@ class Navbar extends Component {
     const MobileNav = MobileNavOpen;
 
     return (
-      <div className="navbar" style={{ backgroundColor: offCanvas ? 'rgb(34,34,34)' : 'rgba(255,255,255,0)' }}>
+      <div className="navbar" style={{ backgroundColor: 'rgb(31,30,29)' }}>
         <div className="navbar-elements">
           <a href="/">
             <img alt="heart" className="nav-logo" src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
@@ -105,17 +105,17 @@ class Navbar extends Component {
           <ul className="nav-items">
             <li className="nav-item">
               <Link href="/admissions" >
-                <a className={offCanvas ? offCanvas === '/admissions' ? 'nav-link-dark active' : 'nav-link-dark' : 'nav-link'}> Admissions </a>
+                <a className={offCanvas === '/admissions' ? 'nav-link-dark active' : 'nav-link-dark'}> Admissions </a>
               </Link>
             </li>
             <li className="nav-item">
               <Link href="/learn">
-                <a className={offCanvas ? offCanvas === '/learn' ? 'nav-link-dark active' : 'nav-link-dark' : 'nav-link'}> Learn More </a>
+                <a className={offCanvas === '/learn' ? 'nav-link-dark active' : 'nav-link-dark'}> Learn More </a>
               </Link>
             </li>
             <li className="nav-item">
               <Link href="/donate">
-                <a className={offCanvas ? offCanvas === '/donate' ? 'nav-link-dark active' : 'nav-link-dark' : 'nav-link'}> Donate </a>
+                <a className={offCanvas === '/donate' ? 'nav-link-dark active' : 'nav-link-dark'}> Donate </a>
               </Link>
             </li>
           </ul>
@@ -130,7 +130,7 @@ class Navbar extends Component {
             <img alt="heart" className="nav-logo" src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
           </a>
           <div className="mobile-nav-icon">
-            {offCanvas ? NavIconWhite : NavIconBlack}
+            { NavIconWhite }
           </div>
           <Transition in={this.state.showMobileNav} timeout={duration}>
             {state => (
@@ -226,10 +226,6 @@ class Navbar extends Component {
             color: white;
             cursor: pointer;
             background: rgb(250,95,91);
-            background: -webkit-linear-gradient(left top, rgb(250,95,91), rgba(250,95,91,.7)); /* For Safari 5.1 to 6.0 */
-            background: -o-linear-gradient(bottom right, rgb(250,95,91), rgba(250,95,91,.7))); /* For Opera 11.1 to 12.0 */
-            background: -moz-linear-gradient(bottom right, rgb(250,95,91), rgba(250,95,91,.7))); /* For Firefox 3.6 to 15 */
-            background: linear-gradient(to bottom right, rgb(250,95,91), rgba(250,95,91,.7))); /* Standard syntax */
           }
 
           .navbar-mobile {
