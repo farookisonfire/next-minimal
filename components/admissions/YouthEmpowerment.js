@@ -12,8 +12,8 @@ const YouthEmpowerment = ({ selectedProgram, programs }) => (
       <p>Designed for university undergrads and graduate students of all academic disciplines, Youth Empowerment is our longest running and most popular program. The program offers OHS members a blended learning experience focused on youth empowerment through academic and extra-curricular mentorship, cultural exploration through guided outings, and cultural insight and global perspective through dialogue and seminar.</p>
     </div>
     <YouthEmpowermentCircles />
-    <ProgramCost selectedProgram={selectedProgram}/>
-    <ProgramDates selectedProgram={selectedProgram} programs={programs}/>
+    <ProgramCost selectedProgram={selectedProgram} />
+    <ProgramDates selectedProgram={selectedProgram} programs={programs} />
     <ApplyNow />
     <Footer />
     <style jsx>{`
