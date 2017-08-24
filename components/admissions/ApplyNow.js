@@ -23,7 +23,7 @@ const ApplyNow = () => (
       }
 
       .apply-now-button:hover {
-        background-color: rgba(51,51,51,1);
+        background-color: rgba(250,95,91,1);
         border: 1px solid #FB605B;
         border-radius: 4px;
         color: white;
