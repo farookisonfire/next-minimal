@@ -3,10 +3,10 @@ export const mobileNavOpen = {
 };
 
 export const defaultStyle = {
-  transition: `opacity ${300}ms ease-in-out`,
+  transition: `opacity ${300}ms, visibility 300ms ease-in-out`,
   opacity: 0,
-  width: 0,
-  height: 0,
+  width: '100%',
+  height: '100vh',
   position: 'absolute',
   top: '-5px',
   left: 0,
@@ -15,10 +15,10 @@ export const defaultStyle = {
 };
 
 export const transitionStyles = {
-  entering: { opacity: 1, width: '100%', height: '100vh' },
-  entered: { opacity: 1, width: '100%', height: '100vh' },
-  exiting: { opacity: 0, width: 0, height: 0 },
-  exited: { opacity: 0, width: 0, height: 0 },
+  entering: { opacity: 1, visibility: 'visible' },
+  entered: { opacity: 1, visibility: 'visible' },
+  exiting: { opacity: 0, visibility: 'hidden' },
+  exited: { opacity: 0, visibility: 'hidden' },
 };
 
 export const mobileNavCloseIcon = {
