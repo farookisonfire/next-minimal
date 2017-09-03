@@ -5,7 +5,7 @@ const HeaderTertiary = () => (
         .header-tertiary {
         text-align: center;
         position: absolute;
-        top: 73%;
+        top: 72%;
         transform: translateY(-50%);
         width: 100%;
         color: white;
@@ -27,17 +27,3 @@ const HeaderTertiary = () => (
 );
 
 export default HeaderTertiary;
-
-// original styles
-// .header-tertiary {
-//         text-align: center;
-//         position: absolute;
-//         top: 75%;
-//         transform: translateY(-50%);
-//         width: 100%;
-//       }
-
-//       .header-tertiary-title {
-//         font-size: 30px;
-//         font-weight: 300;
-//       }
