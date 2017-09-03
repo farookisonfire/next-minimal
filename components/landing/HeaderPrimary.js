@@ -5,7 +5,7 @@ const HeaderPrimary = () => (
     <img
       alt="heart"
       className="header-primary-logo"
-      src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
+      src="https://s3.amazonaws.com/minimal-spaces/single-heart-icon_9_3_17.png" />
     <style jsx>{`
       .header-primary {
         position: absolute;

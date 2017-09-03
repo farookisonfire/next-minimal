@@ -58,7 +58,7 @@ class Navbar extends Component {
     const MobileNavOpen = (
       <div className="mobile-nav-open" style={mobileNavOpen}>
         <a href="/">
-          <img alt="heart" className="nav-logo" style={mobileNavOpenLogo} src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
+          <img alt="heart" className="nav-logo" style={mobileNavOpenLogo} src="https://s3.amazonaws.com/minimal-spaces/heart-with-words-horizontal-white-small_9_3_17.png" />
         </a>
         <div className="mobile-nav-close-icon" style={mobileNavCloseIcon}>
           {NavIconWhite}
@@ -100,7 +100,7 @@ class Navbar extends Component {
       <div className="navbar" style={{ backgroundColor: 'rgb(31,30,29)' }}>
         <div className="navbar-elements">
           <a href="/">
-            <img alt="heart" className="nav-logo" src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
+            <img alt="heart" className="nav-logo" src="https://s3.amazonaws.com/minimal-spaces/single-heart-icon_9_3_17.png" />
           </a>
           <ul className="nav-items">
             <li className="nav-item">
@@ -127,7 +127,7 @@ class Navbar extends Component {
         </div>
         <div className="navbar-mobile">
           <a href="/">
-            <img alt="heart" className="nav-logo" src="https://s3.amazonaws.com/minimal-spaces/heart-400.png" />
+            <img alt="heart" className="nav-logo-mobile" src="https://s3.amazonaws.com/minimal-spaces/heart-with-words-horizontal-white-small_9_3_17.png" />
           </a>
           <div className="mobile-nav-icon">
             { NavIconWhite }
@@ -159,7 +159,6 @@ class Navbar extends Component {
           }
 
           .nav-logo {
-            margin-left: 15px;
             width: 50px;
           }
 
@@ -245,10 +244,15 @@ class Navbar extends Component {
               flex-grow: 1;
             }
 
+            .nav-logo-mobile {
+              margin-left: 15px;
+              width: 150px;
+            }
+
             .mobile-nav-icon {
               position: absolute;
               right: 15px;
-              top: 15px;
+              top: 10.5px;
               cursor: pointer;
             }
 

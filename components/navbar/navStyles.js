@@ -32,7 +32,7 @@ export const mobileNavCloseIcon = {
 export const mobileNavOpenLogo = {
   marginLeft: '15px',
   marginTop: '10px',
-  width: '50px',
+  width: '150px',
 };
 
 export const mobileNavLinks = {
