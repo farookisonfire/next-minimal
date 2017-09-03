@@ -6,7 +6,7 @@ const Header = () => (
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400" rel="stylesheet" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://s3.amazonaws.com/minimal-spaces/favicon.ico" />
     <style>{`
       body { 
         margin: 0px;
