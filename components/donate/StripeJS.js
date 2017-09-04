@@ -1,9 +1,12 @@
+import { Component } from 'react';
 import scriptLoader from 'react-async-script-loader';
 import PropTypes from 'prop-types';
 import { Message } from 'semantic-ui-react';
+import 'whatwg-fetch';
+import { FadingCircle } from 'better-react-spinkit';
 
 
-class StripeJS extends React.Component {
+class StripeJS extends Component {
   constructor() {
     super();
 
@@ -13,7 +16,7 @@ class StripeJS extends React.Component {
         name: '',
         phone: '',
         email: '',
-        amount: '',
+        amount: undefined,
         address: '',
         addressTwo: '',
         city: '',
@@ -31,11 +34,12 @@ class StripeJS extends React.Component {
         state: true,
         country: true,
         zipcode: true,
-      }
+      },
+      showDonationSpinner: false,
     };
 
     this.stripe;
-    
+
     const style = {
       base: {
         iconColor: 'rgb(250,95,91)',
@@ -46,20 +50,18 @@ class StripeJS extends React.Component {
 
         '::placeholder': {
           color: '#CFD7E0',
-        }
-      }
+        },
+      },
     };
 
     this.onLoadSuccess = () => {
-      this.stripe = Stripe('pk_test_9UG4xl53fmuK8oH87FFc8tWF');
-      // this.stripe = Stripe('pk_live_ZWJ5nr4iDOKdZFCuma0FRXPg');
+      this.stripe = Stripe('pk_live_ZWJ5nr4iDOKdZFCuma0FRXPg');
 
       const elements = this.stripe.elements();
-      this.card = elements.create('card', {style: style});
-
+      this.card = elements.create('card', { style });
       this.card.mount('#card-element');
 
-      this.card.addEventListener(event => {
+      this.card.addEventListener((event) => {
         this.setOutcome(event);
       });
     };
@@ -69,21 +71,59 @@ class StripeJS extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
     this.handleDismiss = this.handleDismiss.bind(this);
+    this.clearDonationForm = this.clearDonationForm.bind(this);
+    this.showDonationModal = this.showDonationModal.bind(this);
+    this.hideDonationModal = this.hideDonationModal.bind(this);
   }
 
-  componentDidMount() {    
-    const { isScriptLoaded, isScriptLoadSucceed } = this.props
-    if (isScriptLoaded && isScriptLoadSucceed) { this.onLoadSuccess(); }
+  componentDidMount() {
+    const { isScriptLoaded, isScriptLoadSucceed } = this.props;
+    if (isScriptLoaded && isScriptLoadSucceed) {
+      this.onLoadSuccess();
+    }
   }
 
   componentWillReceiveProps({ isScriptLoaded, isScriptLoadSucceed }) {
     if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
       if (isScriptLoadSucceed) {
         this.onLoadSuccess();
+      } else {
+        console.log('Stripe module load error.');
       }
-      else {
-        console.log('Stripe module load error.')
-      }
+    }
+  }
+
+  setOutcome(result) {
+    const errorElement = document.querySelector('.error');
+    errorElement.classList.remove('visible');
+
+    if (result.token) {
+      const customerDetails = this.state.customerDetails;
+      const payload = JSON.stringify({ customerDetails, token: result.token.id });
+      this.clearDonationForm();
+
+      fetch('https://midnight-prophet-api.herokuapp.com/donation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
+      })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        this.hideDonationModal();
+        throw new Error(res.statusText);
+      })
+      .then(() => {
+        this.handleSuccess();
+        this.card.clear();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    } else if (result.error) {
+      errorElement.textContent = result.error.message;
+      errorElement.classList.add('visible');
     }
   }
 
@@ -91,121 +131,193 @@ class StripeJS extends React.Component {
     event.preventDefault();
     const formIsValid = this.validateForm();
 
-    if(formIsValid) {
+    if (formIsValid) {
+      this.showDonationModal();
       this.stripe.createToken(this.card).then(this.setOutcome);
     }
   }
 
-  setOutcome(result) {
-    var errorElement = document.querySelector('.error');
-    errorElement.classList.remove('visible');
-
-    if (result.token) {
-      const customerDetails = this.state.customerDetails;
-      const payload = JSON.stringify({customerDetails: customerDetails, token: result.token.id});
-
-      // fetch('https://midnight-prophet-api.herokuapp.com/donate', {
-      fetch('/donate', {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: payload
-      }).then(res => {
-        if(res.ok) { return res.json(); }
-      }).then(json => {
-        console.log('the json', json);
-        this.handleSuccess();
-        this.card.clear();
-      })
-    } else if (result.error) {
-      errorElement.textContent = result.error.message;
-      errorElement.classList.add('visible');
-    }
-  }
-
   validateForm() {
-    let isValid = true
+    let isValid = true;
     const formInputs = Object.keys(this.state.valid);
     const validated = {
-      name: true, phone: true, email: true, amount: true, address: true, city: true, state: true, country: true, zipcode: true  }
-  
-    formInputs.map(input => this.state.customerDetails[input] ? validated[input] = true : (validated[input] = false, isValid=false) )
-    isNaN(this.state.customerDetails.amount) ? (validated.amount = false, isValid=false) : validated.amount[true]
+      name: true,
+      phone: true,
+      email: true,
+      amount: true,
+      address: true,
+      city: true,
+      state: true,
+      country: true,
+      zipcode: true,
+    };
 
-    this.setState({valid: validated})
-    return isValid
+    formInputs.forEach((input) => {
+      if (this.state.customerDetails[input]) {
+        validated[input] = true;
+      } else {
+        validated[input] = false;
+        isValid = false;
+      }
+    });
+
+    if (isNaN(this.state.customerDetails.amount)) {
+      console.log('validate form - true');
+      validated.amount = false;
+      isValid = false;
+    } else {
+      validated.amount = true;
+    }
+
+    this.setState({ valid: validated });
+    return isValid;
   }
 
   handleChange(event) {
     const update = {};
     update[event.target.name] = event.target.value;
-    this.setState({customerDetails: Object.assign({}, this.state.customerDetails, update)});
+    this.setState({ customerDetails: Object.assign({}, this.state.customerDetails, update) });
   }
 
-
   handleSuccess() {
-    this.setState({success: true});
+    this.hideDonationModal();
+    this.setState({ success: true });
   }
 
   handleDismiss() {
-    this.setState({success:false});
+    this.setState({ success: false });
   }
-  
-  render() {
-    console.log(this.state)
 
-    const { valid } = this.state
+  showDonationModal() {
+    this.setState({ showDonationSpinner: true });
+  }
+
+  hideDonationModal() {
+    this.setState({ showDonationSpinner: false });
+  }
+
+  clearDonationForm() {
+    const customerDetails = {
+      name: '',
+      phone: '',
+      email: '',
+      amount: '',
+      address: '',
+      addressTwo: '',
+      city: '',
+      state: '',
+      country: '',
+      zipcode: '',
+    };
+
+    this.setState({ customerDetails });
+  }
+
+  render() {    
+    const { valid } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="group">
           <label>
             <span>Name</span>
-            <input name="name" className="field" placeholder="Jane Doe" onChange={this.handleChange}/>
+            <input
+              name="name"
+              className="field"
+              placeholder="Jane Doe"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.name} />
           </label>
           <div className={valid.name ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Phone</span>
-            <input name="phone" className="field" placeholder="(123) 456-7890" type="tel" onChange={this.handleChange}/>
+            <input
+              name="phone"
+              className="field"
+              placeholder="(123) 456-7890"
+              type="tel"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.phone} />
           </label>
           <div className={valid.phone ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Email</span>
-            <input name="email" className="field" placeholder="jane.doe@gmail.com" onChange={this.handleChange}/>
+            <input
+              name="email"
+              className="field"
+              placeholder="jane.doe@gmail.com"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.email} />
           </label>
           <div className={valid.email ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Amount</span>
-            <input name="amount" className="field" placeholder="$100.00 (USD)" onChange={this.handleChange}/>
+            <input
+              name="amount"
+              className="field"
+              placeholder="$100.00 (USD)"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.amount} />
           </label>
           <div className={valid.amount ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           </div>
           <div className="group">
           <label>
             <span>Address 1</span>
-            <input name="address" className="field" placeholder="Street" onChange={this.handleChange}/>
+            <input
+              name="address"
+              className="field"
+              placeholder="Street"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.address} />
           </label>
           <div className={valid.address ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Address 2</span>
-            <input name="addressTwo" className="field" placeholder="Apt, Suite (optional)" onChange={this.handleChange}/>
+            <input
+              name="addressTwo"
+              className="field"
+              placeholder="Apt, Suite (optional)"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.addressTwo} />
           </label>
           <label>
             <span>City</span>
-            <input name="city" className="field" placeholder="Los Angeles" onChange={this.handleChange}/>
+            <input
+              name="city"
+              className="field"
+              placeholder="Los Angeles"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.city} />
           </label>
           <div className={valid.city ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>State/Province</span>
-            <input name="state" className="field" placeholder="California" onChange={this.handleChange}/>
+            <input
+              name="state"
+              className="field"
+              placeholder="California"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.state} />
           </label>
           <div className={valid.state ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Country</span>
-            <input name="country" className="field" placeholder="United States" onChange={this.handleChange}/>
+            <input
+              name="country"
+              className="field"
+              placeholder="United States"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.country} />
           </label>
           <div className={valid.country ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
           <label>
             <span>Zip/Postal</span>
-            <input name="zipcode" className="field" placeholder="90001" onChange={this.handleChange}/>
+            <input
+              name="zipcode"
+              className="field"
+              placeholder="90001"
+              onChange={this.handleChange}
+              value={this.state.customerDetails.zipcode} />
           </label>
           <div className={valid.zipcode ? 'invalid-hidden' : "invalid-msg"}>This field is required</div>
         </div>
@@ -226,6 +338,18 @@ class StripeJS extends React.Component {
               onClick={this.handleDismiss} >Thanks for your support! </Message>
           </div>
         </div>
+        {this.state.showDonationSpinner && (
+          <div className="donation-loading-overlay">
+            <div className="donation-loading-spinner">
+              <p>Donation Processing...</p>
+              <div className="fading-circle-container">
+                <FadingCircle
+                  size={50}
+                  color={'white'} />
+              </div>
+            </div>
+          </div>
+        )}
         <style jsx>{`
           * {
               font-size: 15px;
@@ -361,6 +485,36 @@ class StripeJS extends React.Component {
 
             .invalid-hidden {
               display: none;
+            }
+
+            .donation-loading-overlay {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100vh
+              background-color: rgba(0,0,0,.7);
+            }
+
+            .donation-loading-spinner {
+              position: relative;
+              top: 50%;
+              transform: translateY(-50%);
+              color: white;
+              text-align: center;
+            }
+
+            .donation-loading-spinner > p {
+              font-size: 22px;
+              font-weight: 200;
+              margin-bottom: 10px;
+            }
+
+            .fading-circle-container {
+              width:50%;
+              position: relative;
+              left: 50%;
+              transform: translateX(-25px);
             }
 
             @media (max-width: 768px) {
