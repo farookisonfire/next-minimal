@@ -55,7 +55,7 @@ class StripeJS extends Component {
     };
 
     this.onLoadSuccess = () => {
-      this.stripe = Stripe('pk_live_ZWJ5nr4iDOKdZFCuma0FRXPg');
+      this.stripe = Stripe('pk_live_ViDmnAdk2mjsZIrs538EBilJ');
 
       const elements = this.stripe.elements();
       this.card = elements.create('card', { style });
