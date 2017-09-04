@@ -7,7 +7,6 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const stripe = require('stripe')('sk_test_6m55BYyH2L1xa7j9uboViaNq');
-// var stripe = require("stripe")("sk_live_ClIe0Q5iha7rh6vPPLyO2zce");
 
 function handleCharge(req, res) {
   const { customerDetails, token } = req.body;
