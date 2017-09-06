@@ -37,21 +37,12 @@ class Navbar extends Component {
   }
 
   render() {
-    const offCanvas = this.props.pageName;
-
     const NavIconWhite = (
       <Icon
         size="big"
         name="content"
         inverted
         color="grey"
-        onClick={this.handleMobileIconClick} />
-    );
-
-    const NavIconBlack = (
-      <Icon
-        size="big"
-        name="content"
         onClick={this.handleMobileIconClick} />
     );
 
@@ -95,9 +86,13 @@ class Navbar extends Component {
     );
 
     const MobileNav = MobileNavOpen;
+    const {
+      pageName = '',
+    } = this.props;
+    const isHome = pageName === '/';
 
     return (
-      <div className="navbar" style={{ backgroundColor: 'rgb(31,30,29)' }}>
+      <div className={isHome ? 'navbar' : 'navbar-dark'}>
         <div className="navbar-elements">
           <a href="/">
             <img alt="heart" className="nav-logo" src="https://s3.amazonaws.com/minimal-spaces/single-heart-icon_9_3_17.png" />
@@ -105,17 +100,17 @@ class Navbar extends Component {
           <ul className="nav-items">
             <li className="nav-item">
               <Link href="/admissions" >
-                <a className={offCanvas === '/admissions' ? 'nav-link-dark active' : 'nav-link-dark'}> Admissions </a>
+                <a className={pageName === '/admissions' ? 'nav-link-dark active' : 'nav-link-dark'}> Admissions </a>
               </Link>
             </li>
             <li className="nav-item">
               <Link href="/learn">
-                <a className={offCanvas === '/learn' ? 'nav-link-dark active' : 'nav-link-dark'}> Learn More </a>
+                <a className={pageName === '/learn' ? 'nav-link-dark active' : 'nav-link-dark'}> Learn More </a>
               </Link>
             </li>
             <li className="nav-item">
               <Link href="/donate">
-                <a className={offCanvas === '/donate' ? 'nav-link-dark active' : 'nav-link-dark'}> Donate </a>
+                <a className={pageName === '/donate' ? 'nav-link-dark active' : 'nav-link-dark'}> Donate </a>
               </Link>
             </li>
           </ul>
@@ -145,6 +140,16 @@ class Navbar extends Component {
         </div>
         <style jsx>{`
           .navbar {
+            background-color: rgba(31,30,29,.5);
+            margin-top: 0;
+            position: absolute;
+            padding-top: 5px;
+            width: 100%;
+            top: 0;
+          }
+
+          .navbar-dark {
+            background-color: rgb(31,30,29);
             margin-top: 0;
             position: absolute;
             padding-top: 5px;
