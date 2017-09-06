@@ -8,7 +8,7 @@ import HomePage from '../components/homepage/HomePage';
 class Landing extends Component {
   render() {
     return (
-      <Layout>
+      <Layout pageName={this.props.url.pathname}>
         <HomePage />
       </Layout>
     );
