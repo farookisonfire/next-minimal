@@ -75,7 +75,7 @@ class Navbar extends Component {
               <Link href="/donate"><a style={mobileNavLink}>Donate</a></Link>
             </li>
             <li style={mobileNavLinkContainer}>
-              <a style={mobileNavLink} href="https://oneheartsource.typeform.com/to/OOuoFa?refcode=webadmissions">Apply Now</a>
+              <a style={mobileNavLink} href="https://oneheartsource.typeform.com/to/tU0wcN?refcode=webhome">Apply Now</a>
             </li>
             <li style={mobileNavLinkContainer}>
               <Link href="/contact"><a style={mobileNavLink}>Contact</a></Link>
@@ -121,7 +121,7 @@ class Navbar extends Component {
           </ul>
           <ul className="navbar-apply">
             <li>
-              <a href="https://oneheartsource.typeform.com/to/OOuoFa?refcode=webadmissions" className="navbar-apply-now">Apply Now</a>
+              <a href="https://oneheartsource.typeform.com/to/tU0wcN?refcode=webhome" className="navbar-apply-now">Apply Now</a>
             </li>
           </ul>
         </div>
