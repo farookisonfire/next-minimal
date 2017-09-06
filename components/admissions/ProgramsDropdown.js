@@ -2,16 +2,15 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 
 const programs = [
-  { key: 'youthEmpowerment', value: 'youthEmpowerment', text: 'Youth Empowerment' },
+  { key: 'education', value: 'education', text: 'Education & International Development' },
   { key: 'healthInnovation', value: 'healthInnovation', text: 'Health Innovation' },
-  { key: 'education', value: 'education', text: 'Education' },
 ];
 
 const ProgramsDropdown = ({ onProgramSelect }) => (
   <div className="admissions-programs-dropdown">
     <Dropdown
       onChange={onProgramSelect}
-      defaultValue="youthEmpowerment"
+      defaultValue="education"
       search={false}
       selection
       options={programs} />
