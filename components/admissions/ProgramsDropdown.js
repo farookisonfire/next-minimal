@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 
 const programs = [
-  { key: 'education', value: 'education', text: 'Education & International Development' },
+  { key: 'serve', value: 'serve', text: 'Serve a Million' },
   { key: 'healthInnovation', value: 'healthInnovation', text: 'Health Innovation' },
 ];
 
@@ -10,7 +10,7 @@ const ProgramsDropdown = ({ onProgramSelect }) => (
   <div className="admissions-programs-dropdown">
     <Dropdown
       onChange={onProgramSelect}
-      defaultValue="education"
+      defaultValue="serve"
       search={false}
       selection
       options={programs} />

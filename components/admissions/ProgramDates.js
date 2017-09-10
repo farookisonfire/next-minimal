@@ -15,6 +15,8 @@ const sortByLength = (programs, length, selectedProgram) => {
   }
 
   function makeTable(programDates, header){
+
+    console.log('``````program dates', programDates);
     return (
       <div className="program-dates-tables">
         <Table compact collapsing textAlign='center' basic='very' columns={1}  size="small">

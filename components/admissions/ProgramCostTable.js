@@ -8,8 +8,8 @@ const programs = [
   { id: 3, value: 'youthEmpowerment', text: 'Youth Empowerment', length: '4 week', cost: '$5000' },
   { id: 4, value: 'healthInnovation', text: 'Health Innovation', length: '2 week', cost: '$3800' },
   { id: 5, value: 'healthInnovation', text: 'Health Innovation', length: '4 week', cost: '$5400' },
-  { id: 6, value: 'education', text: 'Education & Int\'l Development', length: '2 week', cost: '$3400' },
-  { id: 7, value: 'education', text: 'Education & Int\'l Development', length: '4 week', cost: '$5000' },
+  { id: 6, value: 'serve', text: 'Serve a Million', length: '2 week', cost: '$3400' },
+  { id: 7, value: 'serve', text: 'Serve a Million', length: '4 week', cost: '$5000' },
 ];
 
 const ProgramCostTable = ({ selectedProgram }) => {
