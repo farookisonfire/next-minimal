@@ -10,7 +10,7 @@ class Admissions extends Component {
     super();
 
     this.state = {
-      selectedProgram: 'education',
+      selectedProgram: 'serve',
     };
 
     this.onChange = this.onChange.bind(this);
@@ -23,7 +23,7 @@ class Admissions extends Component {
   render() {
     return (
       <div>
-        <div className="admissions-header-background">
+        <div>
           <div className="admissions-top">
             <AdmissionsHeader />
           </div>
@@ -41,13 +41,6 @@ class Admissions extends Component {
           margin-left: auto;
           margin-right: auto;
           padding-top: 100px;
-          }
-
-          .admissions-header-background {
-          background-image: url('https://s3.amazonaws.com/minimal-spaces/cape-sunset.jpeg');
-          background-size: cover;
-          background-position: center;
-          height: 300px;
           }
         `}</style>
       </div>

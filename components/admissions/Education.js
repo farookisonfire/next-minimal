@@ -14,7 +14,7 @@ const Education = (props) => {
   return (
     <div>
       <div className="admissions-programs-header">
-        <h1>Education & International Development</h1>
+        <h1>Serve a Million</h1>
         <p>Designed for university undergraduate and postgraduate students interested in the art of teaching, OHS Education is our newest specialization. All OHS programs have a strong education-based component; the OHS Education program takes this to the next level. Members will engage with both theory and practice, developing themselves as culturally sensitive and responsive teachers, while exploring education as a driver for social change. Development of OHS Education is led by OHS staff with and Dr. Tabetha Bernstein of Kutztown University. </p>
       </div>
       <EducationCircles />
