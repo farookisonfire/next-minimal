@@ -5,7 +5,8 @@ module.exports = {
       '/admissions': { page: '/admissions' },
       '/learn': { page: '/learn' },
       '/contact': { page: '/contact' },
-      '/donate': { page: '/donate' }
+      '/donate': { page: '/donate' },
+      '/secure': { page: '/secure' },
     };
-  }
+  },
 };
