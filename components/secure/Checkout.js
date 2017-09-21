@@ -9,14 +9,9 @@ const Checkout = (props) => {
   } = props;
 
   const onToken = (token) => {
-
-    const tokenString = JSON.stringify(token);
-    
-    console.log('token: ', token, tokenString);
-
     fetch(`${PAYMENT_SERVER_URL}/secure/${id}`, {
       method: 'POST',
-      body: tokenString,
+      body: JSON.stringify(token),
       headers: { 'Content-Type': 'application/json' },
     })
     .then(response => response.json())

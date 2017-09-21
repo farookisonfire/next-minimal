@@ -12,7 +12,7 @@ const SecureHeader = (props) => {
         <Divider />
       </div>
       <div className="secure-subheader">
-        <h1>We can't wait to meet you, {name}!</h1>
+        <h1>{`We can't wait to meet you, ${name}!`}</h1>
         <p>When you donate to One Heart Source, you are supporting our mission to eliminate poverty through high quality global initiatives focused on education and health. We appreciate your support!</p>
       </div>
       <style jsx>{`
