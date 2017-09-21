@@ -5,7 +5,6 @@ import { Message } from 'semantic-ui-react';
 import 'whatwg-fetch';
 import { FadingCircle } from 'better-react-spinkit';
 
-
 class StripeJS extends Component {
   constructor() {
     super();
