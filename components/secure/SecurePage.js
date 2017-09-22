@@ -17,7 +17,7 @@ const SecurePage = (props) => {
           </div>
         </div>
       </div>
-      <div className="secure-form-container">
+      <div className="secure-payment-container">
         <Checkout />
       </div>
       <Footer />
@@ -44,10 +44,14 @@ const SecurePage = (props) => {
           padding-top: 24px;
         }
 
-        .secure-form-container {
+        .secure-payment-container {
           width: 100%;
           padding: 40px;
           text-align: center;
+        }
+
+        .secure-payment-container span {
+          display: none; !important
         }
       `}</style>
     </div>

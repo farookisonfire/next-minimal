@@ -2,7 +2,7 @@ import { Divider } from 'semantic-ui-react';
 
 const SecureHeader = (props) => {
   const {
-    name,
+    name = '',
   } = props;
 
   return (

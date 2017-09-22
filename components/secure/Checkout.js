@@ -32,7 +32,8 @@ const Checkout = (props) => {
       billingAddress
       allowRememberMe={false}
       token={onToken}
-      stripeKey={STRIPE_PUBLISHABLE} />
+      stripeKey={STRIPE_PUBLISHABLE}
+      style={{ width: 400, backgroundColor: 'red', background: 'yellow' }} />
   );
 };
 
