@@ -2,7 +2,7 @@ import { Divider } from 'semantic-ui-react';
 
 const SecureHeader = (props) => {
   const {
-    name,
+    name = '',
   } = props;
 
   return (
@@ -13,7 +13,7 @@ const SecureHeader = (props) => {
       </div>
       <div className="secure-subheader">
         <h1>{`We can't wait to meet you, ${name}!`}</h1>
-        <p>When you donate to One Heart Source, you are supporting our mission to eliminate poverty through high quality global initiatives focused on education and health. We appreciate your support!</p>
+        <p>Every year One Heart Source brings together a talented network of <strong>university students</strong> and <strong>young professionals</strong> in communities abroad to participate in <strong>transformational experiential learning</strong> programs. We are excited to welcome you to our global team!</p>
       </div>
       <style jsx>{`
       .secure-header h1 {
