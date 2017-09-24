@@ -5,11 +5,13 @@ import Checkout from './Checkout';
 import Footer from '../footer/Footer';
 import DropDown from '../shared/DropDown';
 import CheckBox from '../shared/CheckBox';
+import ParticipationAgreementModal from './ParticipationAgreementModal';
+import ProgramFeeList from './ProgramFeeList';
 import {
   SELECT_PROGRAM,
   HEALTH_PROGRAM_TYPE_ID,
 } from '../../lib/constants';
-import ParticipationAgreementModal from './ParticipationAgreementModal';
+
 
 class SecurePage extends Component {
   constructor() {
@@ -58,6 +60,7 @@ class SecurePage extends Component {
       name,
       programs,
       programTypeId,
+      programFees,
     } = this.props;
 
     const {
@@ -70,6 +73,30 @@ class SecurePage extends Component {
       'Health Innovation' :
       'Serve a Million';
 
+    let programMatch;
+
+    if (selectedProgramId) {
+      programMatch = programs.filter((program) => {
+        return program.id === selectedProgramId;
+      });
+    }
+
+    const selectedProgram = programMatch && programMatch.length ?
+      programMatch[0] :
+      {};
+
+    const {
+      length = '',
+    } = selectedProgram;
+
+    let programFee;
+
+    if (length === '4 week') {
+      programFee = programFees.fourWeek;
+    } else if (length === '2 week') {
+      programFee = programFees.twoWeek;
+    }
+
     return (
       <div>
         <div className="secure-top">
@@ -80,7 +107,7 @@ class SecurePage extends Component {
             <Grid.Row>
               <Grid.Column>
                 <Icon size="big" name="lock" />
-                <h4>Select Your Program Dates</h4>
+                <h4>1. Select Your Program Dates</h4>
                 <h2>{dropDownTitle}</h2>
                 <DropDown
                   fields={programs}
@@ -94,14 +121,17 @@ class SecurePage extends Component {
                 <Icon size="big" name="globe" />
                 <div>
                   <div className="secure-your-position-container">
-                    <h4>Secure Your Position</h4>
+                    <h4>2. Secure Your Position</h4>
                     <div className="checkbox-container">
                       <CheckBox onCheckHandler={this.handleCheckParticipationAgreement} />
                       <span className="participation-agreement-modal-container">
                         <ParticipationAgreementModal />
                       </span>
                     </div>
-                    <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>*Required: Read and Agree</p>
+                    <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
+                      *Required: Read and Agree
+                    </p>
+                    <ProgramFeeList programFee={programFee} />
                   </div>
                   <Checkout
                     validate={this.validate}
@@ -145,7 +175,7 @@ class SecurePage extends Component {
 
           h2 {
             margin-top: 0;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
           }
 
           h4 {
