@@ -4,7 +4,6 @@ const DisabledButton = (props) => {
     buttonText = 'Disabled',
   } = props;
 
-  console.log(clickHandler)
   return (
     <div>
       <button

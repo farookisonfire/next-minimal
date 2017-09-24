@@ -14,12 +14,10 @@ class ParticipationAgreementModal extends Component {
   }
 
   openModal() {
-    console.log('open modal called')
     this.setState({ open: true });
   }
 
   closeModal() {
-    console.log('close modal called')
     this.setState({ open: false });
   }
 

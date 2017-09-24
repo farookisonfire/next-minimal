@@ -9,7 +9,6 @@ import {
   SELECT_PROGRAM,
   HEALTH_PROGRAM_TYPE_ID,
 } from '../../lib/constants';
-// import { participationAgreement } from './participationAgreement';
 import ParticipationAgreementModal from './ParticipationAgreementModal';
 
 class SecurePage extends Component {
@@ -70,14 +69,6 @@ class SecurePage extends Component {
     const dropDownTitle = programTypeId === HEALTH_PROGRAM_TYPE_ID ?
       'Health Innovation' :
       'Serve a Million';
-
-    // const createParticipationAgreement = () => {
-    //   return { __html: participationAgreement };
-    // };
-
-    // const ParticipationAgreement = () => {
-    //   return <div dangerouslySetInnerHTML={createParticipationAgreement()} />;
-    // };
 
     return (
       <div>
@@ -207,5 +198,3 @@ class SecurePage extends Component {
 }
 
 export default SecurePage;
-
-// <iframe src="https://drive.google.com/file/d/0BzbaS_y-z_nwa1ZBUF8wSTV1bXM/preview" width="640" height="480"></iframe>
