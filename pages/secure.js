@@ -40,21 +40,30 @@ class Secure extends Component {
   render() {
     const {
       programs = [],
+      programFees = {},
     } = this.props;
 
     const {
+      fn = '',
+      userId = '',
       programTypeId = '',
     } = this.state;
 
     const programDatesToRender = programs.filter(program => program.value === programTypeId);
+    const programFeesToUse = programFees[programTypeId];
 
     return (
       <Layout>
-        <SecurePage
-          userId={this.state.userId}
-          name={this.state.fn}
-          programs={programDatesToRender}
-          programTypeId={this.state.programTypeId} />
+        {fn && userId && programTypeId ?
+        (
+          <SecurePage
+            userId={this.state.userId}
+            name={this.state.fn}
+            programs={programDatesToRender}
+            programTypeId={this.state.programTypeId}
+            programFees={programFeesToUse} />) :
+          null
+          }
       </Layout>
     );
   }

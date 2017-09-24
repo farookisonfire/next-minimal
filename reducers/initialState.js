@@ -1,41 +1,56 @@
 import {
   HEALTH_PROGRAM_TYPE_ID,
   SERVE_PROGRAM_TYPE_ID,
+  HEALTH_2_WEEK_FEE,
+  HEALTH_4_WEEK_FEE,
+  SERVE_2_WEEK_FEE,
+  SERVE_4_WEEK_FEE,
 } from '../lib/constants';
 
+export const programFees = {
+  healthInnovation: {
+    twoWeek: HEALTH_2_WEEK_FEE,
+    fourWeek: HEALTH_4_WEEK_FEE,
+  },
+  serve: {
+    twoWeek: SERVE_2_WEEK_FEE,
+    fourWeek: SERVE_4_WEEK_FEE,
+  },
+};
+
 export const programs = [
-  // {
-  //   id: 1,
-  //   value: SERVE_PROGRAM_TYPE_ID,
-  //   type: 'Serve a Million',
-  //   length: '4 week',
-  //   date: 'May 21 - June 15',
-  //   enrolled: 0,
-  // },
-  // {
-  //   id: 2,
-  //   value: SERVE_PROGRAM_TYPE_ID,
-  //   type: 'Serve a Million',
-  //   length: '4 week',
-  //   date: 'June 18 - July 13',
-  //   enrolled: 0,
-  // },
-  // {
-  //   id: 3,
-  //   value: SERVE_PROGRAM_TYPE_ID,
-  //   type: 'Serve a Million',
-  //   length: '4 week',
-  //   date: 'July 16 - August 10',
-  //   enrolled: 0,
-  // },
-  // {
-  //   id: 4,
-  //   value: SERVE_PROGRAM_TYPE_ID,
-  //   type: 'Serve a Million',
-  //   length: '4 week',
-  //   date: 'July 30 - August 24',
-  //   enrolled: 0,
-  // },
+  {
+    id: 1,
+    value: SERVE_PROGRAM_TYPE_ID,
+    type: 'Serve a Million',
+    length: '4 week',
+    date: 'May 21 - June 15',
+    enrolled: 0,
+  },
+  {
+    id: 2,
+    value: SERVE_PROGRAM_TYPE_ID,
+    type: 'Serve a Million',
+    length: '4 week',
+    date: 'June 18 - July 13',
+    enrolled: 0,
+  },
+  {
+    id: 3,
+    value: SERVE_PROGRAM_TYPE_ID,
+    type: 'Serve a Million',
+    length: '4 week',
+    date: 'July 16 - August 10',
+    enrolled: 0,
+  },
+  {
+    id: 4,
+    value: SERVE_PROGRAM_TYPE_ID,
+    type: 'Serve a Million',
+    length: '4 week',
+    date: 'July 30 - August 24',
+    enrolled: 0,
+  },
   // {
   //   id: 5,
   //   value: SERVE_PROGRAM_TYPE_ID,
