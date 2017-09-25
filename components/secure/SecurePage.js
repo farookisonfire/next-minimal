@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Grid, Icon } from 'semantic-ui-react';
+import { Grid, Icon, Message } from 'semantic-ui-react';
 import SecureHeader from './SecureHeader';
 import Checkout from './Checkout';
 import Footer from '../footer/Footer';
@@ -24,11 +24,19 @@ class SecurePage extends Component {
         selectedProgramId: true,
         checked: true,
       },
+      paymentSuccess: false,
+      paymentFail: false,
     };
 
     this.handleSelectProgramDropdown = this.handleSelectProgramDropdown.bind(this);
     this.handleCheckParticipationAgreement = this.handleCheckParticipationAgreement.bind(this);
     this.validate = this.validate.bind(this);
+    this.handlePaymentSuccess = this.handlePaymentSuccess.bind(this);
+    this.handlePaymentFail = this.handlePaymentFail.bind(this);
+    this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
+    this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
+
+
   }
   handleSelectProgramDropdown(e, data) {
     const { value = '' } = data;
@@ -52,6 +60,22 @@ class SecurePage extends Component {
 
     this.setState({ errors: errorsClone });
     return checked && selectedProgramId && userId;
+  }
+
+  handlePaymentSuccess() {
+    this.setState({ paymentSuccess: true });
+  }
+
+  handlePaymentSuccessDismiss() {
+    this.setState({ paymentSuccess: false });
+  }
+
+  handlePaymentFail() {
+    this.setState({ paymentFail: true });
+  }
+
+  handlePaymentFailDismiss() {
+    this.setState({ paymentFail: false });
   }
 
   render() {
@@ -137,7 +161,8 @@ class SecurePage extends Component {
                     validate={this.validate}
                     userId={userId}
                     selectedProgramId={this.state.selectedProgramId}
-                    checked={this.state.checked} />
+                    checked={this.state.checked}
+                    handlePaymentSuccess={this.handlePaymentSuccess} />
                   <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
                 </div>
               </Grid.Column>
@@ -145,7 +170,20 @@ class SecurePage extends Component {
           </Grid>
           
           <div className="secure-payment-container">
-            
+            <Message
+              compact
+              color="green"
+              hidden={!this.state.paymentSuccess}
+              onClick={this.handlePaymentSuccessDismiss}>
+              Your position is secure! Our team will follow up via email with more details.
+            </Message>
+            <Message
+              compact
+              color="red"
+              hidden={!this.state.paymentFail}
+              onClick={this.handlePaymentFailDismiss}>
+              Payment not processed, please try again. If the problem persists reach out to us at admissions@oneheartsource.org.
+            </Message>
           </div>
         </div>
         <Footer />
