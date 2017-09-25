@@ -10,6 +10,8 @@ const Checkout = (props) => {
     selectedProgramId = '',
     validate = () => {},
     checked = false,
+    handlePaymentSuccess = () => {},
+    handlePaymentFail = () => {},
   } = props;
 
   const onToken = (token) => {
@@ -24,8 +26,11 @@ const Checkout = (props) => {
       headers: { 'Content-Type': 'application/json' },
     })
     .then(response => response.json())
-    .then(data => console.log('we are in business', data))
-    .catch(err => console.log('we have an error:', err));
+    .then(() => handlePaymentSuccess())
+    .catch((err) => {
+      console.log('we have an error:', err);
+      return handlePaymentFail();
+    });
   };
 
   const isValid = userId && selectedProgramId && checked;
