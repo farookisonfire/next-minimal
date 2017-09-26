@@ -51,7 +51,7 @@ const Checkout = (props) => {
       stripeKey={STRIPE_PUBLISHABLE}
       style={{ width: 175 }} />) :
     (<DisabledButton
-      buttonText={'Secure Your Program'}
+      buttonText={'Secure Your Position'}
       clickHandler={validate} />);
 
   return (
