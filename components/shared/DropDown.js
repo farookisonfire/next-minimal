@@ -6,6 +6,8 @@ const DropDown = (props) => {
     onChangeHandler = () => {},
     fields = [],
     dropdownType = '',
+    fluid = false,
+    placeholder = '',
   } = props;
 
   const fieldsToUse = [];
@@ -21,8 +23,9 @@ const DropDown = (props) => {
 
   return (
     <Dropdown
+      placeholder={placeholder}
+      fluid={fluid}
       onChange={onChangeHandler}
-      defaultValue="serve"
       search={false}
       selection
       options={fieldsToUse} />

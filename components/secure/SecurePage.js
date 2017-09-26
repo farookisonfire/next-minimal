@@ -134,6 +134,8 @@ class SecurePage extends Component {
                 <h4>1. Select Your Program Dates</h4>
                 <h2>{dropDownTitle}</h2>
                 <DropDown
+                  placeholder={'Select Dates...'}
+                  fluid
                   fields={programs}
                   onChangeHandler={this.handleSelectProgramDropdown}
                   dropdownType={SELECT_PROGRAM} />
