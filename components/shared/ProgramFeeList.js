@@ -3,6 +3,7 @@ import { List } from 'semantic-ui-react';
 const ProgramFeeList = (props) => {
   const {
     programFee,
+    enrollmentFee = '',
   } = props;
 
   return (
@@ -14,7 +15,7 @@ const ProgramFeeList = (props) => {
       </List.Item>
       <List.Item>
         <List.Content>
-          <p>Due Today: $300</p>
+          <p>Due Today: ${enrollmentFee}</p>
         </List.Content>
       </List.Item>
     </List>

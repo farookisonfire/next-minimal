@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { PAYMENT_SERVER_URL, STRIPE_PUBLISHABLE } from '../../lib/constants';
-import DisabledButton from '../shared/DisabledButton';
+import DisabledButton from './DisabledButton';
 
 const Checkout = (props) => {
   const {
@@ -12,6 +12,8 @@ const Checkout = (props) => {
     checked = false,
     handlePaymentSuccess = () => {},
     handlePaymentFail = () => {},
+    renderStripeButton= 'false',
+    enrollmentFee= 300,
   } = props;
 
   const onToken = (token) => {
@@ -33,14 +35,12 @@ const Checkout = (props) => {
     });
   };
 
-  const isValid = userId && selectedProgramId && checked;
-
-  const buttonToUse = isValid ?
+  const buttonToUse = renderStripeButton ?
     (<StripeCheckout
       image={'https://s3.amazonaws.com/minimal-spaces/single-heart-icon_9_3_17.png'}
       name={'One Heart Source'}
       description={'Secure your position!'}
-      amount={300 * 100}
+      amount={enrollmentFee * 100}
       locale={'auto'}
       panelLabel={'Submit'}
       label={'Secure Your Position'}

@@ -5,6 +5,10 @@ import {
   HEALTH_4_WEEK_FEE,
   SERVE_2_WEEK_FEE,
   SERVE_4_WEEK_FEE,
+  FELLOWSHIP_HEALTH_2_WEEK_FEE,
+  FELLOWSHIP_HEALTH_4_WEEK_FEE,
+  FELLOWSHIP_SERVE_2_WEEK_FEE,
+  FELLOWSHIP_SERVE_4_WEEK_FEE,
 } from '../lib/constants';
 
 export const programFees = {
@@ -15,6 +19,16 @@ export const programFees = {
   serve: {
     twoWeek: SERVE_2_WEEK_FEE,
     fourWeek: SERVE_4_WEEK_FEE,
+  },
+  fellowship: {
+    healthInnovation: {
+      twoWeek: FELLOWSHIP_HEALTH_2_WEEK_FEE,
+      fourWeek: FELLOWSHIP_HEALTH_4_WEEK_FEE,
+    },
+    serve: {
+      twoWeek: FELLOWSHIP_SERVE_2_WEEK_FEE,
+      fourWeek: FELLOWSHIP_SERVE_4_WEEK_FEE,
+    },
   },
 };
 
@@ -140,3 +154,12 @@ export const programs = [
     enrolled: 0,
   },
 ];
+
+export const pageProfiles = {
+  fellowship: {
+    radioButtons: [
+      { label: 'Youth Empowerment', value: SERVE_PROGRAM_TYPE_ID },
+      { label: 'Health Innovation', value: HEALTH_PROGRAM_TYPE_ID },
+    ],
+  },
+};
