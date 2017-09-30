@@ -1,26 +1,26 @@
 import { Component } from 'react';
 import { Grid, Icon, Message } from 'semantic-ui-react';
-import SecureHeader from './SecureHeader';
+import FellowshipPaymentHeader from './FellowshipPaymentHeader';
 import Checkout from '../shared/Checkout';
 import Footer from '../footer/Footer';
 import DropDown from '../shared/DropDown';
 import CheckBox from '../shared/CheckBox';
 import ParticipationAgreementModal from '../shared/ParticipationAgreementModal';
 import ProgramFeeList from '../shared/ProgramFeeList';
+import RadioButtonGroup from '../shared/RadioButtonGroup';
 import {
   SELECT_PROGRAM,
-  HEALTH_PROGRAM_TYPE_ID,
-  ENROLLMENT_FEE,
+  FELLOWSHIP_ENROLLMENT_FEE,
 } from '../../lib/constants';
 
-
-class SecurePage extends Component {
+class FellowshipPaymentPage extends Component {
   constructor() {
     super();
 
     this.state = {
       selectedProgramId: '',
       checked: '',
+      selectedProgramType: 'serve',
       errors: {
         selectedProgramId: true,
         checked: true,
@@ -36,9 +36,9 @@ class SecurePage extends Component {
     this.handlePaymentFail = this.handlePaymentFail.bind(this);
     this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
     this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
-
-
+    this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
   }
+
   handleSelectProgramDropdown(e, data) {
     const { value = '' } = data;
     const selectedProgramId = value;
@@ -52,7 +52,6 @@ class SecurePage extends Component {
 
   validate() {
     const { checked = '', selectedProgramId } = this.state;
-    const { userId = '' } = this.props;
 
     const errorsClone = Object.assign({}, this.state.errors, {
       checked,
@@ -60,7 +59,7 @@ class SecurePage extends Component {
     });
 
     this.setState({ errors: errorsClone });
-    return checked && selectedProgramId && userId;
+    return checked && selectedProgramId;
   }
 
   handlePaymentSuccess() {
@@ -79,12 +78,23 @@ class SecurePage extends Component {
     this.setState({ paymentFail: false });
   }
 
+  handleRadioOnChange(e, data) {
+    this.setState({ selectedProgramType: data.value });
+  }
+
   render() {
     const {
-      userId,
+      fellowshipPageData = {},
+    } = this.props;
+
+    const {
+      radioButtons = [],
+    } = fellowshipPageData;
+
+
+    const {
       name,
       programs,
-      programTypeId,
       programFees,
     } = this.props;
 
@@ -92,11 +102,10 @@ class SecurePage extends Component {
       errors = {},
       selectedProgramId,
       checked,
+      selectedProgramType,
     } = this.state;
 
-    const dropDownTitle = programTypeId === HEALTH_PROGRAM_TYPE_ID ?
-      'Health Innovation' :
-      'Serve a Million';
+    const programsToRender = programs.filter(program => program.value === selectedProgramType);
 
     let programMatch;
 
@@ -117,29 +126,34 @@ class SecurePage extends Component {
     let programFee;
 
     if (length === '4 week') {
-      programFee = programFees.fourWeek;
+      programFee = programFees[selectedProgramType].fourWeek;
     } else if (length === '2 week') {
-      programFee = programFees.twoWeek;
+      programFee = programFees[selectedProgramType].twoWeek;
     }
 
-    const renderStripeButton = userId && selectedProgramId && checked;
+    const renderStripeButton = checked && selectedProgramId;
 
     return (
       <div>
-        <div className="secure-top">
-          <SecureHeader name={name} />
+        <div className="fellowship-payment-top">
+          <FellowshipPaymentHeader name={name} />
         </div>
-        <div className="secure-actions">
+        <div className="fellowship-payment-actions">
           <Grid stackable columns={2}>
             <Grid.Row>
               <Grid.Column>
                 <Icon size="big" name="lock" />
-                <h4>1. Select Your Program Dates</h4>
-                <h2>{dropDownTitle}</h2>
+                <h4>1. Select Your Program and Dates</h4>
+                <div className="radio-button-group">
+                  <RadioButtonGroup
+                    buttons={radioButtons}
+                    selectedProgramType={selectedProgramType}
+                    handleRadioOnChange={this.handleRadioOnChange} />
+                </div>
                 <DropDown
                   placeholder={'Select Dates...'}
                   fluid
-                  fields={programs}
+                  fields={programsToRender}
                   onChangeHandler={this.handleSelectProgramDropdown}
                   dropdownType={SELECT_PROGRAM} />
                 <p className={selectedProgramId || errors.selectedProgramId ? 'error-text-default' : 'error-text-visible'}>
@@ -161,24 +175,22 @@ class SecurePage extends Component {
                       *Required: Read and Agree
                     </p>
                     <ProgramFeeList
-                      enrollmentFee={ENROLLMENT_FEE}
+                      enrollmentFee={FELLOWSHIP_ENROLLMENT_FEE}
                       programFee={programFee} />
                   </div>
                   <Checkout
                     validate={this.validate}
-                    userId={userId}
                     selectedProgramId={this.state.selectedProgramId}
                     checked={this.state.checked}
                     handlePaymentSuccess={this.handlePaymentSuccess}
                     renderStripeButton={renderStripeButton}
-                    enrollmentFee={ENROLLMENT_FEE} />
-                  <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
+                    enrollmentFee={FELLOWSHIP_ENROLLMENT_FEE} />
                 </div>
               </Grid.Column>
             </Grid.Row>
           </Grid>
           
-          <div className="secure-payment-container">
+          <div className="fellowship-payment-container">
             <Message
               compact
               color="green"
@@ -197,7 +209,7 @@ class SecurePage extends Component {
         </div>
         <Footer />
         <style jsx>{`
-          .secure-top {
+          .fellowship-payment-top {
             width: 85%;
             margin-left: auto;
             margin-right: auto;
@@ -205,13 +217,13 @@ class SecurePage extends Component {
             margin-bottom: 50px;
           }
 
-          .secure-payment-container {
+          .fellowship-payment-container {
             width: 100%;
             padding: 40px;
             text-align: center;
           }
 
-          .secure-actions {
+          .fellowship-payment-actions {
             text-align: center;
             margin-left: auto;
             margin-right: auto;
@@ -263,6 +275,10 @@ class SecurePage extends Component {
             margin-bottom: 8px;
           }
 
+          .radio-button-group {
+            margin-bottom: 32px;
+          }
+
           @media (max-width: 768px) {
             .secure-actions {
               width: 95%; 
@@ -274,4 +290,4 @@ class SecurePage extends Component {
   }
 }
 
-export default SecurePage;
+export default FellowshipPaymentPage;
