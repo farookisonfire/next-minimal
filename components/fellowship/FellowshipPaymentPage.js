@@ -13,7 +13,7 @@ import {
   FELLOWSHIP_ENROLLMENT_FEE,
 } from '../../lib/constants';
 
-class SecurePage extends Component {
+class FellowshipPaymentPage extends Component {
   constructor() {
     super();
 
@@ -52,7 +52,6 @@ class SecurePage extends Component {
 
   validate() {
     const { checked = '', selectedProgramId } = this.state;
-    const { userId = '' } = this.props;
 
     const errorsClone = Object.assign({}, this.state.errors, {
       checked,
@@ -60,7 +59,7 @@ class SecurePage extends Component {
     });
 
     this.setState({ errors: errorsClone });
-    return checked && selectedProgramId && userId;
+    return checked && selectedProgramId;
   }
 
   handlePaymentSuccess() {
@@ -136,10 +135,10 @@ class SecurePage extends Component {
 
     return (
       <div>
-        <div className="secure-top">
+        <div className="fellowship-payment-top">
           <FellowshipPaymentHeader name={name} />
         </div>
-        <div className="secure-actions">
+        <div className="fellowship-payment-actions">
           <Grid stackable columns={2}>
             <Grid.Row>
               <Grid.Column>
@@ -191,7 +190,7 @@ class SecurePage extends Component {
             </Grid.Row>
           </Grid>
           
-          <div className="secure-payment-container">
+          <div className="fellowship-payment-container">
             <Message
               compact
               color="green"
@@ -210,7 +209,7 @@ class SecurePage extends Component {
         </div>
         <Footer />
         <style jsx>{`
-          .secure-top {
+          .fellowship-payment-top {
             width: 85%;
             margin-left: auto;
             margin-right: auto;
@@ -218,13 +217,13 @@ class SecurePage extends Component {
             margin-bottom: 50px;
           }
 
-          .secure-payment-container {
+          .fellowship-payment-container {
             width: 100%;
             padding: 40px;
             text-align: center;
           }
 
-          .secure-actions {
+          .fellowship-payment-actions {
             text-align: center;
             margin-left: auto;
             margin-right: auto;
@@ -291,4 +290,4 @@ class SecurePage extends Component {
   }
 }
 
-export default SecurePage;
+export default FellowshipPaymentPage;

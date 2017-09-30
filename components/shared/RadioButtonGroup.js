@@ -23,12 +23,12 @@ const RadioButtonGroup = (props) => {
         value={value}
         onChange={handleRadioOnChange}
         checked={checked}
-        style={{ fontSize: 12 }} />
+        style={{ fontSize: 12, margin: 8 }} />
     );
   });
 
   return (
-    <div >
+    <div>
       {buttonsToRender}
     </div>
   );
