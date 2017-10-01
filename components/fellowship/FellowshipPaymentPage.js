@@ -84,19 +84,16 @@ class FellowshipPaymentPage extends Component {
 
   render() {
     const {
+      name,
+      programs,
+      programFees,
       fellowshipPageData = {},
+      apiPath,
     } = this.props;
 
     const {
       radioButtons = [],
     } = fellowshipPageData;
-
-
-    const {
-      name,
-      programs,
-      programFees,
-    } = this.props;
 
     const {
       errors = {},
@@ -184,7 +181,9 @@ class FellowshipPaymentPage extends Component {
                     checked={this.state.checked}
                     handlePaymentSuccess={this.handlePaymentSuccess}
                     renderStripeButton={renderStripeButton}
-                    enrollmentFee={FELLOWSHIP_ENROLLMENT_FEE} />
+                    enrollmentFee={FELLOWSHIP_ENROLLMENT_FEE}
+                    apiPath={apiPath}
+                    name={name} />
                 </div>
               </Grid.Column>
             </Grid.Row>

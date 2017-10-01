@@ -86,6 +86,7 @@ class SecurePage extends Component {
       programs,
       programTypeId,
       programFees,
+      apiPath,
     } = this.props;
 
     const {
@@ -171,7 +172,8 @@ class SecurePage extends Component {
                     checked={this.state.checked}
                     handlePaymentSuccess={this.handlePaymentSuccess}
                     renderStripeButton={renderStripeButton}
-                    enrollmentFee={ENROLLMENT_FEE} />
+                    enrollmentFee={ENROLLMENT_FEE}
+                    apiPath={apiPath} />
                   <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
                 </div>
               </Grid.Column>

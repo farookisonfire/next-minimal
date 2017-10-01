@@ -157,6 +157,7 @@ export const programs = [
 
 export const pageProfiles = {
   fellowship: {
+    pagename: 'fellowship',
     radioButtons: [
       { label: 'Youth Empowerment', value: SERVE_PROGRAM_TYPE_ID },
       { label: 'Health Innovation', value: HEALTH_PROGRAM_TYPE_ID },
