@@ -12,6 +12,7 @@ class Fellowship extends Component {
 
     this.state = {
       fn: '',
+      ln: '',
     };
   }
 
@@ -24,10 +25,12 @@ class Fellowship extends Component {
     const parsed = queryString.parse(query);
     const {
       fn = '',
+      ln = '',
     } = parsed;
 
     this.setState({
       fn,
+      ln,
     });
   }
 
@@ -39,6 +42,7 @@ class Fellowship extends Component {
     } = this.props;
 
     const fellowshipPageData = pageProfiles.fellowship || {};
+    const { pagename } = fellowshipPageData;
     const fellowshipProgramFees = programFees.fellowship || {};
     const { fn = '' } = this.state;
 
@@ -47,10 +51,11 @@ class Fellowship extends Component {
         {fn ?
         (
           <FellowshipPaymentPage
-            name={this.state.fn}
+            name={{ fn: this.state.fn, ln: this.state.ln }}
             programs={programs}
             programFees={fellowshipProgramFees}
-            fellowshipPageData={fellowshipPageData} />) :
+            fellowshipPageData={fellowshipPageData}
+            apiPath={pagename} />) :
           null
           }
       </Layout>

@@ -1,9 +1,8 @@
 import { Divider } from 'semantic-ui-react';
 
 const FellowshipPaymentHeader = (props) => {
-  const {
-    name = '',
-  } = props;
+  const { name = '' } = props;
+  const { fn = '' } = name;
 
   return (
     <div>
@@ -13,7 +12,7 @@ const FellowshipPaymentHeader = (props) => {
       </div>
       <div className="fellowship-payment-subheader">
         <h1>Fellowship 2018</h1>
-        <p>{`Welcome back, ${name}! We are honored to have you on our global team once more.`}</p>
+        <p>{`Welcome back, ${fn}! We are honored to have you on our global team once more.`}</p>
       </div>
       <style jsx>{`
       .fellowship-payment-header h1 {

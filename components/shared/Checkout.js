@@ -14,15 +14,21 @@ const Checkout = (props) => {
     handlePaymentFail = () => {},
     renderStripeButton= 'false',
     enrollmentFee= 300,
+    apiPath = 'secure',
+    name = {},
   } = props;
+
+  console.log('APIPATH', apiPath);
 
   const onToken = (token) => {
     const payload = {
       token,
       selectedProgramId,
+      enrollmentFee,
+      name,
     };
 
-    fetch(`${PAYMENT_SERVER_URL}/secure/${userId}`, {
+    fetch(`${PAYMENT_SERVER_URL}/${apiPath}/${userId}`, {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json' },

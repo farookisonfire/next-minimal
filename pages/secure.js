@@ -52,6 +52,8 @@ class Secure extends Component {
     const programDatesToRender = programs.filter(program => program.value === programTypeId);
     const programFeesToUse = programFees[programTypeId];
 
+    const pagename = 'secure';
+
     return (
       <Layout>
         {fn && userId && programTypeId ?
@@ -61,7 +63,8 @@ class Secure extends Component {
             name={this.state.fn}
             programs={programDatesToRender}
             programTypeId={this.state.programTypeId}
-            programFees={programFeesToUse} />) :
+            programFees={programFeesToUse}
+            apiPath={pagename} />) :
           null
           }
       </Layout>
