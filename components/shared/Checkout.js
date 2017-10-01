@@ -18,8 +18,6 @@ const Checkout = (props) => {
     name = {},
   } = props;
 
-  console.log('APIPATH', apiPath);
-
   const onToken = (token) => {
     const payload = {
       token,

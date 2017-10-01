@@ -173,7 +173,9 @@ class FellowshipPaymentPage extends Component {
                     </p>
                     <ProgramFeeList
                       enrollmentFee={FELLOWSHIP_ENROLLMENT_FEE}
-                      programFee={programFee} />
+                      programFee={programFee}
+                      asteriskText />
+                    <p className="secure-your-position-asterisk-text">*Fellows receive a 20% discount off of the program fee.</p>
                   </div>
                   <Checkout
                     validate={this.validate}
@@ -276,6 +278,12 @@ class FellowshipPaymentPage extends Component {
 
           .radio-button-group {
             margin-bottom: 32px;
+          }
+
+          .secure-your-position-asterisk-text {
+            font-size: 12px;
+            font-style: italic;
+            margin-bottom: 24px;
           }
 
           @media (max-width: 768px) {
