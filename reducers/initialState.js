@@ -82,11 +82,11 @@ export const programs = [
     enrolled: 0,
   },
   {
-    id: 'serve-2-july20-august10',
+    id: 'serve-2-july30-august10',
     value: SERVE_PROGRAM_TYPE_ID,
     type: 'Serve a Million',
     length: '2 week',
-    date: 'July 20 - August 10',
+    date: 'July 30 - August 10',
     enrolled: 0,
   },
   {
@@ -146,11 +146,11 @@ export const programs = [
     enrolled: 0,
   },
   {
-    id: 'health-2-july20-august10',
+    id: 'health-2-july30-august10',
     value: HEALTH_PROGRAM_TYPE_ID,
     type: 'Health Innovation',
     length: '2 week',
-    date: 'July 20 - August 10',
+    date: 'July 30 - August 10',
     enrolled: 0,
   },
 ];

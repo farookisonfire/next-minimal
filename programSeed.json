@@ -1,0 +1,152 @@
+[
+  {
+    "id": "serve-4-may28-june22",
+    "type": "Serve a Million",
+    "typeId": "serve",
+    "length": "4 week",
+    "lengthId": "fourWeek",
+    "date": "May 28 - June 22",
+    "enrolled": 0,
+    "confirmed": 0
+},
+  {
+    "id": "serve-4-july16-august10",
+    "type": "Serve a Million",
+    "typeId": "serve",
+    "length": "4 week",
+    "lengthId": "fourWeek",
+    "date": "July 16 - August 10",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "serve-2-may28-june8",
+    "type": "Serve a Million",
+    "typeId": "serve",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "May 28 - June 8",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "serve-2-june11-june22",
+    "type": "Serve a Million",
+    "typeId": "serve",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "June 11 - June 22",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "serve-2-june25-july6",
+    "type": "Serve a Million",
+    "typeId": "serve",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "June 25 - July 6",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "serve-2-july16-july27",
+    "type": "Serve a Million",
+    "typeId": "serve",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "July 16 - July 27",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "serve-2-july30-august10",
+    "type": "Serve a Million",
+    "typeId": "serve",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "July 30 - August 10",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "serve-2-august13-august24",
+    "type": "Serve a Million",
+    "typeId": "serve",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "August 13 - August 24",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "health-4-may28-june22",
+    "type": "Health Innovation",
+    "typeId": "healthInnovation",
+    "length": "4 week",
+    "lengthId": "fourWeek",
+    "date": "May 28 - June 22",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "health-4-july16-august10",
+    "type": "Health Innovation",
+    "typeId": "healthInnovation",
+    "length": "4 week",
+    "lengthId": "fourWeek",
+    "date": "July 16 - August 10",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "health-2-may28-june8",
+    "type": "Health Innovation",
+    "typeId": "healthInnovation",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "May 28 - June 8",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "health-2-june11-june22",
+    "type": "Health Innovation",
+    "typeId": "healthInnovation",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "June 11 - June 22",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "health-2-june25-july6",
+    "type": "Health Innovation",
+    "typeId": "healthInnovation",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "June 25 - July 6",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "health-2-july16-july27",
+    "type": "Health Innovation",
+    "typeId": "healthInnovation",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "July 16 - July 27",
+    "enrolled": 0,
+    "confirmed": 0
+  },
+  {
+    "id": "health-2-july30-august10",
+    "type": "Health Innovation",
+    "typeId": "healthInnovation",
+    "length": "2 week",
+    "lengthId": "twoWeek",
+    "date": "July 30 - August 10",
+    "enrolled": 0,
+    "confirmed": 0
+  }
+]

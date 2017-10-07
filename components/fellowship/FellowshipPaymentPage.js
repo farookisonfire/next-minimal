@@ -182,6 +182,7 @@ class FellowshipPaymentPage extends Component {
                     selectedProgramId={this.state.selectedProgramId}
                     checked={this.state.checked}
                     handlePaymentSuccess={this.handlePaymentSuccess}
+                    handlePaymentFail={this.handlePaymentFail}
                     renderStripeButton={renderStripeButton}
                     enrollmentFee={FELLOWSHIP_ENROLLMENT_FEE}
                     apiPath={apiPath}
