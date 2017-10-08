@@ -20,7 +20,6 @@ class ProgramFeePaymentPage extends Component {
     this.state = {
       selectedProgramId: '',
       checked: '',
-      selectedProgramType: 'serve',
       errors: { checked: true },
       paymentSuccess: false,
       paymentFail: false,
@@ -33,7 +32,6 @@ class ProgramFeePaymentPage extends Component {
     this.handlePaymentFail = this.handlePaymentFail.bind(this);
     this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
     this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
-    this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
   }
 
   handleSelectProgramDropdown(e, data) {
@@ -68,10 +66,6 @@ class ProgramFeePaymentPage extends Component {
 
   handlePaymentFailDismiss() {
     this.setState({ paymentFail: false });
-  }
-
-  handleRadioOnChange(e, data) {
-    this.setState({ selectedProgramType: data.value });
   }
 
   render() {
