@@ -12,10 +12,11 @@ const Checkout = (props) => {
     checked = false,
     handlePaymentSuccess = () => {},
     handlePaymentFail = () => {},
-    renderStripeButton= 'false',
-    enrollmentFee= 300,
+    renderStripeButton = false,
+    enrollmentFee = 300,
     apiPath = 'secure',
     name = {},
+    label = 'Secure your Position',
   } = props;
 
   const onToken = (token) => {
@@ -46,8 +47,8 @@ const Checkout = (props) => {
       description={'Secure your position!'}
       amount={enrollmentFee * 100}
       locale={'auto'}
-      panelLabel={'Submit'}
-      label={'Secure Your Position'}
+      panelLabel={'Pay'}
+      label={label}
       zipCode
       billingAddress
       allowRememberMe={false}
@@ -55,7 +56,7 @@ const Checkout = (props) => {
       stripeKey={STRIPE_PUBLISHABLE}
       style={{ width: 175 }} />) :
     (<DisabledButton
-      buttonText={'Secure Your Position'}
+      buttonText={label}
       clickHandler={validate} />);
 
   return (

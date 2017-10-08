@@ -37,7 +37,6 @@ class SecurePage extends Component {
     this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
     this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
 
-
   }
   handleSelectProgramDropdown(e, data) {
     const { value = '' } = data;
@@ -171,6 +170,7 @@ class SecurePage extends Component {
                     selectedProgramId={this.state.selectedProgramId}
                     checked={this.state.checked}
                     handlePaymentSuccess={this.handlePaymentSuccess}
+                    handlePaymentFail={this.handlePaymentFail}
                     renderStripeButton={renderStripeButton}
                     enrollmentFee={ENROLLMENT_FEE}
                     apiPath={apiPath} />
