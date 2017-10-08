@@ -13,7 +13,6 @@ const receiveApplicantData = (applicantData) => {
 };
 
 export const getApplicantData = (id) => {
-  console.log('get applicants thunk called with id: ', id);
   return (dispatch) => {
     dispatch(requestApplicantData());
     return fetch(`${getBaseUrl()}/confirm/${id}`)
