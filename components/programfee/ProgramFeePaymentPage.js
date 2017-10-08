@@ -79,8 +79,6 @@ class ProgramFeePaymentPage extends Component {
       type = '',
       programFee = '',
     } = programDetails;
-
-    console.log('programDetails in paymentPage', programDetails);
     
     const { checked, errors } = this.state;
     const renderStripeButton = checked;
