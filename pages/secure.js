@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import withRedux from 'next-redux-wrapper';
 import Layout from '../components/Layout';
 import SecurePage from '../components/secure/SecurePage';
-
+import NotFound from '../components/NotFound';
 import initStore from '../store/store';
 
 class Secure extends Component {
@@ -65,7 +65,7 @@ class Secure extends Component {
             programTypeId={this.state.programTypeId}
             programFees={programFeesToUse}
             apiPath={pagename} />) :
-          null
+          <NotFound />
           }
       </Layout>
     );

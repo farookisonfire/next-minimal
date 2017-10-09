@@ -23,6 +23,7 @@
   "homepage": "https://github.com/farookkhan/next-minimal#readme",
   "dependencies": {
     "better-react-spinkit": "^2.0.0",
+    "moment": "^2.18.1",
     "next": "^3.0.1-beta.13",
     "next-redux-wrapper": "^1.2.0",
     "query-string": "^5.0.0",
@@ -33,6 +34,7 @@
     "react-stripe-checkout": "^2.4.0",
     "react-transition-group": "^2.2.0",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.71.0",
     "whatwg-fetch": "^2.0.3"
   },

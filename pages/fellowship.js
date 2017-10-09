@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import withRedux from 'next-redux-wrapper';
 import Layout from '../components/Layout';
 import FellowshipPaymentPage from '../components/fellowship/FellowshipPaymentPage';
-
+import NotFound from '../components/NotFound';
 import initStore from '../store/store';
 
 class Fellowship extends Component {
@@ -56,7 +56,7 @@ class Fellowship extends Component {
             programFees={fellowshipProgramFees}
             fellowshipPageData={fellowshipPageData}
             apiPath={pagename} />) :
-          null
+          <NotFound />
           }
       </Layout>
     );
