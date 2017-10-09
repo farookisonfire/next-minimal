@@ -163,4 +163,8 @@ export const pageProfiles = {
       { label: 'Health Innovation', value: HEALTH_PROGRAM_TYPE_ID },
     ],
   },
+  programFeePage: {
+    paymentPlanSuccess: false,
+    paymentPlanFail: false,
+  },
 };

@@ -1,9 +1,11 @@
 import { Component } from 'react';
-import { Message } from 'semantic-ui-react';
+import { Message, Grid } from 'semantic-ui-react';
+import moment from 'moment';
 import ProgramFeePaymentHeader from './ProgramFeePaymentHeader';
 import Checkout from '../shared/Checkout';
 import Footer from '../footer/Footer';
 import CheckBox from '../shared/CheckBox';
+import PaymentPlanButton from './PaymentPlanButton';
 
 class ProgramFeePaymentPage extends Component {
   constructor() {
@@ -24,6 +26,7 @@ class ProgramFeePaymentPage extends Component {
     this.handlePaymentFail = this.handlePaymentFail.bind(this);
     this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
     this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
+    this.handleEnrollPaymentPlan = this.handleEnrollPaymentPlan.bind(this);
   }
 
   handleSelectProgramDropdown(e, data) {
@@ -60,12 +63,18 @@ class ProgramFeePaymentPage extends Component {
     this.setState({ paymentFail: false });
   }
 
+  handleEnrollPaymentPlan(id, fellow) {
+    const { enrollPaymentPlan } = this.props;
+    enrollPaymentPlan(id, fellow);
+  }
+
   render() {
     const {
       userId,
       programDetails = {},
       applicantDetails = {},
       fellow,
+      programFeePageData = {},
     } = this.props;
 
     const {
@@ -73,6 +82,32 @@ class ProgramFeePaymentPage extends Component {
       type = '',
       programFee = '',
     } = programDetails;
+
+    const {
+      promotionDeadline,
+      finalDeadline,
+    } = applicantDetails;
+
+    const promotionDeadlineToUse = promotionDeadline ?
+      moment(promotionDeadline).format(('dddd, MMMM Do YYYY')) :
+      '';
+
+    const finalDeadlineToUse = finalDeadline ?
+      moment(finalDeadline).format(('dddd, MMMM Do YYYY')) :
+      '';
+
+    const promotionText = promotionDeadlineToUse ?
+      `by 5pm EST on ${promotionDeadlineToUse}` :
+      'in 2 weeks';
+
+    const finalDeadlineText = finalDeadlineToUse ?
+      `5pm EST on ${finalDeadlineToUse}` :
+      'is in 90 days';
+
+    const {
+      paymentPlanSuccess = false,
+      paymentPlanFail = false,
+    } = programFeePageData;
 
     const { checked, errors } = this.state;
     const renderStripeButton = checked;
@@ -87,29 +122,53 @@ class ProgramFeePaymentPage extends Component {
             <h1>{type}</h1>
             <h3>{date}</h3>
           </div>
-          <div className="checkbox-container">
-            <CheckBox
-              onCheckHandler={this.handleCheck}
-              label={<label 
-                className="check-label">
-                I understand that the program fee is non-refundable, but can be applied to programs in 2019.</label>} />
-            <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
-              *Required: Read and Agree
-            </p>
-          </div>
-          <div>
-            <Checkout
-              userId={userId}
-              validate={this.validate}
-              label={'Confirm'}
-              renderStripeButton={renderStripeButton}
-              handlePaymentSuccess={this.handlePaymentSuccess}
-              handlePaymentFail={this.handlePaymentFail}
-              // enrollmentFee={programFee}
-              enrollmentFee={1}
-              apiPath={'confirm'}
-              fellow={fellow} />
-          </div>
+        </div>
+        <div className="checkbox-container">
+          <CheckBox
+            onCheckHandler={this.handleCheck}
+            label={<label 
+              className="check-label">
+              I understand that the program fee is non-refundable, but can be applied to a program in 2019 should I choose to defer my enrollment.</label>} />
+          <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
+            *Required: Read and Agree
+          </p>
+        </div>
+        <div className="program-fee-grid">
+          <Grid stackable columns={2}>
+            <Grid.Row>
+              <Grid.Column>
+                <div className="program-fee-grid-header-container">
+                  <h2>Option 1: Pay Now + Promotion</h2>
+                  <p>{`Pay your program fee in full ${promotionText} and OHS will provide you with $100 toward both your flight and free, comprehensive travel insurance when you book through STA Travel (a $200 total value)!`}</p>
+                </div>
+                <div className="program-fee-grid-button-container">
+                  <Checkout
+                    userId={userId}
+                    validate={this.validate}
+                    label={'Pay Now'}
+                    renderStripeButton={renderStripeButton}
+                    handlePaymentSuccess={this.handlePaymentSuccess}
+                    handlePaymentFail={this.handlePaymentFail}
+                    // enrollmentFee={programFee}
+                    enrollmentFee={1}
+                    apiPath={'confirm'}
+                    fellow={fellow} />
+                </div>
+              </Grid.Column>
+              <Grid.Column>
+                <div className="program-fee-grid-header-container">
+                  <h2>Option 2: Payment Plan + Fundraising</h2>
+                  <p>{`Enroll in minimum monthly payments of $200 and get 90 days to fundraise your program fee. The final deadline for your program fee is ${finalDeadlineText}!`}</p>
+                </div>
+                <div className="program-fee-grid-button-container">
+                  <PaymentPlanButton
+                    renderMainButton={renderStripeButton}
+                    validate={this.validate}
+                    enroll={() => this.handleEnrollPaymentPlan(userId, fellow)} />
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </div>
         <div className="secure-payment-container">
           <Message
@@ -125,6 +184,20 @@ class ProgramFeePaymentPage extends Component {
             hidden={!this.state.paymentFail}
             onClick={this.handlePaymentFailDismiss}>
             Payment not processed, please try again. If the problem persists reach out to us at admissions@oneheartsource.org.
+          </Message>
+          <Message
+            compact
+            color="green"
+            hidden={!paymentPlanSuccess}
+            onClick={this.handlePaymentSuccessDismiss}>
+            Congratulations, you signed up for the payment plan. Our team will fellow up with more instructions via email!
+          </Message>
+          <Message
+            compact
+            color="red"
+            hidden={!paymentPlanFail}
+            onClick={this.handlePaymentFailDismiss}>
+            Sorry, we were unable to enroll you in the payment plan. If this problem persists, reach out to us at admissions@oneheartsource.org.
           </Message>
         </div>
         <Footer />
@@ -162,6 +235,10 @@ class ProgramFeePaymentPage extends Component {
           .checkbox-container label {
             font-size: .9em;
           }
+          
+          .checkbox-container p {
+            text-align: center;
+          }
 
           .error-text-default {
             visibility: hidden;
@@ -184,6 +261,31 @@ class ProgramFeePaymentPage extends Component {
             padding: 40px;
             text-align: center;
           }
+
+          .program-fee-grid {
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 32px;
+          }
+
+          .program-fee-grid-header-container {
+            text-align: center;
+            margin-bottom: 16px;
+          }
+
+          .program-fee-grid h2 {
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: underline;
+          }
+
+          .program-fee-grid-button-container {
+            text-align: center;
+          }
+          
         `}</style>
       </div>
     );
