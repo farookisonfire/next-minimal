@@ -4,7 +4,7 @@ import withRedux from 'next-redux-wrapper';
 import Layout from '../components/Layout';
 import ProgramFeePaymentPage from '../components/programfee/ProgramFeePaymentPage';
 import initStore from '../store/store';
-import { getApplicantData } from '../actions/confirmActions';
+import { getApplicantData, enrollPaymentPlan } from '../actions/confirmActions';
 import { ENROLLMENT_FEE, FELLOWSHIP_ENROLLMENT_FEE } from '../lib/constants';
 import NotFound from '../components/NotFound';
 
@@ -43,6 +43,8 @@ class Confirm extends Component {
       programFees = {},
       confirmApplicantData = {},
       errors = {},
+      pageProfiles = {},
+      enrollPaymentPlan = () => {},
     } = this.props;
 
     const {
@@ -70,6 +72,10 @@ class Confirm extends Component {
       '';
     }
 
+    const {
+      programFeePage = {},
+    } = pageProfiles;
+
     const enrollmentFee = fellow ?
       FELLOWSHIP_ENROLLMENT_FEE :
       ENROLLMENT_FEE;
@@ -80,6 +86,8 @@ class Confirm extends Component {
     const { message = '' } = errors;
     const renderPaymentPage = message !== 'Unable to retrieve applicant data';
 
+    console.log('programFEePageDATA', programFeePage)
+
     return (
       <Layout>
         {userId && renderPaymentPage ?
@@ -89,6 +97,8 @@ class Confirm extends Component {
             programDetails={programDetails}
             applicantDetails={applicantDetails}
             fellow={fellow}
+            programFeePageData={programFeePage}
+            enrollPaymentPlan={enrollPaymentPlan}
             />) :
           <NotFound />
           }
@@ -99,4 +109,4 @@ class Confirm extends Component {
 
 const mapStateToProps = state => state;
 
-export default withRedux(initStore, mapStateToProps, { getApplicantData })(Confirm);
+export default withRedux(initStore, mapStateToProps, { getApplicantData, enrollPaymentPlan })(Confirm);
