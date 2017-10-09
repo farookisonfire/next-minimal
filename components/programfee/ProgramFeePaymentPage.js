@@ -197,7 +197,7 @@ class ProgramFeePaymentPage extends Component {
             color="red"
             hidden={!paymentPlanFail}
             onClick={this.handlePaymentFailDismiss}>
-            We're sorry, we were unable to enroll you in the payment plan. If this problem persists, reach out to us at admissions@oneheartsource.org.
+            Sorry, we were unable to enroll you in the payment plan. If this problem persists, reach out to us at admissions@oneheartsource.org.
           </Message>
         </div>
         <Footer />
