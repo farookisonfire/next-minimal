@@ -86,8 +86,6 @@ class Confirm extends Component {
     const { message = '' } = errors;
     const renderPaymentPage = message !== 'Unable to retrieve applicant data';
 
-    console.log('programFEePageDATA', programFeePage)
-
     return (
       <Layout>
         {userId && renderPaymentPage ?
