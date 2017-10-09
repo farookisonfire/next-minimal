@@ -1,6 +1,21 @@
 import { Divider } from 'semantic-ui-react';
+import moment from 'moment';
 
-const ProgramFeePaymentHeader = () => {
+const ProgramFeePaymentHeader = (props) => {
+  const { applicantDetails = {} } = props;
+  const {
+    firstName,
+    promotionDeadline,
+  } = applicantDetails;
+
+  const promotionDeadlineToUse = promotionDeadline ?
+    moment(promotionDeadline).format(('dddd, MMMM Do YYYY')) :
+    '';
+
+  const promotionText = promotionDeadlineToUse ?
+    `by 5pm EST on ${promotionDeadlineToUse}` :
+    'in 2 weeks';
+
   return (
     <div>
       <div className="program-fee-payment-header">
@@ -9,7 +24,7 @@ const ProgramFeePaymentHeader = () => {
       </div>
       <div className="program-fee-payment-subheader">
         <h1>Program Fee</h1>
-        <p>{`You're just one step away from confirming your participation in your program! Submit your program fee by clicking the button below.`}</p>
+        <p>{`${firstName} you're just one step away from confirming your participation in your program! Pay your program fee in full ${promotionText} and OHS will provide you with $100 toward both your flight and travel insurance when you book through STA Travel (a $200 total value)! Submit your program fee by clicking the button below.`}</p>
       </div>
       <style jsx>{`
       .program-fee-payment-header h1 {

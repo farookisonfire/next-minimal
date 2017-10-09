@@ -17,6 +17,7 @@ const Checkout = (props) => {
     apiPath = 'secure',
     name = {},
     label = 'Secure your Position',
+    fellow = false,
   } = props;
 
   const onToken = (token) => {
@@ -25,6 +26,7 @@ const Checkout = (props) => {
       selectedProgramId,
       enrollmentFee,
       name,
+      fellow,
     };
 
     fetch(`${PAYMENT_SERVER_URL}/${apiPath}/${userId}`, {

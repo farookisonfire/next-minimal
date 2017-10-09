@@ -1,17 +1,9 @@
 import { Component } from 'react';
-import { Grid, Icon, Message } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 import ProgramFeePaymentHeader from './ProgramFeePaymentHeader';
 import Checkout from '../shared/Checkout';
 import Footer from '../footer/Footer';
-import DropDown from '../shared/DropDown';
 import CheckBox from '../shared/CheckBox';
-import ParticipationAgreementModal from '../shared/ParticipationAgreementModal';
-import ProgramFeeList from '../shared/ProgramFeeList';
-import RadioButtonGroup from '../shared/RadioButtonGroup';
-import {
-  SELECT_PROGRAM,
-  FELLOWSHIP_ENROLLMENT_FEE,
-} from '../../lib/constants';
 
 class ProgramFeePaymentPage extends Component {
   constructor() {
@@ -20,7 +12,6 @@ class ProgramFeePaymentPage extends Component {
     this.state = {
       selectedProgramId: '',
       checked: '',
-      selectedProgramType: 'serve',
       errors: { checked: true },
       paymentSuccess: false,
       paymentFail: false,
@@ -33,7 +24,6 @@ class ProgramFeePaymentPage extends Component {
     this.handlePaymentFail = this.handlePaymentFail.bind(this);
     this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
     this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
-    this.handleRadioOnChange = this.handleRadioOnChange.bind(this);
   }
 
   handleSelectProgramDropdown(e, data) {
@@ -70,14 +60,12 @@ class ProgramFeePaymentPage extends Component {
     this.setState({ paymentFail: false });
   }
 
-  handleRadioOnChange(e, data) {
-    this.setState({ selectedProgramType: data.value });
-  }
-
   render() {
     const {
       userId,
       programDetails = {},
+      applicantDetails = {},
+      fellow,
     } = this.props;
 
     const {
@@ -86,14 +74,12 @@ class ProgramFeePaymentPage extends Component {
       programFee = '',
     } = programDetails;
 
-    console.log('programDetails in paymentPage', programDetails);
-    
     const { checked, errors } = this.state;
     const renderStripeButton = checked;
     return (
       <div>
         <div className="program-fee-payment-header-container">
-          <ProgramFeePaymentHeader />
+          <ProgramFeePaymentHeader applicantDetails={applicantDetails} />
         </div>
         <div className="program-fee-body">
           <div>
@@ -119,8 +105,10 @@ class ProgramFeePaymentPage extends Component {
               renderStripeButton={renderStripeButton}
               handlePaymentSuccess={this.handlePaymentSuccess}
               handlePaymentFail={this.handlePaymentFail}
-              enrollmentFee={programFee}
-              apiPath={'confirm'} />
+              // enrollmentFee={programFee}
+              enrollmentFee={1}
+              apiPath={'confirm'}
+              fellow={fellow} />
           </div>
         </div>
         <div className="secure-payment-container">
@@ -139,6 +127,7 @@ class ProgramFeePaymentPage extends Component {
             Payment not processed, please try again. If the problem persists reach out to us at admissions@oneheartsource.org.
           </Message>
         </div>
+        <Footer />
         <style jsx>{`
           .program-fee-payment-header-container {
             width: 85%;

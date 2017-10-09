@@ -6,6 +6,7 @@ import ProgramFeePaymentPage from '../components/programfee/ProgramFeePaymentPag
 import initStore from '../store/store';
 import { getApplicantData } from '../actions/confirmActions';
 import { ENROLLMENT_FEE, FELLOWSHIP_ENROLLMENT_FEE } from '../lib/constants';
+import NotFound from '../components/NotFound';
 
 class Confirm extends Component {
   constructor() {
@@ -29,7 +30,7 @@ class Confirm extends Component {
       id = '',
       fellow = false,
    } = parsed;
-    getApplicantData(id);
+    getApplicantData(id, fellow);
 
     this.setState({ fellow, id });
   }
@@ -39,10 +40,9 @@ class Confirm extends Component {
     const userId = this.state.id || '';
     
     const {
-      // programs = [],
       programFees = {},
-      // pageProfiles = {},
       confirmApplicantData = {},
+      errors = {},
     } = this.props;
 
     const {
@@ -51,42 +51,46 @@ class Confirm extends Component {
     } = confirmApplicantData;
 
     const {
-      id = '',
-      type = '',
       typeId = '',
-      length = '',
       lengthId = '',
-      date = '',
     } = programDetails;
 
-    const discount = applicantDetails.discount ? applicantDetails.discount : 0;
-    const programFee = programFees && programFees[typeId] && programFees[typeId][lengthId] ? programFees[typeId][lengthId] : '';
-    const enrollmentFee = fellow ? FELLOWSHIP_ENROLLMENT_FEE : ENROLLMENT_FEE;
-    const programFeeLessDiscountAndEnrollmentFee = programFee - parseInt(discount) - enrollmentFee;
-    programDetails.programFee = programFeeLessDiscountAndEnrollmentFee;
+    const {
+      discount = 0,
+    } = applicantDetails;
 
-    console.log('programf ees', programFees);
-    console.log('confirmApplicantData', confirmApplicantData);
+    let programFee;
+    if (!fellow) {
+      programFee = programFees && programFees[typeId] && programFees[typeId][lengthId] ?
+        programFees[typeId][lengthId] :
+        '';
+    } else {
+      programFee = programFees && programFees.fellowship[typeId] && programFees[typeId][lengthId] ?
+      programFees.fellowship[typeId][lengthId] :
+      '';
+    }
 
+    const enrollmentFee = fellow ?
+      FELLOWSHIP_ENROLLMENT_FEE :
+      ENROLLMENT_FEE;
+    const programFeeTotal = programFee - parseInt(discount) - enrollmentFee;
     
-    // const fellowshipPageData = pageProfiles.fellowship || {};
-    // const { pagename } = fellowshipPageData;
-    // const fellowshipProgramFees = programFees.fellowship || {};
+    programDetails.programFee = programFeeTotal;
+
+    const { message = '' } = errors;
+    const renderPaymentPage = message !== 'Unable to retrieve applicant data';
 
     return (
       <Layout>
-        {true ?
+        {userId && renderPaymentPage ?
         (
           <ProgramFeePaymentPage
             userId={userId}
             programDetails={programDetails}
-            // name={{ fn: this.state.fn, ln: this.state.ln }}
-            programs={[]}
-            // programFees={fellowshipProgramFees}
-            // fellowshipPageData={fellowshipPageData}
-            // apiPath={pagename}
+            applicantDetails={applicantDetails}
+            fellow={fellow}
             />) :
-          null
+          <NotFound />
           }
       </Layout>
     );
