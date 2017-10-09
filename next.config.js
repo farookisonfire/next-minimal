@@ -8,6 +8,7 @@ module.exports = {
       '/donate': { page: '/donate' },
       '/secure': { page: '/secure' },
       '/fellowship': { page: '/fellowship' },
+      '/confirm': { page: '/confirm' },
     };
   },
 };
