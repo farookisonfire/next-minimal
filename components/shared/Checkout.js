@@ -18,6 +18,7 @@ const Checkout = (props) => {
     name = {},
     label = 'Secure your Position',
     fellow = false,
+    billingAddress = true,
   } = props;
 
   const onToken = (token) => {
@@ -52,7 +53,7 @@ const Checkout = (props) => {
       panelLabel={'Pay'}
       label={label}
       zipCode
-      billingAddress
+      billingAddress={billingAddress}
       allowRememberMe={false}
       token={onToken}
       stripeKey={STRIPE_PUBLISHABLE}

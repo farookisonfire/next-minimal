@@ -152,7 +152,8 @@ class ProgramFeePaymentPage extends Component {
                     // enrollmentFee={programFee}
                     enrollmentFee={1}
                     apiPath={'confirm'}
-                    fellow={fellow} />
+                    fellow={fellow}
+                    billingAddress={false} />
                 </div>
               </Grid.Column>
               <Grid.Column>
