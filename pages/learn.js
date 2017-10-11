@@ -13,8 +13,6 @@ class Admissions extends Component {
 
     const { pathname } = url;
 
-    console.log('', this.props);
-
     return (
       <Layout pageName={pathname}>
         <AboutPage
