@@ -1,6 +1,6 @@
 const HeaderTertiary = () => (
   <div className="header-tertiary">
-    <h1 className="header-tertiary-title">Most Meaningful Global Experience Ever.</h1>
+    <h1 className="header-tertiary-title">Meaningful Global Experience.</h1>
     <style jsx>{`
         .header-tertiary {
         text-align: center;
