@@ -10,7 +10,7 @@ class Admissions extends Component {
     super();
 
     this.state = {
-      selectedProgram: 'serve',
+      selectedProgram: 'youthEmpowerment',
     };
 
     this.onChange = this.onChange.bind(this);

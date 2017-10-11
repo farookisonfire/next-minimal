@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import ProgramsDropdown from './ProgramsDropdown';
 import HealthInnovation from './HealthInnovation';
 import Education from './Education';
+import YouthEmpowerment from './YouthEmpowerment';
 
 const Programs = (props) => {
   const {
@@ -14,8 +15,10 @@ const Programs = (props) => {
     switch (programValue) {
       case 'healthInnovation':
         return <HealthInnovation selectedProgram={selectedProgram} programs={programs} />;
-      default:
+      case 'education':
         return <Education selectedProgram={selectedProgram} programs={programs} />;
+      default:
+        return <YouthEmpowerment selectedProgram={selectedProgram} programs={programs} />;
     }
   };
 

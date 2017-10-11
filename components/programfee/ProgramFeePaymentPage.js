@@ -149,8 +149,7 @@ class ProgramFeePaymentPage extends Component {
                     renderStripeButton={renderStripeButton}
                     handlePaymentSuccess={this.handlePaymentSuccess}
                     handlePaymentFail={this.handlePaymentFail}
-                    // enrollmentFee={programFee}
-                    enrollmentFee={1}
+                    enrollmentFee={programFee}
                     apiPath={'confirm'}
                     fellow={fellow}
                     billingAddress={false} />
