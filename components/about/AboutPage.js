@@ -1,12 +1,18 @@
+import { Component } from 'react';
 import AboutHeader from './AboutHeader';
 import AboutCircles from './AboutCircles';
 import AboutStatistics from './AboutStatistics';
 import AboutMedia from './AboutMedia';
 import Footer from '../footer/Footer';
+import FAQ from './FAQ';
 
-class AboutPage extends React.Component {
+class AboutPage extends Component {
   render() {
-    return(
+    const {
+      faqs = [],
+    } = this.props;
+
+    return (
       <div>
         <div className="about-top">
           <AboutHeader />
@@ -14,6 +20,10 @@ class AboutPage extends React.Component {
         </div>
         <div className="about-mid">
           <AboutStatistics />
+        </div>
+        <div className="faq-container">
+          <FAQ
+            faqs={faqs} />
         </div>
         <div className="about-bottom">
           <AboutMedia />
@@ -32,12 +42,16 @@ class AboutPage extends React.Component {
             background-color: rgb(247,247,247);
           }
 
+          .faq-container {
+            margin: 48px auto;
+            width: 85%;
+          }
+
           .about-bottom {
             background-color: rgb(238, 238, 238);
           }
         `}</style>
       </div>
-      
     );
   }
 }

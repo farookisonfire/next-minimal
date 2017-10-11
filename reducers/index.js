@@ -5,6 +5,7 @@ import programFees from './programFeesReducer';
 import pageProfiles from './pageProfilesReducer';
 import confirmApplicantData from './confirmReducer';
 import errors from './errorsReducer';
+import faqs from './faqReducer';
 
 const rootReducer = combineReducers({
   showCanvas,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   pageProfiles,
   confirmApplicantData,
   errors,
+  faqs,
 });
 
 export default rootReducer;

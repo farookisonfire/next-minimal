@@ -1,12 +1,29 @@
-import Layout from '../components/Layout'
-import withRedux from 'next-redux-wrapper'
+import { Component } from 'react';
+import withRedux from 'next-redux-wrapper';
+import Layout from '../components/Layout';
 import initStore from '../store/store';
 import AboutPage from '../components/about/AboutPage';
 
-const Admissions = (props) => (
-  <Layout pageName={props.url.pathname}>
-    <AboutPage />
-  </Layout>
-)
+class Admissions extends Component {
+  render() {
+    const {
+      url = {},
+      faqs = [],
+    } = this.props;
 
-export default withRedux(initStore)(Admissions)
+    const { pathname } = url;
+
+    console.log('', this.props);
+
+    return (
+      <Layout pageName={pathname}>
+        <AboutPage
+          faqs={faqs} />
+      </Layout>
+    );
+  }
+}
+
+const mapStateToProps = state => state;
+
+export default withRedux(initStore, mapStateToProps)(Admissions);
