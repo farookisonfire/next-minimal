@@ -126,6 +126,8 @@ class FellowshipPaymentPage extends Component {
       programFee = programFees[selectedProgramType].fourWeek;
     } else if (length === '2 week') {
       programFee = programFees[selectedProgramType].twoWeek;
+    } else if (length === '1 week') {
+      programFee = programFees[selectedProgramType].oneWeek;
     }
 
     const renderStripeButton = checked && selectedProgramId;

@@ -10,9 +10,10 @@ import ProgramFeeList from '../shared/ProgramFeeList';
 import {
   SELECT_PROGRAM,
   HEALTH_PROGRAM_TYPE_ID,
+  EDUCATION_PROGRAM_TYPE_ID,
+  YOUTH_PROGRAM_TYPE_ID,
   ENROLLMENT_FEE,
 } from '../../lib/constants';
-
 
 class SecurePage extends Component {
   constructor() {
@@ -94,9 +95,14 @@ class SecurePage extends Component {
       checked,
     } = this.state;
 
-    const dropDownTitle = programTypeId === HEALTH_PROGRAM_TYPE_ID ?
-      'Health Innovation' :
-      'Serve a Million';
+    let dropDownTitle;
+    if (programTypeId === HEALTH_PROGRAM_TYPE_ID) {
+      dropDownTitle = 'Health Innovation';
+    } else if (programTypeId === YOUTH_PROGRAM_TYPE_ID) {
+      dropDownTitle = 'Youth Empowerment';
+    } else if (programTypeId === EDUCATION_PROGRAM_TYPE_ID) {
+      dropDownTitle = 'Education / Social Work';
+    }
 
     let programMatch;
 
@@ -120,6 +126,8 @@ class SecurePage extends Component {
       programFee = programFees.fourWeek;
     } else if (length === '2 week') {
       programFee = programFees.twoWeek;
+    } else if (length === '1 week') {
+      programFee = programFees.oneWeek;
     }
 
     const renderStripeButton = userId && selectedProgramId && checked;

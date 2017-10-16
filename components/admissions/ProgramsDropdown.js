@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'semantic-ui-react';
 
 const programs = [
-  { key: 'education', value: 'education', text: 'Education/Social Development' },
-  { key: 'healthInnovation', value: 'healthInnovation', text: 'Health Innovation' },
   { key: 'youthEmpowerment', value: 'youthEmpowerment', text: 'Youth Empowerment' },
+  { key: 'education', value: 'education', text: 'Education/Social Work' },
+  { key: 'healthInnovation', value: 'healthInnovation', text: 'Health Innovation' },
 ];
 
 const ProgramsDropdown = ({ onProgramSelect }) => (
