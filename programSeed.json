@@ -147,4 +147,194 @@
   "date": "July 30 - August 10",
   "enrolled": 0,
   "confirmed": 0
+},
+{
+  "id": "education-4-may28-june22",
+  "type": "Education / Social Work",
+  "typeId": "education",
+  "length": "4 week",
+  "lengthId": "fourWeek",
+  "date": "May 28 - June 22",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "education-4-july16-august10",
+  "type": "Education / Social Work",
+  "typeId": "education",
+  "length": "4 week",
+  "lengthId": "fourWeek",
+  "date": "July 16 - August 10",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "education-2-may28-june8",
+  "type": "Education / Social Work",
+  "typeId": "education",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "May 28 - June 8",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "education-2-june11-june22",
+  "type": "Education / Social Work",
+  "typeId": "education",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "June 11 - June 22",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "education-2-june25-july6",
+  "type": "Education / Social Work",
+  "typeId": "education",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "June 25 - July 6",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "education-2-july16-july27",
+  "type": "Education / Social Work",
+  "typeId": "education",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "July 16 - July 27",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "education-2-july30-august10",
+  "type": "Education / Social Work",
+  "typeId": "education",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "July 30 - August 10",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "education-2-august13-august24",
+  "type": "Education / Social Work",
+  "typeId": "education",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "August 13 - August 24",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-4-may28-june22",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "4 week",
+  "lengthId": "fourWeek",
+  "date": "May 28 - June 22",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-4-july16-august10",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "4 week",
+  "lengthId": "fourWeek",
+  "date": "July 16 - August 10",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-2-may28-june8",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "May 28 - June 8",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-2-june11-june22",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "June 11 - June 22",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-2-june25-july6",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "June 25 - July 6",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-2-july16-july27",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "July 16 - July 27",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-2-july30-august10",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "July 30 - August 10",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-2-august13-august24",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "2 week",
+  "lengthId": "twoWeek",
+  "date": "August 13 - August 24",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-1-june11-june15",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "1 week",
+  "lengthId": "oneWeek",
+  "date": "August 13 - August 24",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-1-july16-july20",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "1 week",
+  "lengthId": "oneWeek",
+  "date": "August 13 - August 24",
+  "enrolled": 0,
+  "confirmed": 0
+},
+{
+  "id": "youth-1-august13-august17",
+  "type": "Youth Empowerment",
+  "typeId": "youth",
+  "length": "1 week",
+  "lengthId": "oneWeek",
+  "date": "August 13 - August 24",
+  "enrolled": 0,
+  "confirmed": 0
 }]

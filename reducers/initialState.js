@@ -7,10 +7,20 @@ import {
   HEALTH_4_WEEK_FEE,
   SERVE_2_WEEK_FEE,
   SERVE_4_WEEK_FEE,
+  EDUCATION_2_WEEK_FEE,
+  EDUCATION_4_WEEK_FEE,
+  YOUTH_1_WEEK_FEE,
+  YOUTH_2_WEEK_FEE,
+  YOUTH_4_WEEK_FEE,
   FELLOWSHIP_HEALTH_2_WEEK_FEE,
   FELLOWSHIP_HEALTH_4_WEEK_FEE,
   FELLOWSHIP_SERVE_2_WEEK_FEE,
   FELLOWSHIP_SERVE_4_WEEK_FEE,
+  FELLOWSHIP_YOUTH_1_WEEK_FEE,
+  FELLOWSHIP_YOUTH_2_WEEK_FEE,
+  FELLOWSHIP_YOUTH_4_WEEK_FEE,
+  FELLOWSHIP_EDUCATION_2_WEEK_FEE,
+  FELLOWSHIP_EDUCATION_4_WEEK_FEE,
 } from '../lib/constants';
 
 export const programFees = {
@@ -22,14 +32,32 @@ export const programFees = {
     twoWeek: SERVE_2_WEEK_FEE,
     fourWeek: SERVE_4_WEEK_FEE,
   },
+  education: {
+    twoWeek: EDUCATION_2_WEEK_FEE,
+    fourWeek: EDUCATION_4_WEEK_FEE,
+  },
+  youthEmpowerment: {
+    oneWeek: YOUTH_1_WEEK_FEE,
+    twoWeek: YOUTH_2_WEEK_FEE,
+    fourWeek: YOUTH_4_WEEK_FEE,
+  },
   fellowship: {
     healthInnovation: {
       twoWeek: FELLOWSHIP_HEALTH_2_WEEK_FEE,
       fourWeek: FELLOWSHIP_HEALTH_4_WEEK_FEE,
     },
+    education: {
+      twoWeek: FELLOWSHIP_EDUCATION_2_WEEK_FEE,
+      fourWeek: FELLOWSHIP_EDUCATION_4_WEEK_FEE,
+    },
     serve: {
       twoWeek: FELLOWSHIP_SERVE_2_WEEK_FEE,
       fourWeek: FELLOWSHIP_SERVE_4_WEEK_FEE,
+    },
+    youthEmpowerment: {
+      oneWeek: FELLOWSHIP_YOUTH_1_WEEK_FEE,
+      twoWeek: FELLOWSHIP_YOUTH_2_WEEK_FEE,
+      fourWeek: FELLOWSHIP_YOUTH_4_WEEK_FEE,
     },
   },
 };
@@ -283,14 +311,39 @@ export const programs = [
     date: 'August 13 - August 24',
     enrolled: 0,
   },
+  {
+    id: 'youth-1-june11-june15',
+    value: YOUTH_PROGRAM_TYPE_ID,
+    type: 'Youth Empowerment',
+    length: '1 week',
+    date: 'June 11 - June 15',
+    enrolled: 0,
+  },
+  {
+    id: 'youth-1-july16-july20',
+    value: YOUTH_PROGRAM_TYPE_ID,
+    type: 'Youth Empowerment',
+    length: '1 week',
+    date: 'July 16 - July 20 ',
+    enrolled: 0,
+  },
+  {
+    id: 'youth-1-august13-august17',
+    value: YOUTH_PROGRAM_TYPE_ID,
+    type: 'Youth Empowerment',
+    length: '1 week',
+    date: 'August 13 - August 17',
+    enrolled: 0,
+  },
 ];
 
 export const pageProfiles = {
   fellowship: {
     pagename: 'fellowship',
     radioButtons: [
-      { label: 'Youth Empowerment', value: SERVE_PROGRAM_TYPE_ID },
+      { label: 'Youth Empowerment', value: YOUTH_PROGRAM_TYPE_ID },
       { label: 'Health Innovation', value: HEALTH_PROGRAM_TYPE_ID },
+      { label: 'Education / Social Work', value: EDUCATION_PROGRAM_TYPE_ID },
     ],
   },
   programFeePage: {
