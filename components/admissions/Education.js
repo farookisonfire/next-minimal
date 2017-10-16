@@ -15,7 +15,7 @@ const Education = (props) => {
     <div>
       <div className="admissions-programs-header">
         <h1>Education / Social Work</h1>
-        <p>Our newest program specialization: designed for university undergraduate, graduate and postgraduate students between the ages of 18 and 25 interested in pursuing a career in Education, Social Work, or other related fields.  Though all three branches of OHS have a strong education component, members of the Education and Social Development program will engage with both theory and practice, developing themselves as culturally sensitive and responsive teachers, while exploring education as a driver for social change. </p>
+        <p>Our newest program specialization: designed for university undergraduate, graduate and postgraduate students between the ages of 18 and 25 interested in pursuing a career in Education, Social Work, or other related fields.  Though all three branches of OHS have a strong education component, members of the Education and Social Work program will engage with both theory and practice, developing themselves as culturally sensitive and responsive teachers, while exploring education as a driver for social change. </p>
         <p className="incepted-date">Incepted: 2017</p>
       </div>
       <div className="itinerary-container">

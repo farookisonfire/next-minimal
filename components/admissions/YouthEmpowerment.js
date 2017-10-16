@@ -9,7 +9,7 @@ const YouthEmpowerment = ({ selectedProgram, programs }) => (
   <div>
     <div className="admissions-programs-header">
       <h1>Youth Empowerment</h1>
-      <p>Designed for university undergraduate, graduate and postgraduate students of various disciplines between the ages of 18 and 25, the Youth Empowerment, program brings global mentors to work with the students of the OHS GIFTED Community in Cape Town, South Africa.  The Greatness Initiative for Township Educational Development (GIFTED) is an education initiative designed to empower young people through education, founded by OHS in the Cape Town township of Imizamo Yethu in 2012.</p>
+      <p>Designed for university undergraduate, graduate and postgraduate students of various disciplines between the ages of 18 and 25, the Youth Empowerment program brings global mentors to work with the students of the OHS GIFTED Community in Cape Town, South Africa.  The Greatness Initiative for Township Educational Development (GIFTED) is an education initiative designed to empower young people through education, founded by OHS in the Cape Town township of Imizamo Yethu in 2012.</p>
       <p>Youth Empowerment mentors work with students to improve their general Math and English Literacy skills, while also focusing on other areas of the Arts, sports, and life skills.</p>
       <p className="incepted-date">Incepted: 2012</p>
     </div>
