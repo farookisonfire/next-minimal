@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import SecurePage from '../components/secure/SecurePage';
 import NotFound from '../components/NotFound';
 import initStore from '../store/store';
+import { fetchPrograms } from '../actions/programActions';
 
 class Secure extends Component {
   constructor() {
@@ -21,6 +22,7 @@ class Secure extends Component {
     if (!location) {
       return;
     }
+    this.props.fetchPrograms();
 
     const query = location.search;
     const parsed = queryString.parse(query);
@@ -49,9 +51,11 @@ class Secure extends Component {
       programTypeId = '',
     } = this.state;
 
-    const programDatesToRender = programs.filter(program => program.value === programTypeId);
-    const programFeesToUse = programFees[programTypeId];
+    const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
+    const programDatesToRender = programDatesThatMatchType.filter(program =>
+      !program.manualClose && program.enrolled < program.capacity);
 
+    const programFeesToUse = programFees[programTypeId];
     const pagename = 'secure';
 
     return (
@@ -74,4 +78,4 @@ class Secure extends Component {
 
 const mapStateToProps = state => state;
 
-export default withRedux(initStore, mapStateToProps)(Secure);
+export default withRedux(initStore, mapStateToProps, { fetchPrograms })(Secure);
