@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import FellowshipPaymentPage from '../components/fellowship/FellowshipPaymentPage';
 import NotFound from '../components/NotFound';
 import initStore from '../store/store';
+import { fetchPrograms } from '../actions/programActions';
 
 class Fellowship extends Component {
   constructor() {
@@ -20,6 +21,7 @@ class Fellowship extends Component {
     if (!location) {
       return;
     }
+    this.props.fetchPrograms();
 
     const query = location.search;
     const parsed = queryString.parse(query);
@@ -46,13 +48,16 @@ class Fellowship extends Component {
     const fellowshipProgramFees = programFees.fellowship || {};
     const { fn = '' } = this.state;
 
+    const programDatesToRender = programs.filter(program =>
+      !program.manualClose && (program.enrolled + program.confirmed) < program.capacity);
+
     return (
       <Layout>
         {fn ?
         (
           <FellowshipPaymentPage
             name={{ fn: this.state.fn, ln: this.state.ln }}
-            programs={programs}
+            programs={programDatesToRender}
             programFees={fellowshipProgramFees}
             fellowshipPageData={fellowshipPageData}
             apiPath={pagename} />) :
@@ -65,4 +70,4 @@ class Fellowship extends Component {
 
 const mapStateToProps = state => state;
 
-export default withRedux(initStore, mapStateToProps)(Fellowship);
+export default withRedux(initStore, mapStateToProps, { fetchPrograms })(Fellowship);

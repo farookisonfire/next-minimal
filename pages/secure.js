@@ -53,7 +53,7 @@ class Secure extends Component {
 
     const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
     const programDatesToRender = programDatesThatMatchType.filter(program =>
-      !program.manualClose && program.enrolled < program.capacity);
+      !program.manualClose && (program.enrolled + program.confirmed) < program.capacity);
 
     const programFeesToUse = programFees[programTypeId];
     const pagename = 'secure';
