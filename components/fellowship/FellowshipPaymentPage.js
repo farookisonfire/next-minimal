@@ -102,7 +102,7 @@ class FellowshipPaymentPage extends Component {
       selectedProgramType,
     } = this.state;
 
-    const programsToRender = programs.filter(program => program.value === selectedProgramType);
+    const programsToRender = programs.filter(program => program.typeId === selectedProgramType);
 
     let programMatch;
 
