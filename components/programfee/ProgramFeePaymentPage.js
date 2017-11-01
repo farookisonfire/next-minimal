@@ -139,7 +139,7 @@ class ProgramFeePaymentPage extends Component {
               <Grid.Column>
                 <div className="program-fee-grid-header-container">
                   <h2>Option 1: Pay Now + Promotion</h2>
-                  <p>{`Pay your program fee in full ${promotionText} and OHS will provide you with $100 toward both your flight and free, comprehensive travel insurance when you book through STA Travel (a $200 total value)!`}</p>
+                  <p>{`Pay your program fee in full ${promotionText} and OHS will provide you with free, comprehensive travel insurance (a $100 value)!`}</p>
                 </div>
                 <div className="program-fee-grid-button-container">
                   <Checkout
