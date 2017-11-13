@@ -1,35 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table} from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 
 const sortByLength = (programs, length, selectedProgram) => {
-  return programs.filter(program => program.length === length && program.value === selectedProgram);
+  return programs.filter(program => program.length === length && program.typeId === selectedProgram);
 };
 
-  function makeRow(program) {
-    return(
-      <Table.Row key={program.id}>
-        <Table.Cell>{program.date}</Table.Cell>
-      </Table.Row>
-    );
-  }
+function makeRow(program) {
+  const {
+    capacity = 20,
+    confirmed = 0,
+    enrolled = 0,
+    manualClose = false,
+  } = program;
 
-  function makeTable(programDates, header){
+  const cellColor = (confirmed + enrolled >= capacity || manualClose) ?
+    '#FB605B' :
+    'rgba(0,0,0,.87)';
 
-    console.log('``````program dates', programDates);
-    return (
-      <div className="program-dates-tables">
-        <Table compact collapsing textAlign='center' basic='very' columns={1}  size="small">
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>{header}</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {programDates.map(makeRow)}
-          </Table.Body>
-        </Table>
-        <style jsx>{`
+  return (
+    <Table.Row key={program.id}>
+      <Table.Cell style={{ color: cellColor }}>{program.date}</Table.Cell>
+    </Table.Row>
+  );
+}
+
+function makeTable(programDates, header) {
+  return (
+    <div className="program-dates-tables">
+      <Table compact collapsing textAlign='center' basic='very' columns={1} size="small">
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>{header}</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {programDates.map(makeRow)}
+        </Table.Body>
+      </Table>
+      <style jsx>{`
           .program-dates-tables {
             display: inline-block;
             padding-left: 20px;
@@ -37,13 +46,11 @@ const sortByLength = (programs, length, selectedProgram) => {
             vertical-align: top;
           }
         `}</style>
-      </div>
-    );
-  }
+    </div>
+  );
+}
 
-
-const ProgramDates = ({programs, selectedProgram}) => {
-  
+const ProgramDates = ({ programs, selectedProgram }) => {
   const oneWeek = sortByLength(programs, '1 week', selectedProgram);
   const twoWeek = sortByLength(programs, '2 week', selectedProgram);
   const fourWeek = sortByLength(programs, '4 week', selectedProgram);
@@ -52,9 +59,10 @@ const ProgramDates = ({programs, selectedProgram}) => {
     <div>
       <div className="program-dates-header" id="dates">
         <h1>Dates</h1>
-        <p>We are currently accepting applications for 2018. Positions are limited, apply today!</p>
+        <p className="program-dates-subheader">We are currently accepting applications for 2018. Positions are limited, apply today!</p>
+        { programs.length ? <p className="table-legend">· Program Full</p> : null}
       </div>
-      <div className="program-dates-table" style={{textAlign: 'center'}}>
+      <div className="program-dates-table" style={{ textAlign: 'center' }}>
         {oneWeek.length ? makeTable(oneWeek, '1 week') : null}
         {twoWeek.length ? makeTable(twoWeek, '2 week') : null}
         {fourWeek.length ? makeTable(fourWeek, '4 week') : null}
@@ -63,7 +71,6 @@ const ProgramDates = ({programs, selectedProgram}) => {
         .program-dates-table {
           margin-left: auto;
           margin-right: auto;
-          margin-top: 50px;
           width: 70%;
         }
 
@@ -71,7 +78,7 @@ const ProgramDates = ({programs, selectedProgram}) => {
           width: 42.5%;
           margin-left: auto;
           margin-right: auto;
-          margin-bottom: 50px;
+          margin-bottom: 24px;
           text-align: center;
         }
 
@@ -82,10 +89,16 @@ const ProgramDates = ({programs, selectedProgram}) => {
           padding-top: 50px;
         }
 
-        .program-dates-header p {
+        .program-dates-subheader {
           color: rgba(34,34,34,.7);
           font-size: 16px; 
-          margin-top: 30px
+          margin-top: 30px;
+        }
+
+        .table-legend {
+          color: #FB605B;
+          font-size: .8em;
+          font-style: italic;
         }
 
          @media (max-width: 768px) {

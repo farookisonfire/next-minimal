@@ -1,14 +1,24 @@
-import Layout from '../components/Layout'
-import withRedux from 'next-redux-wrapper'
-import initStore from '../store/store'
-import AdmissionsPage from '../components/admissions/AdmissionsPage'
+import React, { Component } from 'react';
+import withRedux from 'next-redux-wrapper';
+import Layout from '../components/Layout';
+import initStore from '../store/store';
+import AdmissionsPage from '../components/admissions/AdmissionsPage';
+import { fetchPrograms } from '../actions/programActions';
 
-const Admissions = (props) => (
-  <Layout pageName={props.url.pathname}>
-    <AdmissionsPage />
-  </Layout>
-)
+class Admissions extends Component {
+  componentDidMount() {
+    this.props.fetchPrograms();
+  }
 
-const mapStateToProps = (state) => state
+  render() {
+    return (
+      <Layout pageName={this.props.url.pathname}>
+        <AdmissionsPage />
+      </Layout>
+    );
+  }
+}
 
-export default withRedux(initStore, mapStateToProps)(Admissions)
+const mapStateToProps = state => state;
+
+export default withRedux(initStore, mapStateToProps, { fetchPrograms })(Admissions);
