@@ -15,6 +15,7 @@ class Secure extends Component {
       fn: '',
       userId: '',
       programTypeId: '',
+      campaign: '',
     };
   }
 
@@ -30,12 +31,14 @@ class Secure extends Component {
       fn = '',
       id = '',
       programTypeId = '',
+      campaign = '',
     } = parsed;
 
     this.setState({
       fn,
       userId: id,
       programTypeId,
+      campaign,
     });
   }
 
@@ -49,6 +52,7 @@ class Secure extends Component {
       fn = '',
       userId = '',
       programTypeId = '',
+      campaign = '',
     } = this.state;
 
     const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
@@ -67,6 +71,7 @@ class Secure extends Component {
             name={this.state.fn}
             programs={programDatesToRender}
             programTypeId={this.state.programTypeId}
+            campaign={campaign}
             programFees={programFeesToUse}
             apiPath={pagename} />) :
           <NotFound />

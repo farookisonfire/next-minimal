@@ -19,6 +19,7 @@ const Checkout = (props) => {
     label = 'Secure your Position',
     fellow = false,
     billingAddress = true,
+    campaign = '',
   } = props;
 
   const onToken = (token) => {
@@ -28,6 +29,7 @@ const Checkout = (props) => {
       enrollmentFee,
       name,
       fellow,
+      campaign,
     };
 
     fetch(`${PAYMENT_SERVER_URL}/${apiPath}/${userId}`, {

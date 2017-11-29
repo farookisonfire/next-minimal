@@ -87,6 +87,7 @@ class SecurePage extends Component {
       programTypeId,
       programFees,
       apiPath,
+      campaign,
     } = this.props;
 
     const {
@@ -181,7 +182,8 @@ class SecurePage extends Component {
                     handlePaymentFail={this.handlePaymentFail}
                     renderStripeButton={renderStripeButton}
                     enrollmentFee={ENROLLMENT_FEE}
-                    apiPath={apiPath} />
+                    apiPath={apiPath}
+                    campaign={campaign} />
                   <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
                 </div>
               </Grid.Column>
