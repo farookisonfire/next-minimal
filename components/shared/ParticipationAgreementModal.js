@@ -39,7 +39,7 @@ class ParticipationAgreementModal extends Component {
           <Modal.Description>
             <iframe
               title="participation-agreement"
-              src="https://drive.google.com/file/d/0BzbaS_y-z_nwa1ZBUF8wSTV1bXM/preview"
+              src="https://drive.google.com/file/d/1mSIFgZsIeUSzn93jYv5U_ZWFEcgIYHqN/preview"
               width="100%"
               height="480" />
           </Modal.Description>
