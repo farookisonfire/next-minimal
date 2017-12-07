@@ -6,6 +6,7 @@ import SecurePage from '../components/secure/SecurePage';
 import NotFound from '../components/NotFound';
 import initStore from '../store/store';
 import { fetchPrograms } from '../actions/programActions';
+import { secureSelectEnroll } from '../actions/secureActions';
 
 class Secure extends Component {
   constructor() {
@@ -46,6 +47,8 @@ class Secure extends Component {
     const {
       programs = [],
       programFees = {},
+      secureSelectEnroll = () => {},
+      securePage = {},
     } = this.props;
 
     const {
@@ -54,6 +57,7 @@ class Secure extends Component {
       programTypeId = '',
       campaign = '',
     } = this.state;
+
 
     const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
     const programDatesToRender = programDatesThatMatchType.filter(program =>
@@ -69,11 +73,13 @@ class Secure extends Component {
           <SecurePage
             userId={this.state.userId}
             name={this.state.fn}
-            programs={programDatesToRender}
+            programs={programDatesThatMatchType}
             programTypeId={this.state.programTypeId}
             campaign={campaign}
             programFees={programFeesToUse}
-            apiPath={pagename} />) :
+            apiPath={pagename}
+            secureSelectEnroll={secureSelectEnroll}
+            securePage={securePage} />) :
           <NotFound />
           }
       </Layout>
@@ -83,4 +89,4 @@ class Secure extends Component {
 
 const mapStateToProps = state => state;
 
-export default withRedux(initStore, mapStateToProps, { fetchPrograms })(Secure);
+export default withRedux(initStore, mapStateToProps, { fetchPrograms, secureSelectEnroll })(Secure);

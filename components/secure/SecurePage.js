@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Grid, Icon, Message } from 'semantic-ui-react';
+import { Grid, Icon, Message, Portal, Segment } from 'semantic-ui-react';
 import SecureHeader from './SecureHeader';
 import Checkout from '../shared/Checkout';
 import Footer from '../footer/Footer';
@@ -14,6 +14,7 @@ import {
   YOUTH_PROGRAM_TYPE_ID,
   ENROLLMENT_FEE,
 } from '../../lib/constants';
+import SecureProgramTable from './SecureProgramTable';
 
 class SecurePage extends Component {
   constructor() {
@@ -31,18 +32,35 @@ class SecurePage extends Component {
     };
 
     this.handleSelectProgramDropdown = this.handleSelectProgramDropdown.bind(this);
+    this.handleEnroll = this.handleEnroll.bind(this);
+    this.handleWaitlist = this.handleWaitlist.bind(this);
     this.handleCheckParticipationAgreement = this.handleCheckParticipationAgreement.bind(this);
     this.validate = this.validate.bind(this);
     this.handlePaymentSuccess = this.handlePaymentSuccess.bind(this);
     this.handlePaymentFail = this.handlePaymentFail.bind(this);
     this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
     this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
-
   }
+
   handleSelectProgramDropdown(e, data) {
     const { value = '' } = data;
     const selectedProgramId = value;
     this.setState({ selectedProgramId });
+  }
+
+  handleEnroll(e, data) {
+    const { id } = data;
+    const { securePage, secureSelectEnroll } = this.props;
+    const { selectedProgramId } = securePage;
+
+    if (id === selectedProgramId) return secureSelectEnroll(false);
+
+    if (window && window.location) window.location.hash = 'secure-position';
+    return secureSelectEnroll(true, id);
+  }
+
+  handleWaitlist() {
+    console.log('HANDLE THE WAITLIST');
   }
 
   handleCheckParticipationAgreement(e, data) {
@@ -88,11 +106,17 @@ class SecurePage extends Component {
       programFees,
       apiPath,
       campaign,
+      securePage,
     } = this.props;
 
     const {
-      errors = {},
+      programSelected,
       selectedProgramId,
+    } = securePage;
+
+
+    const {
+      errors = {},
       checked,
     } = this.state;
 
@@ -132,6 +156,7 @@ class SecurePage extends Component {
     }
 
     const renderStripeButton = userId && selectedProgramId && checked;
+    console.log('this.props secure page', this.props.securePage, programFee);
 
     return (
       <div>
@@ -139,57 +164,78 @@ class SecurePage extends Component {
           <SecureHeader name={name} />
         </div>
         <div className="secure-actions">
-          <Grid stackable columns={2}>
-            <Grid.Row>
-              <Grid.Column>
-                <Icon size="big" name="lock" />
-                <h4>1. Select Your Program Dates</h4>
-                <h2>{dropDownTitle}</h2>
-                <DropDown
-                  placeholder={'Select Dates...'}
-                  fluid
-                  fields={programs}
-                  onChangeHandler={this.handleSelectProgramDropdown}
-                  dropdownType={SELECT_PROGRAM} />
-                <p className={selectedProgramId || errors.selectedProgramId ? 'error-text-default' : 'error-text-visible'}>
-                  *Required: Select Program
+          <Icon size="big" name="lock" />
+          <h4>1. Select Your Program Dates</h4>
+          <h2>{dropDownTitle}</h2>
+          <SecureProgramTable
+            securePageData={securePage}
+            handleWaitlist={this.handleWaitlist}
+            handleEnroll={this.handleEnroll}
+            programs={programs} />
+          <DropDown
+            placeholder={'Select Dates...'}
+            fluid
+            fields={programs}
+            onChangeHandler={this.handleSelectProgramDropdown}
+            dropdownType={SELECT_PROGRAM} />
+          <p className={selectedProgramId || errors.selectedProgramId ? 'error-text-default' : 'error-text-visible'}>
+            *Required: Select Program
                 </p>
-              </Grid.Column>
-              <Grid.Column>
-                <Icon size="big" name="globe" />
-                <div>
-                  <div className="secure-your-position-container">
-                    <h4>2. Secure Your Position</h4>
-                    <div className="checkbox-container">
-                      <CheckBox onCheckHandler={this.handleCheckParticipationAgreement} />
-                      <span className="participation-agreement-modal-container">
-                        <ParticipationAgreementModal />
-                      </span>
-                    </div>
-                    <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
-                      *Required: Read and Agree
-                    </p>
-                    <ProgramFeeList
-                      enrollmentFee={ENROLLMENT_FEE}
-                      programFee={programFee} />
+          <div id="secure-position">
+
+
+
+            <Portal open={programSelected}>
+              <Segment style={{
+                position: 'fixed',
+                left: 0,
+                right: 0,
+                top: '25%',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                zIndex: '1000',
+                width: '60%',
+                textAlign: 'center',
+                backgroundColor: 'rgba(250,250,250,.6)',
+              }}
+              >
+                <div className="secure-your-position-container">
+                  <Icon size="big" name="globe" />
+                  <h4>2. Secure Your Position</h4>
+                  <div className="checkbox-container">
+                    <CheckBox onCheckHandler={this.handleCheckParticipationAgreement} />
+                    <span className="participation-agreement-modal-container">
+                      <ParticipationAgreementModal />
+                    </span>
                   </div>
-                  <Checkout
-                    validate={this.validate}
-                    userId={userId}
-                    selectedProgramId={this.state.selectedProgramId}
-                    checked={this.state.checked}
-                    handlePaymentSuccess={this.handlePaymentSuccess}
-                    handlePaymentFail={this.handlePaymentFail}
-                    renderStripeButton={renderStripeButton}
+                  <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
+                    *Required: Read and Agree
+                      </p>
+                  <ProgramFeeList
                     enrollmentFee={ENROLLMENT_FEE}
-                    apiPath={apiPath}
-                    campaign={campaign} />
-                  <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
+                    programFee={programFee} />
                 </div>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          
+                <Checkout
+                  validate={this.validate}
+                  userId={userId}
+                  selectedProgramId={this.state.selectedProgramId}
+                  checked={this.state.checked}
+                  handlePaymentSuccess={this.handlePaymentSuccess}
+                  handlePaymentFail={this.handlePaymentFail}
+                  renderStripeButton={renderStripeButton}
+                  enrollmentFee={ENROLLMENT_FEE}
+                  apiPath={apiPath}
+                  campaign={campaign} />
+                <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
+              </Segment>
+            </Portal>
+
+
+
+
+
+          </div>
+
           <div className="secure-payment-container">
             <Message
               compact
@@ -245,6 +291,7 @@ class SecurePage extends Component {
           .secure-your-position-container {
             margin: 24px auto 0 auto;
             max-width: 280px;
+            text-align: center;
           }
 
           .checkbox-container {
@@ -274,7 +321,6 @@ class SecurePage extends Component {
             font-size: .8em;
             margin-bottom: 8px;
           }
-
           @media (max-width: 768px) {
             .secure-actions {
               width: 95%; 
@@ -287,3 +333,35 @@ class SecurePage extends Component {
 }
 
 export default SecurePage;
+
+
+// {programSelected && (<div>
+//               <div className="secure-your-position-container">
+//                 <Icon size="big" name="globe" />
+//                 <h4>2. Secure Your Position</h4>
+//                 <div className="checkbox-container">
+//                   <CheckBox onCheckHandler={this.handleCheckParticipationAgreement} />
+//                   <span className="participation-agreement-modal-container">
+//                     <ParticipationAgreementModal />
+//                   </span>
+//                 </div>
+//                 <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
+//                   *Required: Read and Agree
+//                       </p>
+//                 <ProgramFeeList
+//                   enrollmentFee={ENROLLMENT_FEE}
+//                   programFee={programFee} />
+//               </div>
+//               <Checkout
+//                 validate={this.validate}
+//                 userId={userId}
+//                 selectedProgramId={this.state.selectedProgramId}
+//                 checked={this.state.checked}
+//                 handlePaymentSuccess={this.handlePaymentSuccess}
+//                 handlePaymentFail={this.handlePaymentFail}
+//                 renderStripeButton={renderStripeButton}
+//                 enrollmentFee={ENROLLMENT_FEE}
+//                 apiPath={apiPath}
+//                 campaign={campaign} />
+//               <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
+//             </div>)}
