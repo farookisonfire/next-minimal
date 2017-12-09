@@ -41,6 +41,7 @@ class SecurePage extends Component {
     this.handlePaymentFail = this.handlePaymentFail.bind(this);
     this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
     this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
+    this.closePortal = this.closePortal.bind(this);
   }
 
   handleSelectProgramDropdown(e, data) {
@@ -58,6 +59,10 @@ class SecurePage extends Component {
 
     if (window && window.location) window.location.hash = 'secure-position';
     return secureSelectEnroll(true, id);
+  }
+
+  closePortal() {
+    this.props.secureSelectEnroll(false);
   }
 
   handleWaitlist() {
@@ -85,6 +90,7 @@ class SecurePage extends Component {
   handlePaymentSuccess() {
     this.setState({ paymentSuccess: true });
     this.props.secureSelectEnroll(false);
+    this.props.fetchApplicant();
   }
 
   handlePaymentSuccessDismiss() {
@@ -113,16 +119,6 @@ class SecurePage extends Component {
       applicantData,
       allPrograms,
     } = this.props;
-
-    if (applicantData.status === 'confirmed') {
-      return (
-        <SecurePagePositionConfirmed
-          allPrograms={allPrograms}
-          applicantData={applicantData}
-          name={name}
-        />
-      );
-    }
 
     const {
       programSelected,
@@ -179,89 +175,89 @@ class SecurePage extends Component {
         <div className="secure-top">
           <SecureHeader name={name} />
         </div>
-        <div className="secure-actions">
-          <Icon size="big" name="lock" />
-          <h4>1. Select Your Program Dates</h4>
-          <h2>{dropDownTitle}</h2>
-          <SecureProgramTable
-            securePageData={securePage}
-            handleWaitlist={this.handleWaitlist}
-            handleEnroll={this.handleEnroll}
-            programs={programs} />
-          <p className={selectedProgramId || errors.selectedProgramId ? 'error-text-default' : 'error-text-visible'}>
-            *Required: Select Program
+        {applicantData.status === 'confirmed' ? (
+          <SecurePagePositionConfirmed
+            allPrograms={allPrograms}
+            applicantData={applicantData}
+            name={name} />) : (
+            <div className="secure-actions">
+              <Icon size="big" name="globe" />
+              <h4> Select Your Program Dates</h4>
+              <h2>{dropDownTitle}</h2>
+              <SecureProgramTable
+                securePageData={securePage}
+                handleWaitlist={this.handleWaitlist}
+                handleEnroll={this.handleEnroll}
+                programs={programs} />
+              <p className={selectedProgramId || errors.selectedProgramId ? 'error-text-default' : 'error-text-visible'}>
+                *Required: Select Program
                 </p>
-          <div id="secure-position">
-
-
-
-            <Portal open={programSelected}>
-              <Segment style={{
-                position: 'fixed',
-                left: 0,
-                right: 0,
-                top: '25%',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                zIndex: '1000',
-                width: '75%',
-                textAlign: 'center',
-                backgroundColor: 'rgba(250,250,250,.95)',
-              }}
-              >
-                <div className="secure-your-position-container">
-                  <Icon size="big" name="globe" />
-                  <h4>2. Secure Your Position</h4>
-                  <div className="checkbox-container">
-                    <CheckBox onCheckHandler={this.handleCheckParticipationAgreement} />
-                    <span className="participation-agreement-modal-container">
-                      <ParticipationAgreementModal />
-                    </span>
-                  </div>
-                  <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
-                    *Required: Read and Agree
+              <div id="secure-position">
+                <Portal open={programSelected}>
+                  <Segment style={{
+                    position: 'fixed',
+                    left: 0,
+                    right: 0,
+                    top: '25%',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    zIndex: '1000',
+                    width: '75%',
+                    textAlign: 'center',
+                    backgroundColor: 'rgba(250,250,250,.95)',
+                  }}
+                  >
+                    <div className="secure-your-position-container">
+                      <Icon
+                        onClick={this.closePortal}
+                        style={{ position: 'absolute', left: 24, top: 24, cursor: 'pointer' }}
+                        size="big"
+                        name="long arrow left" />
+                      <h2>Secure Your Position</h2>
+                      <div className="checkbox-container">
+                        <CheckBox onCheckHandler={this.handleCheckParticipationAgreement} />
+                        <span className="participation-agreement-modal-container">
+                          <ParticipationAgreementModal />
+                        </span>
+                      </div>
+                      <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
+                        *Required: Read and Agree
                       </p>
-                  <ProgramFeeList
-                    enrollmentFee={ENROLLMENT_FEE}
-                    programFee={programFee} />
-                </div>
-                <Checkout
-                  validate={this.validate}
-                  userId={userId}
-                  selectedProgramId={selectedProgramId}
-                  checked={this.state.checked}
-                  handlePaymentSuccess={this.handlePaymentSuccess}
-                  handlePaymentFail={this.handlePaymentFail}
-                  renderStripeButton={renderStripeButton}
-                  enrollmentFee={ENROLLMENT_FEE}
-                  apiPath={apiPath}
-                  campaign={campaign} />
-                <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
-              </Segment>
-            </Portal>
-
-
-
-
-
-          </div>
-
-          <div className="secure-payment-container">
-            <Message
-              compact
-              color="green"
-              hidden={!this.state.paymentSuccess}
-              onClick={this.handlePaymentSuccessDismiss}>
-              Your position is secure! Our team will follow up via email with more details.
-            </Message>
-            <Message
-              compact
-              color="red"
-              hidden={!this.state.paymentFail}
-              onClick={this.handlePaymentFailDismiss}>
-              Payment not processed, please try again. If the problem persists reach out to us at admissions@oneheartsource.org.
-            </Message>
-          </div>
+                      <ProgramFeeList
+                        enrollmentFee={ENROLLMENT_FEE}
+                        programFee={programFee} />
+                    </div>
+                    <Checkout
+                      validate={this.validate}
+                      userId={userId}
+                      selectedProgramId={selectedProgramId}
+                      checked={this.state.checked}
+                      handlePaymentSuccess={this.handlePaymentSuccess}
+                      handlePaymentFail={this.handlePaymentFail}
+                      renderStripeButton={renderStripeButton}
+                      enrollmentFee={ENROLLMENT_FEE}
+                      apiPath={apiPath}
+                      campaign={campaign} />
+                    <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
+                  </Segment>
+                </Portal>
+              </div>
+            </div>)}
+        <div className="secure-payment-container">
+          <Message
+            compact
+            color="green"
+            hidden={!this.state.paymentSuccess}
+            onClick={this.handlePaymentSuccessDismiss}>
+            Your position is secure! Our team will follow up via email with more details.
+          </Message>
+          <Message
+            compact
+            color="red"
+            hidden={!this.state.paymentFail}
+            onClick={this.handlePaymentFailDismiss}>
+            Payment not processed, please try again. If the problem persists reach out to us at admissions@oneheartsource.org.
+          </Message>
         </div>
         <Footer />
         <style jsx>{`
@@ -304,6 +300,11 @@ class SecurePage extends Component {
             text-align: center;
           }
 
+          .secure-your-position-container h2 {
+            font-weight: 300;
+            font-size: 28px;
+          }
+
           .checkbox-container {
             display: flex;
             align-items: center;
@@ -343,35 +344,3 @@ class SecurePage extends Component {
 }
 
 export default SecurePage;
-
-
-// {programSelected && (<div>
-//               <div className="secure-your-position-container">
-//                 <Icon size="big" name="globe" />
-//                 <h4>2. Secure Your Position</h4>
-//                 <div className="checkbox-container">
-//                   <CheckBox onCheckHandler={this.handleCheckParticipationAgreement} />
-//                   <span className="participation-agreement-modal-container">
-//                     <ParticipationAgreementModal />
-//                   </span>
-//                 </div>
-//                 <p className={checked || errors.checked ? 'error-text-default' : 'error-text-visible'}>
-//                   *Required: Read and Agree
-//                       </p>
-//                 <ProgramFeeList
-//                   enrollmentFee={ENROLLMENT_FEE}
-//                   programFee={programFee} />
-//               </div>
-//               <Checkout
-//                 validate={this.validate}
-//                 userId={userId}
-//                 selectedProgramId={this.state.selectedProgramId}
-//                 checked={this.state.checked}
-//                 handlePaymentSuccess={this.handlePaymentSuccess}
-//                 handlePaymentFail={this.handlePaymentFail}
-//                 renderStripeButton={renderStripeButton}
-//                 enrollmentFee={ENROLLMENT_FEE}
-//                 apiPath={apiPath}
-//                 campaign={campaign} />
-//               <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
-//             </div>)}

@@ -7,11 +7,7 @@ import NotFound from '../components/NotFound';
 import initStore from '../store/store';
 import { fetchPrograms } from '../actions/programActions';
 import { secureSelectEnroll } from '../actions/secureActions';
-<<<<<<< HEAD
 import { fetchApplicant } from '../actions/applicantActions';
-
-=======
->>>>>>> b2854997f9c98776db230c6faf41efdd69b13355
 
 class Secure extends Component {
   constructor() {
@@ -77,6 +73,7 @@ class Secure extends Component {
         {fn && userId && programTypeId ?
         (
           <SecurePage
+            fetchApplicant={() => this.props.fetchApplicant(userId)}
             applicantData={applicantData}
             userId={this.state.userId}
             name={this.state.fn}
