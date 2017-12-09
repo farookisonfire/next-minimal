@@ -173,6 +173,7 @@ class SecurePage extends Component {
     const renderStripeButton = userId && selectedProgramId && checked;
     console.log('PROPS', this.props);
     console.log('STATE', this.state);
+
     return (
       <div>
         <div className="secure-top">
@@ -187,7 +188,6 @@ class SecurePage extends Component {
             handleWaitlist={this.handleWaitlist}
             handleEnroll={this.handleEnroll}
             programs={programs} />
-          
           <p className={selectedProgramId || errors.selectedProgramId ? 'error-text-default' : 'error-text-visible'}>
             *Required: Select Program
                 </p>

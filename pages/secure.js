@@ -7,8 +7,11 @@ import NotFound from '../components/NotFound';
 import initStore from '../store/store';
 import { fetchPrograms } from '../actions/programActions';
 import { secureSelectEnroll } from '../actions/secureActions';
+<<<<<<< HEAD
 import { fetchApplicant } from '../actions/applicantActions';
 
+=======
+>>>>>>> b2854997f9c98776db230c6faf41efdd69b13355
 
 class Secure extends Component {
   constructor() {
@@ -62,7 +65,6 @@ class Secure extends Component {
       programTypeId = '',
       campaign = '',
     } = this.state;
-
 
     const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
     const programFeesToUse = programFees[programTypeId];
