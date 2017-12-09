@@ -6,6 +6,9 @@ import SecurePage from '../components/secure/SecurePage';
 import NotFound from '../components/NotFound';
 import initStore from '../store/store';
 import { fetchPrograms } from '../actions/programActions';
+import { secureSelectEnroll } from '../actions/secureActions';
+import { fetchApplicant } from '../actions/applicantActions';
+
 
 class Secure extends Component {
   constructor() {
@@ -23,7 +26,6 @@ class Secure extends Component {
     if (!location) {
       return;
     }
-    this.props.fetchPrograms();
 
     const query = location.search;
     const parsed = queryString.parse(query);
@@ -33,6 +35,9 @@ class Secure extends Component {
       programTypeId = '',
       campaign = '',
     } = parsed;
+    
+    this.props.fetchPrograms();
+    this.props.fetchApplicant(id);
 
     this.setState({
       fn,
@@ -46,6 +51,9 @@ class Secure extends Component {
     const {
       programs = [],
       programFees = {},
+      secureSelectEnroll = () => {},
+      securePage = {},
+      applicantData = {},
     } = this.props;
 
     const {
@@ -55,25 +63,29 @@ class Secure extends Component {
       campaign = '',
     } = this.state;
 
-    const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
-    const programDatesToRender = programDatesThatMatchType.filter(program =>
-      !program.manualClose && (program.enrolled + program.confirmed) < program.capacity);
 
+    const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
     const programFeesToUse = programFees[programTypeId];
     const pagename = 'secure';
+
+    console.log('SECURE.js PROPS >', this.props);
 
     return (
       <Layout>
         {fn && userId && programTypeId ?
         (
           <SecurePage
+            applicantData={applicantData}
             userId={this.state.userId}
             name={this.state.fn}
-            programs={programDatesToRender}
+            allPrograms={programs}
+            programs={programDatesThatMatchType}
             programTypeId={this.state.programTypeId}
             campaign={campaign}
             programFees={programFeesToUse}
-            apiPath={pagename} />) :
+            apiPath={pagename}
+            secureSelectEnroll={secureSelectEnroll}
+            securePage={securePage} />) :
           <NotFound />
           }
       </Layout>
@@ -83,4 +95,6 @@ class Secure extends Component {
 
 const mapStateToProps = state => state;
 
-export default withRedux(initStore, mapStateToProps, { fetchPrograms })(Secure);
+export default withRedux(initStore, mapStateToProps, {
+  fetchPrograms, secureSelectEnroll, fetchApplicant,
+})(Secure);
