@@ -6,7 +6,7 @@ import SecurePage from '../components/secure/SecurePage';
 import NotFound from '../components/NotFound';
 import initStore from '../store/store';
 import { fetchPrograms } from '../actions/programActions';
-import { secureSelectEnroll } from '../actions/secureActions';
+import { secureSelectEnroll, addToWaitlist, secureSelectWaitlist } from '../actions/secureActions';
 import { fetchApplicant } from '../actions/applicantActions';
 
 class Secure extends Component {
@@ -53,6 +53,8 @@ class Secure extends Component {
       secureSelectEnroll = () => {},
       securePage = {},
       applicantData = {},
+      addToWaitlist = () => {},
+      secureSelectWaitlist = () => {},
     } = this.props;
 
     const {
@@ -65,8 +67,6 @@ class Secure extends Component {
     const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
     const programFeesToUse = programFees[programTypeId];
     const pagename = 'secure';
-
-    console.log('SECURE.js PROPS >', this.props);
 
     return (
       <Layout>
@@ -84,6 +84,8 @@ class Secure extends Component {
             programFees={programFeesToUse}
             apiPath={pagename}
             secureSelectEnroll={secureSelectEnroll}
+            addToWaitlist={addToWaitlist}
+            secureSelectWaitlist={secureSelectWaitlist}
             securePage={securePage} />) :
           <NotFound />
           }
@@ -95,5 +97,9 @@ class Secure extends Component {
 const mapStateToProps = state => state;
 
 export default withRedux(initStore, mapStateToProps, {
-  fetchPrograms, secureSelectEnroll, fetchApplicant,
+  fetchPrograms,
+  secureSelectEnroll,
+  fetchApplicant,
+  secureSelectWaitlist,
+  addToWaitlist,
 })(Secure);

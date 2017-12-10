@@ -17,6 +17,7 @@ export const fetchPrograms = () => {
     dispatch(requestPrograms());
     return fetch(`${getBaseUrl()}/api/initial-data/programs`)
       .then((res) => {
+        console.log('fetch programs response', res.ok)
         if (res.ok) {
           return res.json();
         }

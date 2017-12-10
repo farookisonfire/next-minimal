@@ -9,14 +9,23 @@ const {
   FULL_WAITLIST_CLOSED,
 } = PROGRAM_STATUS;
 
-const resolveProgramStatusAndButton = (programStatus, program, buttonActions, securePageData) => {
+const resolveProgramStatusAndButton = (
+  programStatus,
+  program,
+  buttonActions,
+  securePageData,
+) => {
   const { waitlist, id } = program;
   const { handleEnroll, handleWaitlist } = buttonActions;
-  const { selectedProgramId = '' } = securePageData;
+  const {
+    selectedProgramId = '',
+    programSelected = false,
+    openWaitlistPortal = false,
+  } = securePageData;
 
   const enrollButtonToRender = id === selectedProgramId ?
-    (<Button active={false} onClick={handleEnroll} color="green" id={id} inverted>Deselect</Button>) :
-    (<Button active={false} onClick={handleEnroll} color="green" id={id} inverted>Enroll</Button>);
+    (<Button disabled={programSelected} active={false} onClick={handleEnroll} color="green" id={id} inverted>Deselect</Button>) :
+    (<Button disabled={openWaitlistPortal} active={false} onClick={handleEnroll} color="green" id={id} inverted>Enroll</Button>);
 
   switch (programStatus) {
     case CLOSED_WAITLIST_FULL:
@@ -32,7 +41,11 @@ const resolveProgramStatusAndButton = (programStatus, program, buttonActions, se
     case FULL_WAITLIST_OPEN:
       return ({
         status: (<Label color="orange" horizontal>{`Waitlist ${waitlist.length}/10`}</Label>),
-        action: (<Button onClick={handleWaitlist} color="orange" inverted>Join Waitlist</Button>),
+        action: (<Button
+          disabled={programSelected || openWaitlistPortal}
+          onClick={() => handleWaitlist(id)}
+          color="orange"
+          inverted>Join Waitlist</Button>),
       });
     default:
       return ({
@@ -43,15 +56,25 @@ const resolveProgramStatusAndButton = (programStatus, program, buttonActions, se
 };
 
 const SecureProgramTable = (props) => {
-  const { programs = [], handleEnroll, handleWaitlist, securePageData } = props;
+  const {
+    programs = [],
+    handleEnroll,
+    handleWaitlist,
+    securePageData,
+  } = props;
 
   const programsToRender = programs.map((program) => {
     const programStatus = determineProgramStatus(program);
-    const programLabelAndButton = resolveProgramStatusAndButton(programStatus, program, { handleEnroll, handleWaitlist }, securePageData);
+    const programLabelAndButton = resolveProgramStatusAndButton(
+      programStatus,
+      program,
+      { handleEnroll, handleWaitlist },
+      securePageData,
+      );
     const { status, action } = programLabelAndButton;
 
     return (
-      <Table.Row key={program.id}>
+      <Table.Row key={program.id} style={{ textAlign: 'center' }}>
         <Table.Cell>{program.length}</Table.Cell>
         <Table.Cell>{program.date}</Table.Cell>
         <Table.Cell>{status}</Table.Cell>

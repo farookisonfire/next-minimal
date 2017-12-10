@@ -1,10 +1,7 @@
-import { Divider } from 'semantic-ui-react';
-
 const SecurePagePositionConfirmed = (props) => {
   const {
     allPrograms = [],
     applicantData = {},
-    name = '',
   } = props;
 
   const { selectedProgramId } = applicantData;
@@ -16,13 +13,9 @@ const SecurePagePositionConfirmed = (props) => {
 
   const {
     type,
-    length,
     date,
   } = selectedProgram;
 
-  const selectedProgramString = `${type} ${length} ${date}`;
-
-  console.log('SECUREPAGEPOSITIONCONFIRMED', applicantData);
   return (
     <div>
       <div className="secure-top">

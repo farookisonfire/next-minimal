@@ -1,14 +1,12 @@
 import { Component } from 'react';
-import { Grid, Icon, Message, Portal, Segment } from 'semantic-ui-react';
+import { Icon, Message, Portal, Segment } from 'semantic-ui-react';
 import SecureHeader from './SecureHeader';
 import Checkout from '../shared/Checkout';
 import Footer from '../footer/Footer';
-import DropDown from '../shared/DropDown';
 import CheckBox from '../shared/CheckBox';
 import ParticipationAgreementModal from '../shared/ParticipationAgreementModal';
 import ProgramFeeList from '../shared/ProgramFeeList';
 import {
-  SELECT_PROGRAM,
   HEALTH_PROGRAM_TYPE_ID,
   EDUCATION_PROGRAM_TYPE_ID,
   YOUTH_PROGRAM_TYPE_ID,
@@ -16,12 +14,14 @@ import {
 } from '../../lib/constants';
 import SecureProgramTable from './SecureProgramTable';
 import SecurePagePositionConfirmed from './SecurePagePositionConfirmed';
+import WaitlistPortal from './WaitlistPortal';
 
 class SecurePage extends Component {
   constructor() {
     super();
 
     this.state = {
+      openWaitlistModal: false,
       selectedProgramId: '',
       checked: '',
       errors: {
@@ -35,13 +35,14 @@ class SecurePage extends Component {
     this.handleSelectProgramDropdown = this.handleSelectProgramDropdown.bind(this);
     this.handleEnroll = this.handleEnroll.bind(this);
     this.handleWaitlist = this.handleWaitlist.bind(this);
+    this.confirmWaitlist = this.confirmWaitlist.bind(this);
     this.handleCheckParticipationAgreement = this.handleCheckParticipationAgreement.bind(this);
     this.validate = this.validate.bind(this);
     this.handlePaymentSuccess = this.handlePaymentSuccess.bind(this);
     this.handlePaymentFail = this.handlePaymentFail.bind(this);
     this.handlePaymentSuccessDismiss = this.handlePaymentSuccessDismiss.bind(this);
     this.handlePaymentFailDismiss = this.handlePaymentFailDismiss.bind(this);
-    this.closePortal = this.closePortal.bind(this);
+    this.closeEnrollPortal = this.closeEnrollPortal.bind(this);
   }
 
   handleSelectProgramDropdown(e, data) {
@@ -54,19 +55,26 @@ class SecurePage extends Component {
     const { id } = data;
     const { securePage, secureSelectEnroll } = this.props;
     const { selectedProgramId } = securePage;
-
+    // deselect the program on second click
     if (id === selectedProgramId) return secureSelectEnroll(false);
-
-    if (window && window.location) window.location.hash = 'secure-position';
     return secureSelectEnroll(true, id);
   }
 
-  closePortal() {
+  closeEnrollPortal() {
     this.props.secureSelectEnroll(false);
   }
 
-  handleWaitlist() {
-    console.log('HANDLE THE WAITLIST');
+  handleWaitlist(programId) {
+    this.props.secureSelectWaitlist(true, programId);
+  }
+
+  confirmWaitlist(programId, applicantId) {
+    console.log('here', programId, applicantId);
+    if (programId && applicantId) {
+      this.props.addToWaitlist(programId, applicantId);
+    }
+
+    return this.props.secureSelectWaitlist(false);
   }
 
   handleCheckParticipationAgreement(e, data) {
@@ -123,7 +131,10 @@ class SecurePage extends Component {
     const {
       programSelected,
       selectedProgramId,
+      openWaitlistPortal,
     } = securePage;
+
+    console.log('selected program id', selectedProgramId, openWaitlistPortal);
 
 
     const {
@@ -167,19 +178,21 @@ class SecurePage extends Component {
     }
 
     const renderStripeButton = userId && selectedProgramId && checked;
-    console.log('PROPS', this.props);
-    console.log('STATE', this.state);
+
+    console.log('securepage',this.props.securePage)
 
     return (
       <div>
         <div className="secure-top">
-          <SecureHeader name={name} />
+          <SecureHeader
+            name={name}
+            applicantData={applicantData}
+            programs={programs} />
         </div>
-        {applicantData.status === 'confirmed' ? (
+        {applicantData.status === 'confirmed' || applicantData.status === 'waitlist' ? (
           <SecurePagePositionConfirmed
             allPrograms={allPrograms}
-            applicantData={applicantData}
-            name={name} />) : (
+            applicantData={applicantData} />) : (
             <div className="secure-actions">
               <Icon size="big" name="globe" />
               <h4> Select Your Program Dates</h4>
@@ -209,7 +222,7 @@ class SecurePage extends Component {
                   >
                     <div className="secure-your-position-container">
                       <Icon
-                        onClick={this.closePortal}
+                        onClick={this.closeEnrollPortal}
                         style={{ position: 'absolute', left: 24, top: 24, cursor: 'pointer' }}
                         size="big"
                         name="long arrow left" />
@@ -241,6 +254,11 @@ class SecurePage extends Component {
                     <p className={userId ? 'error-text-default' : 'error-text-visible'}>*Invalid User ID</p>
                   </Segment>
                 </Portal>
+                <WaitlistPortal
+                  applicantData={applicantData}
+                  selectedProgramId={selectedProgramId}
+                  openWaitlistPortal={openWaitlistPortal}
+                  handleWaitlistPortalAction={this.confirmWaitlist} />
               </div>
             </div>)}
         <div className="secure-payment-container">
@@ -331,11 +349,6 @@ class SecurePage extends Component {
             font-style: italic;
             font-size: .8em;
             margin-bottom: 8px;
-          }
-          @media (max-width: 768px) {
-            .secure-actions {
-              width: 95%; 
-            }
           }
         `}</style>
       </div>
