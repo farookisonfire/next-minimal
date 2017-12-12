@@ -18,14 +18,9 @@ const resolveProgramStatusAndButton = (
   const { waitlist, id } = program;
   const { handleEnroll, handleWaitlist } = buttonActions;
   const {
-    selectedProgramId = '',
     programSelected = false,
     openWaitlistPortal = false,
   } = securePageData;
-
-  const enrollButtonToRender = id === selectedProgramId ?
-    (<Button disabled={programSelected} active={false} onClick={handleEnroll} color="green" id={id} inverted>Deselect</Button>) :
-    (<Button disabled={openWaitlistPortal} active={false} onClick={handleEnroll} color="green" id={id} inverted>Enroll</Button>);
 
   switch (programStatus) {
     case CLOSED_WAITLIST_FULL:
@@ -50,7 +45,13 @@ const resolveProgramStatusAndButton = (
     default:
       return ({
         status: (<Label color="green" horizontal>Open</Label>),
-        action: enrollButtonToRender,
+        action: (<Button
+          disabled={programSelected || openWaitlistPortal}
+          active={false}
+          onClick={handleEnroll}
+          color="green"
+          id={id}
+          inverted>Enroll</Button>),
       });
   }
 };
