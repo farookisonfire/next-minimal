@@ -135,9 +135,6 @@ class SecurePage extends Component {
       openWaitlistPortal,
     } = securePage;
 
-    console.log('selected program id', selectedProgramId, openWaitlistPortal);
-
-
     const {
       errors = {},
       checked,
@@ -180,8 +177,6 @@ class SecurePage extends Component {
 
     const renderStripeButton = userId && selectedProgramId && checked;
 
-    console.log('securepage',this.props.securePage)
-
     return (
       <div>
         <div className="secure-top">
@@ -219,8 +214,7 @@ class SecurePage extends Component {
                     width: '75%',
                     textAlign: 'center',
                     backgroundColor: 'rgba(250,250,250,.95)',
-                  }}
-                  >
+                  }}>
                     <div className="secure-your-position-container">
                       <Icon
                         onClick={this.closeEnrollPortal}
