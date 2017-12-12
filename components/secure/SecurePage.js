@@ -108,6 +108,7 @@ class SecurePage extends Component {
   handlePaymentFail() {
     this.setState({ paymentFail: true });
     this.props.secureSelectEnroll(false);
+    this.props.fetchApplicant();
   }
 
   handlePaymentFailDismiss() {
