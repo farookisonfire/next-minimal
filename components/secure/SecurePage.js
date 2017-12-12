@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Icon, Message, Portal, Segment } from 'semantic-ui-react';
+import { Icon, Message, Portal, Segment, Button } from 'semantic-ui-react';
 import SecureHeader from './SecureHeader';
 import Checkout from '../shared/Checkout';
 import Footer from '../footer/Footer';
@@ -216,11 +216,11 @@ class SecurePage extends Component {
                     backgroundColor: 'rgba(250,250,250,.95)',
                   }}>
                     <div className="secure-your-position-container">
-                      <Icon
+                      <Button
+                        circular
                         onClick={this.closeEnrollPortal}
                         style={{ position: 'absolute', left: 24, top: 24, cursor: 'pointer' }}
-                        size="big"
-                        name="long arrow left" />
+                        icon="long arrow left" />
                       <h2>Secure Your Position</h2>
                       <div className="checkbox-container">
                         <CheckBox onCheckHandler={this.handleCheckParticipationAgreement} />
