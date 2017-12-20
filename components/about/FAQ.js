@@ -17,17 +17,22 @@ const faqSectionStyle = {
 const FAQ = (props) => {
   const {
     faqs = [],
+    faqHandleClick,
+    activeIndex,
   } = props;
 
   const renderFaqs = (faqList) => {
     return faqList.map((faq) => {
       return (
-        <Accordion fluid styled id={`faq-${faq.id}`}>
-          <Accordion.Title>
+        <Accordion fluid styled key={`faq-${faq.id}`}>
+          <Accordion.Title
+            index={faq.id}
+            active={activeIndex === faq.id}
+            onClick={faqHandleClick}>
             <Icon name="dropdown" />
             {faq.question}
           </Accordion.Title>
-          <Accordion.Content>
+          <Accordion.Content active={activeIndex === faq.id}>
             {faq.answer}
           </Accordion.Content>
         </Accordion>
