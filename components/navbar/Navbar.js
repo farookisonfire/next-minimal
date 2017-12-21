@@ -149,7 +149,7 @@ class Navbar extends Component {
           }
 
           .navbar-dark {
-            background-color: rgb(31,30,29);
+            background-color: rgba(31,30,29,0);
             margin-top: 0;
             position: absolute;
             padding-top: 5px;
