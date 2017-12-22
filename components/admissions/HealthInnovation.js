@@ -5,7 +5,7 @@ import ProgramDates from './ProgramDates';
 import ApplyNow from './ApplyNow';
 import Footer from '../footer/Footer';
 
-const HealthInnovation = ({selectedProgram, programs}) => (
+const HealthInnovation = ({ selectedProgram, programs }) => (
   <div>
     <div className="admissions-programs-header">
       <h1>Health Innovation</h1>

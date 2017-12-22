@@ -221,3 +221,50 @@ export const faqs = [
     ],
   },
 ];
+
+export const clippersTickets = {
+  sections: [
+    {
+      "sectionId": 1,
+      "level": 1,
+      "section": 114,
+      "tickets": 8,
+      "price": 250
+    },
+    {
+      "sectionId": 2,
+      "level": 1,
+      "section": 117,
+      "tickets": 10,
+      "price": 250
+    },
+    {
+      "sectionId": 3,
+      "level": 2,
+      "section": 215,
+      "tickets": 13,
+      "price": 100
+    },
+    {
+      "sectionId": 4,
+      "level": 2,
+      "section": 218,
+      "tickets": 6,
+      "price": 100
+    },
+    {
+      "sectionId": 5,
+      "level": 3,
+      "section": 330,
+      "tickets": 7,
+      "price": 42
+    },
+    {
+      "sectionId": 6,
+      "level": 3,
+      "section": 331,
+      "tickets": 34,
+      "price": 42
+    }
+  ],
+};
