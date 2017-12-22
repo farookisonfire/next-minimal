@@ -1,10 +1,20 @@
 import ClippersPageHeader from './ClippersPageHeader';
 import ClippersPageBody from './ClippersPageBody';
+import ClippersPaymentPortal from './ClippersPaymentPortal';
 
 const ClippersPageContent = (props) => {
   const {
     selectedCard,
     handleCardSelect,
+    openPaymentPortal,
+    closePaymentPortal,
+    paymentPortalOpen,
+    clippersTickets,
+    paymentPortalSelectSection,
+    selectedSection,
+    incrementTicketCount,
+    decrementTicketCount,
+    ticketCount,
   } = props;
 
   return (
@@ -15,6 +25,18 @@ const ClippersPageContent = (props) => {
           <ClippersPageBody
             selectedCard={selectedCard}
             handleCardSelect={handleCardSelect}
+            openPaymentPortal={openPaymentPortal}
+          />
+          <ClippersPaymentPortal
+            paymentPortalSelectSection={paymentPortalSelectSection}
+            selectedSection={selectedSection}
+            selectedCard={selectedCard}
+            paymentPortalOpen={paymentPortalOpen}
+            closePaymentPortal={closePaymentPortal}
+            clippersTickets={clippersTickets}
+            incrementTicketCount={incrementTicketCount}
+            decrementTicketCount={decrementTicketCount}
+            ticketCount={ticketCount}
           />
         </div>
       </div>

@@ -8,6 +8,7 @@ import errors from './errorsReducer';
 import faqs from './faqReducer';
 import securePage from './securePageReducer';
 import applicantData from './applicantReducer';
+import clippersTickets from './clippersTicketsReducer';
 
 const rootReducer = combineReducers({
   showCanvas,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   faqs,
   securePage,
   applicantData,
+  clippersTickets,
 });
 
 export default rootReducer;

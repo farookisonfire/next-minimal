@@ -9,7 +9,7 @@ const styles = {
   },
   cardSelected: {
     maxWidth: 240,
-    backgroundColor: 'rgba(250,250,250,1)',
+    backgroundColor: 'rgba(255,255,255,1)',
     boxShadow: 'rgba(0, 0, 0, 0.5) 5px 5px 10px',
     margin: '-24px -16px',
     zIndex: 10,
@@ -21,13 +21,33 @@ const styles = {
   priceContainer: {
     margin: '32px 0px',
     textAlign: 'center',
+    color: 'rgba(255,255,255,1)',
+  },
+  priceContainerSelected: {
+    margin: '32px 0px',
+    textAlign: 'center',
   },
   priceText: {
     fontSize: 48,
   },
   descriptionContainer: {
     marginBottom: 16,
+    color: 'rgba(220,220,220,1)',
   },
+  descriptionContainerSelected: {
+    marginBottom: 16,
+  },
+  cardHeader: {
+    color: 'rgba(255,255,255,1)',
+  },
+  cardHeaderSelected: {
+  },
+  cardSubtitle: {
+    color: 'rgba(220,220,220,1)',
+  },
+  cardSubtitleSelected: {
+
+  }
 };
 
 const ClippersCard = (props) => {
@@ -46,28 +66,34 @@ const ClippersCard = (props) => {
     card,
     cardSelected,
     priceContainer,
+    priceContainerSelected,
     priceText,
     cardIcon,
     descriptionContainer,
+    descriptionContainerSelected,
+    cardHeader,
+    cardHeaderSelected,
+    cardSubtitle,
+    cardSubtitleSelected,
   } = styles;
 
   return (
 
     <Card style={selectedCard === id ? cardSelected : card} onClick={() => handleCardSelect(id)}>
       <Card.Content>
-        <Card.Header>
+        <Card.Header style={selectedCard === id ? cardHeaderSelected : cardHeader}>
           {header}
-          <Icon size="large" style={cardIcon} name={icon} />
+          <Icon size="large" style={cardIcon} name={icon} inverted={selectedCard !== id} />
         </Card.Header>
-        <Card.Meta>
+        <Card.Meta style={selectedCard === id ? cardSubtitleSelected : cardSubtitle}>
           {subtitle}
         </Card.Meta>
         <Card.Description>
-          <div style={priceContainer}>
+          <div style={selectedCard === id ? priceContainerSelected : priceContainer}>
             <span style={priceText}>${ticketPrice}</span>
             <span>/ ticket</span>
           </div>
-          <div style={descriptionContainer}>
+          <div style={selectedCard === id ? descriptionContainerSelected : descriptionContainer}>
             {description}
           </div>
         </Card.Description>
@@ -92,11 +118,3 @@ const ClippersCard = (props) => {
 };
 
 export default ClippersCard;
-
-{/*<Card>
-      <Card.Content header={header} />
-      <Card.Content description={description} />
-      <Card.Content extra>
-        <Button basic>Get Tickets</Button>
-      </Card.Content>
-    </Card>*/}

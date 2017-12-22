@@ -221,3 +221,50 @@ export const faqs = [
     ],
   },
 ];
+
+export const clippersTickets = {
+  sections: [
+    {
+      id: 1,
+      section: 114,
+      level: 1,
+      tickets: 8,
+      price: 250,
+    },
+    {
+      id: 2,
+      section: 117,
+      level: 1,
+      tickets: 10,
+      price: 250,
+    },
+    {
+      id: 3,
+      section: 215,
+      level: 2,
+      tickets: 13,
+      price: 100,
+    },
+    {
+      id: 4,
+      section: 218,
+      level: 2,
+      tickets: 6,
+      price: 100,
+    },
+    {
+      id: 5,
+      section: 330,
+      level: 3,
+      tickets: 7,
+      price: 42,
+    },
+    {
+      id: 6,
+      section: 331,
+      level: 3,
+      tickets: 34,
+      price: 42,
+    },
+  ],
+};

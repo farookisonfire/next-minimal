@@ -31,6 +31,7 @@ const ClippersPageBody = (props) => {
   const {
     selectedCard,
     handleCardSelect,
+    openPaymentPortal = () => {},
   } = props;
 
   const clippersCardsToRender = clipperCards.map((card) => {
@@ -50,7 +51,9 @@ const ClippersPageBody = (props) => {
         { clippersCardsToRender }
       </div>
       <div className="button-container">
-        <button className="get-tickets-btn">GET TICKETS</button>
+        <button
+          onClick={openPaymentPortal}
+          className="get-tickets-btn">GET TICKETS</button>
       </div>
       <style jsx>{`
         .card-container {
@@ -65,11 +68,11 @@ const ClippersPageBody = (props) => {
         .get-tickets-btn {
           width: 250px;
           border-radius: 2px;
-          background-color: white;
+          background-color: rgb(250,95,91);
           padding: 12px 16px;
         }
         .get-tickets-btn:hover {
-          background-color: rgb(250,95,91);
+          background-color: rgba(250,95,91,.8);
           color: white;
         }
       `}</style>
