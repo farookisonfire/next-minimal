@@ -1,30 +1,42 @@
 import { Portal, Segment, Button, Message, Tab, Icon } from 'semantic-ui-react';
 import Checkout from '../shared/Checkout';
 
-
-
-
 const PaymentPortalContent = (props) => {
   const {
     sections = [],
     paymentPortalSelectSection = () => {},
+    selectedCard,
     selectedSection,
     incrementTicketCount,
     decrementTicketCount,
     ticketCount,
+    ticketsAvailable,
+    ticketPrice,
+    fetchSections,
+    resetSelectionSuccess,
   } = props;
+
+  const orderTotal = ticketCount * ticketPrice;
+  const chargePayload = {
+    level: selectedCard,
+    section: selectedSection,
+    numTickets: ticketCount,
+    orderTotal,
+  };
+
+  console.log('charge payload', chargePayload);
 
   return (
     <div>
       <div style={{ marginTop: 24 }}>
         {sections.map((section) => {
-          if (selectedSection === section.id) {
+          if (selectedSection === section.sectionId) {
             return (
               <Message
                 color="blue"
-                key={`section-${section.id}`}
+                key={`section-${section.sectionId}`}
                 style={{ margin: 8, cursor: 'pointer' }}
-                onClick={() => paymentPortalSelectSection(section.id, section.tickets)}
+                onClick={() => paymentPortalSelectSection(section.sectionId, section.tickets, section.price)}
                 compact>
                 <Message.Header>Section {section.section}</Message.Header>
                 <p>{section.tickets} Tickets Left</p>
@@ -33,9 +45,9 @@ const PaymentPortalContent = (props) => {
           }
           return (
             <Message
-              key={`section-${section.id}`}
+              key={`section-${section.sectionId}`}
               style={{ margin: 8, cursor: 'pointer' }}
-              onClick={() => paymentPortalSelectSection(section.id, section.tickets)}
+              onClick={() => paymentPortalSelectSection(section.sectionId, section.tickets, section.price)}
               compact>
               <Message.Header>Section {section.section}</Message.Header>
               <p>{section.tickets} Tickets Left</p>
@@ -44,23 +56,44 @@ const PaymentPortalContent = (props) => {
         })}
       </div>
       <div>
-        <Button onClick={decrementTicketCount} style={{ margin: 2 }} icon>
+        <Button
+          basic
+          color="blue"
+          disabled={!ticketCount}
+          onClick={decrementTicketCount}
+          style={{ margin: 2 }}
+          icon>
           <Icon name="minus" />
         </Button>
         <Message compact>
           <p style={{ textAlign: 'center', fontSize: 18 }}>{ticketCount}</p>
         </Message>
-        <Button onClick={incrementTicketCount} style={{ margin: 2 }} icon>
+        <Button
+          basic
+          color="blue"
+          disabled={ticketCount >= ticketsAvailable}
+          onClick={incrementTicketCount}
+          style={{ margin: 2 }}
+          icon>
           <Icon name="plus" />
         </Button>
       </div>
       <div>
         <Message compact>
-          ORDER TOTAL: $200
+          Order Total: ${orderTotal}
         </Message>
       </div>
       <div style={{ marginTop: 24 }}>
-        <Checkout />
+        <Checkout
+          renderStripeButton={ticketCount}
+          label="Proceed to Checkout"
+          description="Purchase your Tickets"
+          enrollmentFee={orderTotal}
+          apiPath="clippers/purchase"
+          clipperOrder={chargePayload}
+          handlePaymentSuccess={fetchSections}
+          resetSelectionSuccess={resetSelectionSuccess}
+        />
       </div>
     </div>
   );
@@ -86,6 +119,12 @@ const ClippersPaymentPortal = (props) => {
     paymentPortalSelectSection,
     selectedSection,
     ticketCount,
+    ticketsAvailable,
+    ticketPrice,
+    incrementTicketCount,
+    decrementTicketCount,
+    fetchSections,
+    resetSelectionSuccess,
   } = props;
 
   const sectionsToRender = clippersTickets.filter(section => section.level === selectedCard);
@@ -97,8 +136,16 @@ const ClippersPaymentPortal = (props) => {
         <PaymentPortalContent
           paymentPortalSelectSection={paymentPortalSelectSection}
           sections={sectionsToRender}
+          selectedCard={selectedCard}
           selectedSection={selectedSection}
-          ticketCount={ticketCount} />),
+          ticketCount={ticketCount}
+          ticketsAvailable={ticketsAvailable}
+          ticketPrice={ticketPrice}
+          incrementTicketCount={incrementTicketCount}
+          decrementTicketCount={decrementTicketCount}
+          fetchSections={fetchSections}
+          resetSelectionSuccess={resetSelectionSuccess}
+        />),
     },
     { menuItem: 'Seat Map', render: () => <SeatChart /> },
   ];

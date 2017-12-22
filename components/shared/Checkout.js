@@ -17,9 +17,12 @@ const Checkout = (props) => {
     apiPath = 'secure',
     name = {},
     label = 'Secure your Position',
+    description = 'Secure your position!',
     fellow = false,
     billingAddress = true,
     campaign = '',
+    clipperOrder = {},
+    resetSelectionSuccess,
   } = props;
 
   const onToken = (token) => {
@@ -30,15 +33,28 @@ const Checkout = (props) => {
       name,
       fellow,
       campaign,
+      clipperOrder,
     };
 
-    fetch(`${PAYMENT_SERVER_URL}/${apiPath}/${userId}`, {
+    const resolvePaymentUrl = (URI, path, id) => {
+      return userId ?
+        `${PAYMENT_SERVER_URL}/${apiPath}/${id}` :
+        `${PAYMENT_SERVER_URL}/${apiPath}`;
+    };
+
+    const paymentUrl = resolvePaymentUrl(PAYMENT_SERVER_URL, apiPath, userId);
+
+
+    fetch(paymentUrl, {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json' },
     })
     .then(response => response.json())
-    .then(() => handlePaymentSuccess())
+    .then(() => {
+      resetSelectionSuccess();
+      return handlePaymentSuccess();
+    })
     .catch((err) => {
       console.log('we have an error:', err);
       return handlePaymentFail();
@@ -49,7 +65,7 @@ const Checkout = (props) => {
     (<StripeCheckout
       image={'https://s3.amazonaws.com/minimal-spaces/single-heart-icon_9_3_17.png'}
       name={'One Heart Source'}
-      description={'Secure your position!'}
+      description={description}
       amount={enrollmentFee * 100}
       locale={'auto'}
       panelLabel={'Pay'}

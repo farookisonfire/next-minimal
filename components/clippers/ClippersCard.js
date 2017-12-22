@@ -24,8 +24,9 @@ const styles = {
     color: 'rgba(255,255,255,1)',
   },
   priceContainerSelected: {
-    margin: '32px 0px',
-    textAlign: 'center',
+    1: { color: '#ED174C', margin: '32px 0px', textAlign: 'center' },
+    2: { color: '#006BB6', margin: '32px 0px', textAlign: 'center' },
+    3: { margin: '32px 0px', textAlign: 'center' },
   },
   priceText: {
     fontSize: 48,
@@ -41,13 +42,15 @@ const styles = {
     color: 'rgba(255,255,255,1)',
   },
   cardHeaderSelected: {
+    1: { color: '#ED174C' },
+    2: { color: '#006BB6' },
+    3: {},
   },
   cardSubtitle: {
     color: 'rgba(220,220,220,1)',
   },
   cardSubtitleSelected: {
-
-  }
+  },
 };
 
 const ClippersCard = (props) => {
@@ -81,7 +84,7 @@ const ClippersCard = (props) => {
 
     <Card style={selectedCard === id ? cardSelected : card} onClick={() => handleCardSelect(id)}>
       <Card.Content>
-        <Card.Header style={selectedCard === id ? cardHeaderSelected : cardHeader}>
+        <Card.Header style={selectedCard === id ? cardHeaderSelected[id] : cardHeader}>
           {header}
           <Icon size="large" style={cardIcon} name={icon} inverted={selectedCard !== id} />
         </Card.Header>
@@ -89,7 +92,7 @@ const ClippersCard = (props) => {
           {subtitle}
         </Card.Meta>
         <Card.Description>
-          <div style={selectedCard === id ? priceContainerSelected : priceContainer}>
+          <div style={selectedCard === id ? priceContainerSelected[id] : priceContainer}>
             <span style={priceText}>${ticketPrice}</span>
             <span>/ ticket</span>
           </div>
@@ -106,7 +109,6 @@ const ClippersCard = (props) => {
           margin: 16px;
           z-index: 10;
         }
-
         .card {
           margin: 0;
           maxWidth: 248;

@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import withRedux from 'next-redux-wrapper';
+import { fetchSections } from '../actions/clippersActions';
 import initStore from '../store/store';
 import Layout from '../components/Layout';
 import ClippersPageContent from '../components/clippers/ClippersPageContent';
@@ -12,8 +13,10 @@ class ClippersPage extends Component {
       selectedCard: 2,
       selectedSection: undefined,
       paymentPortal: false,
-      ticketsAvailable: undefined,
+      ticketsAvailable: 0,
       ticketCount: 0,
+      ticketPrice: 0,
+      showSuccess: false,
     };
 
     this.handleCardSelect = this.handleCardSelect.bind(this);
@@ -22,24 +25,43 @@ class ClippersPage extends Component {
     this.paymentPortalSelectSection = this.paymentPortalSelectSection.bind(this);
     this.incrementTicketCount = this.incrementTicketCount.bind(this);
     this.decrementTicketCount = this.decrementTicketCount.bind(this);
+    this.resetSelectionSuccess = this.resetSelectionSuccess.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchSections();
   }
 
   handleCardSelect(cardId) {
-    this.setState({ selectedCard: cardId });
+    this.setState({
+      selectedCard: cardId,
+      ticketCount: 0,
+      ticketPrice: 0,
+      ticketsAvailable: 0,
+      selectedSection: undefined,
+    });
   }
 
   openPaymentPortal() {
+    console.log('open portal called');
     this.setState({ paymentPortal: true });
   }
 
   closePaymentPortal() {
-    this.setState({ paymentPortal: false });
+    this.setState({
+      selectedSection: undefined,
+      ticketCount: 0,
+      ticketPrice: 0,
+      paymentPortal: false,
+    });
   }
 
-  paymentPortalSelectSection(sectionId, ticketsAvailable) {
+  paymentPortalSelectSection(sectionId, ticketsAvailable, ticketPrice) {
     this.setState({
+      ticketCount: 0,
       selectedSection: sectionId,
       ticketsAvailable,
+      ticketPrice,
     });
   }
 
@@ -55,12 +77,21 @@ class ClippersPage extends Component {
     this.setState({ ticketCount: newCount });
   }
 
+  resetSelectionSuccess() {
+    this.setState({
+      selectedCard: undefined,
+      selectedSection: undefined,
+      ticketsAvailable: 0,
+      ticketCount: 0,
+      paymentPortal: false,
+      showSuccess: true,
+    });
+  }
+
   render() {
     const {
       url = {},
       clippersTickets = [],
-      incrementTicketCount = () => {},
-      decrementTicketCount = () => {},
     } = this.props;
 
     const {
@@ -68,6 +99,9 @@ class ClippersPage extends Component {
       paymentPortal = false,
       selectedSection,
       ticketCount,
+      ticketsAvailable,
+      ticketPrice,
+      showSuccess,
     } = this.state;
 
     return (
@@ -81,9 +115,14 @@ class ClippersPage extends Component {
           clippersTickets={clippersTickets}
           paymentPortalSelectSection={this.paymentPortalSelectSection}
           selectedSection={selectedSection}
-          incrementTicketCount={incrementTicketCount}
-          decrementTicketCount={decrementTicketCount}
+          incrementTicketCount={this.incrementTicketCount}
+          decrementTicketCount={this.decrementTicketCount}
           ticketCount={ticketCount}
+          ticketsAvailable={ticketsAvailable}
+          ticketPrice={ticketPrice}
+          fetchSections={this.props.fetchSections}
+          resetSelectionSuccess={this.resetSelectionSuccess}
+          showSuccess={showSuccess}
         />
       </Layout>
     );
@@ -97,4 +136,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRedux(initStore, mapStateToProps)(ClippersPage);
+export default withRedux(initStore, mapStateToProps, { fetchSections })(ClippersPage);

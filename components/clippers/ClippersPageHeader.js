@@ -3,7 +3,7 @@ import { Divider } from 'semantic-ui-react';
 const ClippersPageHeader = () => (
   <div>
     <div className="clippers-header">
-      <h1>Support the Los Angeles Clippers in recognizing One Heart Source as the non-profit of the night!</h1>
+      <h1>Support One Heart Source in being recognized by the Los Angeles Clippers as the non-profit of the night!</h1>
       <p>100% of ticket sales go towards One Heart Source initiatives</p>
       <div className="logo-container">
         <img className="logo-clippers" alt="clippers" src="https://s3.amazonaws.com/minimal-spaces/la-clippers.png" />

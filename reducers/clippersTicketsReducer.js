@@ -1,9 +1,9 @@
-import { clippersTickets } from './initialState';
+import { RECEIVE_SECTIONS } from '../actions/clippersActions';
 
-const { sections = [] } = clippersTickets;
-
-export default (state = sections, action) => {
+export default (state = [], action) => {
   switch (action.type) {
+    case RECEIVE_SECTIONS:
+      return action.sections;
     default:
       return state;
   }

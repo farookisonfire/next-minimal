@@ -15,6 +15,11 @@ const ClippersPageContent = (props) => {
     incrementTicketCount,
     decrementTicketCount,
     ticketCount,
+    ticketsAvailable,
+    ticketPrice,
+    fetchSections,
+    resetSelectionSuccess,
+    showSuccess,
   } = props;
 
   return (
@@ -26,6 +31,7 @@ const ClippersPageContent = (props) => {
             selectedCard={selectedCard}
             handleCardSelect={handleCardSelect}
             openPaymentPortal={openPaymentPortal}
+            showSuccess={showSuccess}
           />
           <ClippersPaymentPortal
             paymentPortalSelectSection={paymentPortalSelectSection}
@@ -37,6 +43,10 @@ const ClippersPageContent = (props) => {
             incrementTicketCount={incrementTicketCount}
             decrementTicketCount={decrementTicketCount}
             ticketCount={ticketCount}
+            ticketsAvailable={ticketsAvailable}
+            ticketPrice={ticketPrice}
+            fetchSections={fetchSections}
+            resetSelectionSuccess={resetSelectionSuccess}
           />
         </div>
       </div>
@@ -44,6 +54,7 @@ const ClippersPageContent = (props) => {
       .background {
         background-image: linear-gradient(-225deg, #22E1FF 0%, #1D8FE1 48%, #625EB1 100%);
         height: 100%;
+        overflow: hidden;
       }
       .clippers-page-content {
         width: 85%;
