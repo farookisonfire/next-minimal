@@ -86,13 +86,19 @@ class Navbar extends Component {
     );
 
     const MobileNav = MobileNavOpen;
-    const {
-      pageName = '',
-    } = this.props;
-    const isHome = pageName === '/';
+    const { pageName = '' } = this.props;
+
+    let navbarClassName;
+    if (pageName === '/') {
+      navbarClassName = 'navbar';
+    } else if (pageName === '/la-clippers') {
+      navbarClassName = 'navbar-transparent';
+    } else {
+      navbarClassName = 'navbar-dark';
+    }
 
     return (
-      <div className={isHome ? 'navbar' : 'navbar-dark'}>
+      <div className={navbarClassName}>
         <div className="navbar-elements">
           <a href="/">
             <img alt="heart" className="nav-logo" src="https://s3.amazonaws.com/minimal-spaces/single-heart-icon_9_3_17.png" />
@@ -149,6 +155,15 @@ class Navbar extends Component {
           }
 
           .navbar-dark {
+            background-color: rgb(31,30,29);
+            margin-top: 0;
+            position: absolute;
+            padding-top: 5px;
+            width: 100%;
+            top: 0;
+          }
+
+          .navbar-transparent {
             background-color: rgba(31,30,29,0);
             margin-top: 0;
             position: absolute;
