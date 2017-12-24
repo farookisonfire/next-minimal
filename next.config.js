@@ -9,6 +9,7 @@ module.exports = {
       '/secure': { page: '/secure' },
       '/fellowship': { page: '/fellowship' },
       '/confirm': { page: '/confirm' },
+      '/la-clippers': { page: '/la-clippers' },
     };
   },
 };
