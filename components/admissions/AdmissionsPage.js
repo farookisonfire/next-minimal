@@ -21,6 +21,7 @@ class Admissions extends Component {
   }
 
   render() {
+    const { programs = {} } = this.props;
     return (
       <div>
         <div>
@@ -33,7 +34,7 @@ class Admissions extends Component {
           <Programs
             onProgramSelect={this.onChange}
             selectedProgram={this.state.selectedProgram}
-            programs={this.props.programs} />
+            programs={programs} />
         </div>
         <style jsx>{`
           .admissions-top {
@@ -48,14 +49,8 @@ class Admissions extends Component {
   }
 }
 
-Admissions.propTypes =  {
-  programs: PropTypes.array.isRequired
-};
-
 const mapStateToProps = (state) => {
-  const {
-    programs = [],
-  } = state;
+  const { programs = {} } = state;
 
   return {
     programs,

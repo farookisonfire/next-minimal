@@ -6,20 +6,20 @@ const AboutCircles = () => (
     <Grid stackable columns={3}>
       <Grid.Row>
         <Grid.Column>
-        <Icon circular size='big' name='medkit' />
-        <h4>Safety</h4>
-        <p>Safety is our top priority.</p>
-      </Grid.Column>
+          <Icon circular size='big' name='medkit' />
+          <h4>Safety</h4>
+          <p>Safety is our top priority.</p>
+        </Grid.Column>
         <Grid.Column>
-        <Icon circular size='big' name='star' />
-        <h4>Credibility</h4>
-        <p>Top rated non-profit 3 years in a row</p>
-      </Grid.Column>
-      <Grid.Column>
-        <Icon circular size='big' name='users' />
-        <h4>Network</h4>
-        <p>An international community of high performers</p>
-      </Grid.Column>
+          <Icon circular size='big' name='star' />
+          <h4>Credibility</h4>
+          <p>Top rated non-profit 3 years in a row</p>
+        </Grid.Column>
+        <Grid.Column>
+          <Icon circular size='big' name='users' />
+          <h4>Network</h4>
+          <p>An international community of high performers</p>
+        </Grid.Column>
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>

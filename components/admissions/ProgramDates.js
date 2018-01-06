@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 
 const sortByLength = (programs, length, selectedProgram) => {
-  return programs.filter(program => program.length === length && program.typeId === selectedProgram);
+  return programs.filter(program =>
+    program.length === length &&
+    program.typeId === selectedProgram);
 };
 
 function makeRow(program) {
@@ -25,10 +26,12 @@ function makeRow(program) {
   );
 }
 
+
 function makeTable(programDates, header) {
+  console.log('programDates', programDates);
   return (
     <div className="program-dates-tables">
-      <Table compact collapsing textAlign='center' basic='very' columns={1} size="small">
+      <Table compact collapsing textAlign="center" basic="very" columns={1} size="small">
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>{header}</Table.HeaderCell>
@@ -109,11 +112,6 @@ const ProgramDates = ({ programs, selectedProgram }) => {
       `}</style>
     </div>
   );
-};
-
-ProgramDates.propTypes = {
-  programs: PropTypes.array.isRequired,
-  selectedProgram: PropTypes.string.isRequired
 };
 
 export default ProgramDates;

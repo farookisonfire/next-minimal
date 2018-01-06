@@ -68,6 +68,8 @@ class Secure extends Component {
     const programFeesToUse = programFees[programTypeId];
     const pagename = 'secure';
 
+    console.log('programDatesThatMatchType', programDatesThatMatchType);
+
     return (
       <Layout>
         {fn && userId && programTypeId ?

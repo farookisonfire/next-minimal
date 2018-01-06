@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Icon, Message, Portal, Segment, Button } from 'semantic-ui-react';
+import { Icon, Message, Portal, Segment, Button, Tab } from 'semantic-ui-react';
 import SecureHeader from './SecureHeader';
 import Checkout from '../shared/Checkout';
 import Footer from '../footer/Footer';
@@ -177,6 +177,30 @@ class SecurePage extends Component {
 
     const renderStripeButton = userId && selectedProgramId && checked;
 
+    console.log('programs', programs);
+
+    const panes = [
+      { menuItem: 2018,
+        render: () => (
+          <SecureProgramTable
+            securePageData={securePage}
+            handleWaitlist={this.handleWaitlist}
+            handleEnroll={this.handleEnroll}
+            programs={programs} />
+        ),
+      },
+      {
+        menuItem: 2019,
+        render: () => (
+          <SecureProgramTable
+            securePageData={securePage}
+            handleWaitlist={this.handleWaitlist}
+            handleEnroll={this.handleEnroll}
+            programs={programs} />
+        ),
+      },
+    ];
+
     return (
       <div>
         <div className="secure-top">
@@ -193,11 +217,7 @@ class SecurePage extends Component {
               <Icon size="big" name="globe" />
               <h4> Select Your Program Dates</h4>
               <h2>{dropDownTitle}</h2>
-              <SecureProgramTable
-                securePageData={securePage}
-                handleWaitlist={this.handleWaitlist}
-                handleEnroll={this.handleEnroll}
-                programs={programs} />
+              <Tab panes={panes} />
               <p className={selectedProgramId || errors.selectedProgramId ? 'error-text-default' : 'error-text-visible'}>
                 *Required: Select Program
                 </p>

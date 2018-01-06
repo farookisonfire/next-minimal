@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import ProgramsDropdown from './ProgramsDropdown';
 import HealthInnovation from './HealthInnovation';
 import Education from './Education';
@@ -28,12 +27,6 @@ const Programs = (props) => {
       {selected(selectedProgram)}
     </div>
   );
-};
-
-Programs.propTypes = {
-  onProgramSelect: PropTypes.func.isRequired,
-  selectedProgram: PropTypes.string.isRequired,
-  programs: PropTypes.array.isRequired
 };
 
 export default Programs;
