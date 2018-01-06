@@ -60,7 +60,7 @@ class StripeJS extends Component {
       this.card = elements.create('card', { style });
       this.card.mount('#card-element');
 
-      this.card.addEventListener((event) => {
+      this.card.addEventListener('charge', (event) => {
         this.setOutcome(event);
       });
     };
