@@ -5,6 +5,7 @@ const programs = [
   { key: 'youthEmpowerment', value: 'youthEmpowerment', text: 'Youth Empowerment' },
   { key: 'education', value: 'education', text: 'Education/Social Work' },
   { key: 'healthInnovation', value: 'healthInnovation', text: 'Health Innovation' },
+  { key: 'crossWorldMedics', value: 'crossWorldMedics', text: 'Medical Internship' },
 ];
 
 const ProgramsDropdown = ({ onProgramSelect }) => (

@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
+import programDatesCWM from './programDatesCWM';
 
 const sortByLength = (programs, length, selectedProgram) => {
-  return programs.filter(program => program.length === length && program.typeId === selectedProgram);
+  return programs
+    .filter(program => program.length === length && program.typeId === selectedProgram);
 };
 
 function makeRow(program) {
@@ -50,10 +51,16 @@ function makeTable(programDates, header) {
   );
 }
 
-const ProgramDates = ({ programs, selectedProgram }) => {
-  const oneWeek = sortByLength(programs, '1 week', selectedProgram);
-  const twoWeek = sortByLength(programs, '2 week', selectedProgram);
-  const fourWeek = sortByLength(programs, '4 week', selectedProgram);
+const ProgramDates = ({ programs = [], selectedProgram }) => {
+  let oneWeek = sortByLength(programs, '1 week', selectedProgram);
+  let twoWeek = sortByLength(programs, '2 week', selectedProgram);
+  let fourWeek = sortByLength(programs, '4 week', selectedProgram);
+
+  if (selectedProgram === 'crossWorldMedics') {
+    oneWeek = sortByLength(programDatesCWM, '1 week', selectedProgram);
+    twoWeek = sortByLength(programDatesCWM, '2 week', selectedProgram);
+    fourWeek = sortByLength(programDatesCWM, '4 week', selectedProgram);
+  }
 
   return (
     <div>
@@ -109,11 +116,6 @@ const ProgramDates = ({ programs, selectedProgram }) => {
       `}</style>
     </div>
   );
-};
-
-ProgramDates.propTypes = {
-  programs: PropTypes.array.isRequired,
-  selectedProgram: PropTypes.string.isRequired
 };
 
 export default ProgramDates;

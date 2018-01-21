@@ -3,6 +3,7 @@ import ProgramsDropdown from './ProgramsDropdown';
 import HealthInnovation from './HealthInnovation';
 import Education from './Education';
 import YouthEmpowerment from './YouthEmpowerment';
+import CrossWorldMedics from './CrossWorldMedics';
 
 const Programs = (props) => {
   const {
@@ -17,6 +18,8 @@ const Programs = (props) => {
         return <HealthInnovation selectedProgram={selectedProgram} programs={programs} />;
       case 'education':
         return <Education selectedProgram={selectedProgram} programs={programs} />;
+      case 'crossWorldMedics':
+        return <CrossWorldMedics selectedProgram={selectedProgram} programs={programs} />;
       default:
         return <YouthEmpowerment selectedProgram={selectedProgram} programs={programs} />;
     }
