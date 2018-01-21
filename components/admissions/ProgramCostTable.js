@@ -10,6 +10,8 @@ const programs = [
   { id: 5, value: 'healthInnovation', text: 'Health Innovation', length: '4 week', cost: '$5800' },
   { id: 6, value: 'education', text: 'Education/Social Work', length: '2 week', cost: '$3600' },
   { id: 7, value: 'education', text: 'Education/Social Work', length: '4 week', cost: '$5200' },
+  { id: 8, value: 'crossWorldMedics', text: 'Medical Internship: Cross World Medics', length: '1 week', cost: '$2400' },
+  { id: 9, value: 'crossWorldMedics', text: 'Medical Internship: Cross World Medics', length: '2 week', cost: '$3800' },
 ];
 
 const ProgramCostTable = ({ selectedProgram }) => {
