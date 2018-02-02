@@ -14,10 +14,25 @@ class Admissions extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.handleSelectProgram = this.handleSelectProgram.bind(this);
+  }
+
+  componentDidMount() {
+    if (!document && !document.location) return;
+    if (document.location.hash) {
+      const selectedProgram = document.location.hash.substring(1);
+      this.setState({ selectedProgram });
+    }
   }
 
   onChange(event, data) {
     this.setState({ selectedProgram: data.value });
+  }
+
+  handleSelectProgram(selectedProgramId) {
+    this.setState({ selectedProgram: selectedProgramId });
+    if (!document && !document.location) return;
+    document.location.hash = selectedProgramId;
   }
 
   render() {
@@ -31,6 +46,7 @@ class Admissions extends Component {
         <div>
           <AdmissionsStep />
           <Programs
+            handleSelectProgram={this.handleSelectProgram}
             onProgramSelect={this.onChange}
             selectedProgram={this.state.selectedProgram}
             programs={this.props.programs} />
