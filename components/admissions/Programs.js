@@ -4,9 +4,11 @@ import HealthInnovation from './HealthInnovation';
 import Education from './Education';
 import YouthEmpowerment from './YouthEmpowerment';
 import CrossWorldMedics from './CrossWorldMedics';
+import SelectProgram from './SelectProgramButtons';
 
 const Programs = (props) => {
   const {
+    handleSelectProgram,
     onProgramSelect,
     selectedProgram,
     programs,
@@ -27,7 +29,7 @@ const Programs = (props) => {
 
   return (
     <div>
-      <ProgramsDropdown onProgramSelect={onProgramSelect} />
+      <SelectProgram handleSelectProgram={handleSelectProgram} selectedProgram={selectedProgram} />
       {selected(selectedProgram)}
     </div>
   );
