@@ -26,7 +26,7 @@ const SelectProgram = (props) => {
           className={selectedProgram === 'education' ?
             'select-program-btn selected' :
             'select-program-btn'
-        }>Education / Social Welfare</button>
+        }>Education / Social Work</button>
         <button
           onClick={() => handleSelectProgram('crossWorldMedics')}
           className={selectedProgram === 'crossWorldMedics' ?
