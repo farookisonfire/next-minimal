@@ -11,6 +11,7 @@ import {
   EDUCATION_PROGRAM_TYPE_ID,
   YOUTH_PROGRAM_TYPE_ID,
   ENROLLMENT_FEE,
+  GRANT_ACCEPTED,
 } from '../../lib/constants';
 import SecureProgramTable from './SecureProgramTable';
 import SecurePagePositionConfirmed from './SecurePagePositionConfirmed';
@@ -69,7 +70,6 @@ class SecurePage extends Component {
   }
 
   confirmWaitlist(programId, applicantId) {
-    console.log('here', programId, applicantId);
     if (programId && applicantId) {
       this.props.addToWaitlist(programId, applicantId);
     }
@@ -127,6 +127,7 @@ class SecurePage extends Component {
       securePage,
       applicantData,
       allPrograms,
+      grant,
     } = this.props;
 
     const {
@@ -177,6 +178,11 @@ class SecurePage extends Component {
 
     const renderStripeButton = userId && selectedProgramId && checked;
 
+    let showConfirmedPageContent;
+    if (applicantData.status === 'confirmed') showConfirmedPageContent = true;
+    if (applicantData.status === 'waitlist' && grant !== GRANT_ACCEPTED) showConfirmedPageContent = true;
+    if (applicantData.status === 'waitlist' && grant === GRANT_ACCEPTED) showConfirmedPageContent = false;
+
     return (
       <div>
         <div className="secure-top">
@@ -185,10 +191,11 @@ class SecurePage extends Component {
             applicantData={applicantData}
             programs={programs} />
         </div>
-        {applicantData.status === 'confirmed' || applicantData.status === 'waitlist' ? (
+        {showConfirmedPageContent ? (
           <SecurePagePositionConfirmed
             allPrograms={allPrograms}
-            applicantData={applicantData} />) : (
+            applicantData={applicantData}
+          />) : (
             <div className="secure-actions">
               <Icon size="big" name="globe" />
               <h4> Select Your Program Dates</h4>
@@ -197,7 +204,9 @@ class SecurePage extends Component {
                 securePageData={securePage}
                 handleWaitlist={this.handleWaitlist}
                 handleEnroll={this.handleEnroll}
-                programs={programs} />
+                programs={programs}
+                applicantData={applicantData}
+                grant={grant} />
               <p className={selectedProgramId || errors.selectedProgramId ? 'error-text-default' : 'error-text-visible'}>
                 *Required: Select Program
                 </p>

@@ -62,10 +62,14 @@ const SecureProgramTable = (props) => {
     handleEnroll,
     handleWaitlist,
     securePageData,
+    applicantData = {},
+    grant,
   } = props;
 
+  const enrolledIn = applicantData.selectedProgramId;
+
   const programsToRender = programs.map((program) => {
-    const programStatus = determineProgramStatus(program);
+    const programStatus = determineProgramStatus(program, { enrolledIn, grant });
     const programLabelAndButton = resolveProgramStatusAndButton(
       programStatus,
       program,
