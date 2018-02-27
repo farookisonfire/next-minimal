@@ -18,6 +18,7 @@ class Secure extends Component {
       userId: '',
       programTypeId: '',
       campaign: '',
+      grant: '',
     };
   }
 
@@ -33,6 +34,7 @@ class Secure extends Component {
       id = '',
       programTypeId = '',
       campaign = '',
+      grant = '',
     } = parsed;
     
     this.props.fetchPrograms();
@@ -43,6 +45,7 @@ class Secure extends Component {
       userId: id,
       programTypeId,
       campaign,
+      grant,
     });
   }
 
@@ -62,6 +65,7 @@ class Secure extends Component {
       userId = '',
       programTypeId = '',
       campaign = '',
+      grant = '',
     } = this.state;
 
     const programDatesThatMatchType = programs.filter(program => program.typeId === programTypeId);
@@ -75,6 +79,7 @@ class Secure extends Component {
           <SecurePage
             fetchApplicant={() => this.props.fetchApplicant(userId)}
             applicantData={applicantData}
+            grant={grant}
             userId={this.state.userId}
             name={this.state.fn}
             allPrograms={programs}
