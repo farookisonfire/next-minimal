@@ -1,4 +1,5 @@
 import { Divider } from 'semantic-ui-react';
+import { GRANT_ACCEPTED } from '../../lib/constants';
 
 const resolveWaitlistPosition = (programId = '', programs = []) => {
   return programs.filter(program => program.id === programId);
@@ -9,6 +10,7 @@ const SecureHeader = (props) => {
     name = '',
     applicantData = {},
     programs = [],
+    grant = '',
   } = props;
 
   const { status, selectedProgramId } = applicantData;
@@ -37,7 +39,7 @@ const SecureHeader = (props) => {
     </div>);
 
   if (status === 'confirmed') header = 'Your Position is Secure!';
-  if (status === 'waitlist') {
+  if (status === 'waitlist' && grant !== GRANT_ACCEPTED) {
     const selectedProgram = resolveWaitlistPosition(selectedProgramId, programs);
     waitlistPosition = selectedProgram &&
       selectedProgram.length &&
