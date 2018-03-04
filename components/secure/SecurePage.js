@@ -189,7 +189,8 @@ class SecurePage extends Component {
           <SecureHeader
             name={name}
             applicantData={applicantData}
-            programs={programs} />
+            programs={programs}
+            grant={grant} />
         </div>
         {showConfirmedPageContent ? (
           <SecurePagePositionConfirmed
